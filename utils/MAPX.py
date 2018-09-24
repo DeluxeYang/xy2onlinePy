@@ -2,6 +2,7 @@
 import numpy
 import binascii
 from utils.XY2Res import *
+from utils.PathFinding import AStar
 from Settings import XY2_PATH
 
 
@@ -40,7 +41,10 @@ class MapX:
         self.jpg_head = bytes()  # 旧地图中JPEG头
         self.coordinate = (0, 0)  # 地图中游戏坐标最大值
         self._open(XY2_PATH + path)
+
         self._read_all_cells()
+        self.a_star = AStar(self.cell)
+        self.find_path = self.a_star.find_path
 
     def _open(self, path):
         """

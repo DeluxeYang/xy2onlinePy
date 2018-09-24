@@ -4,10 +4,13 @@ from pygame.locals import *
 
 from base.events import event_filter
 from base.Mouse import get_mouse_point_mask
+from game_data import main_player, other_players
+
 from base.interactions.Player import Player
 from base.world.SceneManager import scene_manager
-from ResourceClient import resource_client, connection
-from game_data import main_player, other_players
+
+from ResourceClient import map_client, map_connection
+
 
 
 def run_game():
@@ -19,7 +22,7 @@ def run_game():
     fps = pygame.time.Clock()
 
     me = Player(main_player)
-    scene_manager.init_scene(resource_client, me.map_name)
+    scene_manager.init_scene(map_client, me.map_name)
     scene_manager.current.set_xy(me.current)
 
     while True:
@@ -27,7 +30,7 @@ def run_game():
 
         mouse_pos = pygame.mouse.get_pos()
         input_data = {
-            "map_client": resource_client,
+            "map_client": map_client,
             "me": me,
             "window_left_top_pos": scene_manager.current.get_left_top(),
             "ticks": pygame.time.get_ticks(),
@@ -45,6 +48,6 @@ def run_game():
         screen.blit(talking_bar, (800, 0))
         pygame.display.flip()
 
-        connection.Pump()
-        resource_client.Pump()
+        map_connection.Pump()
+        map_client.Pump()
 run_game()

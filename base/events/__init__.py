@@ -19,5 +19,4 @@ def event_filter(data):
             if pressed_button[1]:
                 print('The mouse wheel Pressed!')
             if pressed_button[2]:
-                print(event_manager.queues)
                 event_manager.emit("mouse_right_down", data)

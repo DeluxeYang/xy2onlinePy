@@ -83,7 +83,7 @@ class EventManager:
 
     def emit_event(self, event):
         objects_of_this_event_list = self.queues.get(event.signal, [])
-        objects_of_this_event_list.sort(key=lambda _obj: _obj.level, reverse=True)
+        objects_of_this_event_list.sort(key=lambda _obj: _obj.level, reverse=True)  # 排序
         for obj in objects_of_this_event_list:
             obj.interact(event)
             if event.handled:

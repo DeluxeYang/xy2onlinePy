@@ -14,6 +14,7 @@ class SceneManager(BaseInteractionObject):
         self.pool = {}
         self.current = None
 
+        self.level = 0
         self.signals = ["mouse_left_down", "mouse_right_down", "transfer"]
         self.register()
 
@@ -21,7 +22,8 @@ class SceneManager(BaseInteractionObject):
         if event.signal == "mouse_left_down":
             pass
         elif event.signal == "mouse_right_down":
-            print("right")
+            map_client = event.data["map_client"]
+            me = event.data["me"]
 
     def update(self, data):
         masks = []
