@@ -19,11 +19,15 @@ class SceneManager(BaseInteractionObject):
         self.register()
 
     def interact(self, event):
+        map_client = event.data["map_client"]
+        me = event.data["me"]
+        scene = event.data["scene"]
         if event.signal == "mouse_left_down":
-            pass
+            map_client.find_path(scene.map_info["map_file"], me.current,
+                                 scene.get_map_xy(event.data["mouse_pos"]), False)
         elif event.signal == "mouse_right_down":
-            map_client = event.data["map_client"]
-            me = event.data["me"]
+            map_client.find_path(scene.map_info["map_file"], me.current,
+                                 scene.get_map_xy(event.data["mouse_pos"]), True)
 
     def update(self, data):
         masks = []

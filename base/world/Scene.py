@@ -18,6 +18,7 @@ class Scene:
         :param map_name:  MapInfo中的地图ID
         """
         self.inited = False
+        self.map_name = map_name
         self.map_info = map_info[map_name]  # 地图信息
         self.map_id = self.map_info["map_file"].split("/")[-1]  # 记录Map编号
 
@@ -63,7 +64,7 @@ class Scene:
         寻求地图unit数据
         :return:
         """
-        units_needed = self._pixel_to_units_num()
+        units_needed = self._quest_25()
         for i in units_needed:
             if not self.unit_has_blitted[i]:  # 如果该单元还没有数据
                 if self.quest_clock[i] == 0:  # 且该单元还没有发送过请求
@@ -125,7 +126,7 @@ class Scene:
                         print(e)
                 self.masks_of_unit[data["unit_num"]] = masks  # 将该unit对应Mask放入对应位置
 
-    def set_xy(self, mouse_pos):
+    def get_map_xy(self, mouse_pos):
         """
         获得地图像素坐标
         :param mouse_pos:
@@ -134,17 +135,18 @@ class Scene:
         x = self.left + mouse_pos[0]  # 屏幕左上角地图绝对像素点 + 鼠标相对点 = 地图绝对点
         y = self.top + mouse_pos[1]
         if x < 0:
-            self.x = 0
+            x = 0
         elif x > self.map_width:
-            self.x = self.map_width
-        else:
-            self.x = x
+            x = self.map_width
         if y < 0:
-            self.y = 0
+            y = 0
         elif y > self.map_height:
-            self.y = self.map_height
-        else:
-            self.y = y
+            y = self.map_height
+        return x, y
+
+    def set_xy(self, xy):
+        self.x = xy[0]
+        self.y = xy[1]
 
     def get_xy(self):
         return self.x, self.y
@@ -214,6 +216,68 @@ class Scene:
         window = Rect((window_left, window_top), (window_right, window_bottom))
         return window
 
+    def _quest_25(self):
+        row = self.y // 240 if self.y // 240 != self.row else self.y // 240 - 1  # 向下取整
+        col = self.x // 320 if self.x // 320 != self.col else self.x // 320 - 1  # 向下取整
+        pos = int(row * self.col + col)  # 当前单元格
+        _units = [pos]  # 正在
+        left = right = up = down = 0
+        if col == 0:  # 左1，右边+2
+            _units += [pos + 1, pos + 2]
+            right += 2
+        elif col == 1:  # 左2， 右边+2， 左边+1
+            _units += [pos - 1, pos + 1, pos + 2]
+            right += 2
+            left += 1
+        elif col == self.col - 1:  # 靠右，左边+2
+            _units += [pos - 1, pos - 2]
+            left += 2
+        elif col == self.col - 2:  # 右2，右边+1，左边+2
+            _units += [pos + 1, pos - 1, pos - 2]
+            right += 1
+            left += 2
+        else:
+            _units += [pos + 1, pos + 2, pos - 1, pos - 2]
+            right += 2
+            left += 2
+
+        if row == 0:
+            _units += [pos + self.col, pos + self.col * 2]
+            down += 2
+        elif row == 1:
+            _units += [pos - self.col, pos + self.col, pos + self.col * 2]
+            up += 1
+            down += 2
+        elif row == self.row - 1:
+            _units += [pos - self.col, pos - self.col * 2]
+            up += 2
+        elif row == self.row - 2:
+            _units += [pos + self.col, pos - self.col, pos - self.col * 2]
+            up += 2
+            down += 1
+        else:
+            _units += [pos + self.col, pos + self.col * 2, pos - self.col, pos - self.col * 2]
+            up += 2
+            down += 2
+        if left * up > 0:
+            for i in range(1, left + 1):
+                for j in range(1, up + 1):
+                    _units.append((pos - i) - self.col * j)
+        if left * down > 0:
+            for i in range(1, left + 1):
+                for j in range(1, down + 1):
+                    _units.append((pos - i) + self.col * j)
+        if right * up > 0:
+            for i in range(1, right + 1):
+                for j in range(1, up + 1):
+                    _units.append((pos + i) - self.col * j)
+        if right * down > 0:
+            for i in range(1, right + 1):
+                for j in range(1, down + 1):
+                    _units.append((pos + i) + self.col * j)
+        _units.sort()
+        return _units
+
     def _pixel_to_units_num(self, width_margin=160, height_margin=120):
         """
         根据地图像素位置，获取需要的units_num
@@ -223,7 +287,7 @@ class Scene:
         """
         row = self.y // 240 if self.y // 240 != self.row else self.y // 240 - 1  # 向下取整
         col = self.x // 320 if self.x // 320 != self.col else self.x // 320 - 1  # 向下取整
-        pos = row * self.col + col  # 当前单元格
+        pos = int(row * self.col + col)  # 当前单元格
         _units = [pos]  # 正在
         left = right = up = down = 0
         if col == 0:  # 靠左，就把右边的单元格放进来

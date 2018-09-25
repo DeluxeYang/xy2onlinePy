@@ -89,20 +89,20 @@ MAX_INT_LENGTH = 64
 
 # The bencode 'typecodes' such as i, d, etc have been extended and
 # relocated on the base-256 character set.
-CHR_TUPLE = int2byte(58)
-CHR_LIST = int2byte(59)
-CHR_DICT = int2byte(60)
-CHR_INT = int2byte(61)
-CHR_INT1 = int2byte(62)
-CHR_INT2 = int2byte(63)
-CHR_INT4 = int2byte(64)
-CHR_INT8 = int2byte(65)
-CHR_FLOAT32 = int2byte(66)
-CHR_FLOAT64 = int2byte(44)
-CHR_TRUE = int2byte(67)
-CHR_FALSE = int2byte(68)
-CHR_NONE = int2byte(69)
-CHR_TERM = int2byte(127)
+CHR_TUPLE = int2byte(58)  # :
+CHR_LIST = int2byte(59)  # ;
+CHR_DICT = int2byte(60)  # <
+CHR_INT = int2byte(61)  # =
+CHR_INT1 = int2byte(62)  # >
+CHR_INT2 = int2byte(63)  # ?
+CHR_INT4 = int2byte(64)  # @
+CHR_INT8 = int2byte(65)  # A
+CHR_FLOAT32 = int2byte(66)  # B
+CHR_FLOAT64 = int2byte(44)   # ,
+CHR_TRUE = int2byte(67)  # C
+CHR_FALSE = int2byte(68)  # D
+CHR_NONE = int2byte(69)  # E
+CHR_TERM = int2byte(127)  # del
 
 # Positive integers with value embedded in typecode.
 INT_POS_FIXED_START = 0

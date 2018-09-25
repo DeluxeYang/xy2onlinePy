@@ -1,15 +1,16 @@
 from time import sleep
+from weakref import WeakKeyDictionary
+
 from PodSixNet.Channel import Channel
 from PodSixNet.Server import Server
+
+
 from utils.MAPX import MapX
 from Settings import Resource_Port
 
 
 class ResourceChannel(Channel):
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, '_instance'):
-            cls._instance = super().__new__(cls)
-        return cls._instance
+
 
     def __init__(self, *args, **kwargs):
         Channel.__init__(self, *args, **kwargs)
@@ -50,10 +51,10 @@ class ResourceChannel(Channel):
 
     def Network_find_path(self, data):
         map_x = self._get_map_x(data)
+        print(data)
         path_list = map_x.find_path(data["current"], data["target"])
         send_data = {
             'action': "receive_path_list",
-            'map_id': map_x.map_id,
             'path_list': path_list,
             'is_running': data["is_running"]
         }
@@ -72,15 +73,23 @@ class ResourceServer(Server):
     def __init__(self, *args, **kwargs):
         self.id = 0
         Server.__init__(self, *args, **kwargs)
+        self.clients = WeakKeyDictionary()
         print('Server launched')
 
     def Connected(self, channel, addr):
-        print('new connection:', channel)
+        self.add_client(channel)
 
     def Launch(self):
         while True:
             self.Pump()
             sleep(0.0001)
+
+    def add_client(self, client):
+        print("New Player" + str(client.addr))
+        self.clients[client] = True
+
+
+
 
 
 host, port = "localhost", Resource_Port

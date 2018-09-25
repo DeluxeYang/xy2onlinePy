@@ -1,7 +1,10 @@
-from PodSixNet.Connection import EndPoint
+from __future__ import print_function
 
-from base.world.SceneManager import scene_manager
+from PodSixNet.EndPoint import EndPoint
+
 from Settings import Resource_Port
+from base.SceneManager import scene_manager
+from base.PlayerManager import player_manager
 
 map_connection = EndPoint()
 
@@ -44,6 +47,16 @@ class ResourceClient(MapConnectionListener):
         }
         self.Send(send_data)
 
+    def find_path(self, map_path, current, target, is_running=True):
+        send_data = {
+            'action': "find_path",
+            'map_file': map_path,
+            'current': current,
+            'target': target,
+            'is_running': is_running
+        }
+        self.Send(send_data)
+
     def Network(self, data):
         pass
         # print(data.get("error", 0))
@@ -55,8 +68,8 @@ class ResourceClient(MapConnectionListener):
         scene_manager.current.receive_map_unit(data)
 
     def Network_receive_path_list(self, data):
-        pass
-        # player_manager.me.set_path_list()
+        player_manager.me.set_target_list(data["path_list"])
+        player_manager.me.is_running = data["is_running"]
 
 
 map_client = ResourceClient( "localhost", int(Resource_Port))
