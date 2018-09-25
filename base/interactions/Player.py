@@ -1,8 +1,11 @@
 from pygame.locals import Rect
 from pygame.math import Vector2
+
+from base.Font import render_text, blit_text
 from base.events import event_manager
 from base.animations.Role import Role
 from base.interactions.BaseInteractionObject import BaseInteractionObject
+
 from utils.Math import cal_direction_8, is_same_coordinate
 from Settings import *
 
@@ -28,6 +31,7 @@ class Player(BaseInteractionObject):
         self.register()
 
         self.id = data.get("id", 0)
+        self.name = data.get("name", "")
         '''
         self.name = data["name"]
         self.id = data["id"]
@@ -51,7 +55,6 @@ class Player(BaseInteractionObject):
                 self.is_running = event.data["is_running"]
                 event.handled = True
 
-
     def set_target_list(self, target_list):
         self.is_new_target = True
         self.target_list = target_list
@@ -63,31 +66,37 @@ class Player(BaseInteractionObject):
         self.target_list = []
 
     def update(self, data):
+        ani = self.render(data)  # 计算动画
+
+        mask = ani.get_mask(self.direction)  # 人物mask
+        mask.rect = self.get_rect_of_world(ani)
+
+        highlight = self.mouse_over(data, ani, mask.rect)
+
+        ani.draw(data["window_left_top_pos"], self.current, highlight)
+
+        name, ns = render_text(self.name, (40, 180, 50))
+        blit_text(name, ns, data["window_left_top_pos"], self.current, 20)
+
+        # self._detecting_portal(data, ani, mask.rect)
+        return mask
+
+    def render(self, data):
         self._moving_to_next_target()  # 判断是否更新到下一个target
         if not is_same_coordinate(self.current, self.target):
             self.direction = cal_direction_8(self)  # 计算方向
             if self.is_running:
                 self._move_to_next_pc(Running_Speed)  # 计算下一个当前坐标，地图坐标
                 ani = self.figure.run(data["mask_list"], data["window_left_top_pos"],
-                                    self.current, self.direction, data["ticks"])
+                                      self.current, self.direction, data["ticks"])
             else:
                 self._move_to_next_pc(Walking_Speed)  # 计算下一个当前坐标，地图坐标
                 ani = self.figure.walk(data["mask_list"], data["window_left_top_pos"],
-                                     self.current, self.direction, data["ticks"])
+                                       self.current, self.direction, data["ticks"])
         else:
             ani = self.figure.stand(data["mask_list"], data["window_left_top_pos"],
-                                  self.current, self.direction, data["ticks"])
-
-        mask = ani.get_mask(self.direction)
-        mask.rect = self.get_rect_of_world(ani)
-
-
-        highlight = self.mouse_over(data, ani, mask.rect)
-
-        ani.draw(data["window_left_top_pos"], self.current, highlight)
-
-        # self._detecting_portal(data, ani, mask.rect)
-        return mask
+                                    self.current, self.direction, data["ticks"])
+        return ani
 
     def mouse_over(self, data, ani, world_rect):
         mouse_mask = data["mouse_mask"]
@@ -138,3 +147,4 @@ class Player(BaseInteractionObject):
         w = ani.res.w
         h = ani.res.h
         return Rect(x, y, w, h)
+

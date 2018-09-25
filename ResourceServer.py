@@ -51,7 +51,6 @@ class ResourceChannel(Channel):
 
     def Network_find_path(self, data):
         map_x = self._get_map_x(data)
-        print(data)
         path_list = map_x.find_path(data["current"], data["target"])
         send_data = {
             'action': "receive_path_list",
