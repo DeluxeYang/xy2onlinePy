@@ -1,4 +1,4 @@
-from base.events.Event import PredefinedEvents
+from base.events.Event import Event
 
 
 class EventManager:
@@ -77,7 +77,7 @@ class EventManager:
         self._grabber = obj
 
     def emit(self, key, data):
-        _event = PredefinedEvents[key]
+        _event = Event(key)
         _event.set_data(data)
         self.emit_event(_event)
 

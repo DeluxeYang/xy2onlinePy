@@ -72,4 +72,4 @@ class ResourceClient(MapConnectionListener):
         player_manager.me.is_running = data["is_running"]
 
 
-map_client = ResourceClient( "localhost", int(Resource_Port))
+scene_client = ResourceClient( "localhost", int(Resource_Port))

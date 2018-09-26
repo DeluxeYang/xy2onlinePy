@@ -19,22 +19,26 @@ class SceneManager(BaseInteractionObject):
         self.register()
 
     def interact(self, event):
-        map_client = event.data["map_client"]
+        scene_client = event.data["scene_client"]
         me = event.data["me"]
         scene = event.data["scene"]
         if event.signal == "mouse_left_down":
-            map_client.find_path(scene.map_info["map_file"], me.current,
-                                 scene.get_map_xy(event.data["mouse_pos"]), False)
+            scene_client.find_path(scene.map_info["map_file"], me.current,
+                                 scene.get_world_pc(event.data["mouse_pos"]), False)
         elif event.signal == "mouse_right_down":
-            map_client.find_path(scene.map_info["map_file"], me.current,
-                                 scene.get_map_xy(event.data["mouse_pos"]), True)
+            scene_client.find_path(scene.map_info["map_file"], me.current,
+                                 scene.get_world_pc(event.data["mouse_pos"]), True)
 
     def update(self, data):
-        masks = []
+        if self.current.inited:  # TODO init之后，场景切换，强制等待inited，就不需要判断了
+            self.current.set_window(data["me"].current)
+            self.current.quest(data["scene_client"])
+            self.current.update(data)
+        data["scene"] = self.current
+
+    def draw(self):
         if self.current.inited:
-            self.current.quest(data["map_client"])  # QUEST
-            masks = self.current.update()  # UPDATE
-        return masks
+            self.current.draw()
 
     def init_scene(self, map_client, map_id):
         if map_id not in self.pool:

@@ -22,21 +22,18 @@ class Animation:
         self.old_frame = 0
         self.is_forward = True
 
-    def draw(self, left_top, world_pc, highlight=False):
+    def draw(self, window_rect, highlight=False):
         """
         动画绘制到屏幕上
-        :param left_top:
-        :param world_pc:
+        :param window_rect:
         :param highlight:
         :return:
         """
         image = self.image.copy()
         if highlight:
             image.blit(bright, (0, 0), special_flags = BLEND_RGB_ADD)
-        window_pc = get_window_pc(left_top, world_pc)
         _screen = pygame.display.get_surface()
-        position = window_pc[0] - Res_Margin - self.res.x, window_pc[1] - Res_Margin - self.res.y
-        _screen.blit(image, position)
+        _screen.blit(image, window_rect)
 
     def get_mask(self, direction):
         return self.res.mask_group[direction][self.frame]

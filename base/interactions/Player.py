@@ -25,9 +25,14 @@ class Player(BaseInteractionObject):
                          data["version"],
                          data["character_id"])
         self.figure = self.role
+        self.ani = None
+        self.mask = None
+        self.world_rect = None
+        self.window_rect = None
+        self.highlight = False
 
         self.level = 8
-        self.signals = ["player_moving"]
+        self.signals = ["player_moving", "mouse_left_down"]
         self.register()
 
         self.id = data.get("id", 0)
@@ -49,11 +54,14 @@ class Player(BaseInteractionObject):
         '''
 
     def interact(self, event):
-        if event.data["player_id"] == self.id:
-            if event.signal == "player_moving":
+        if event.signal == "player_moving":
+            if event.data["player_id"] == self.id:
                 self.set_target_list(event.data["target_list"])
                 self.is_running = event.data["is_running"]
                 event.handled = True
+        elif self.highlight and event.signal == "mouse_left_down":
+            print(self.id)
+            event.handled = True
 
     def set_target_list(self, target_list):
         self.is_new_target = True
@@ -66,37 +74,42 @@ class Player(BaseInteractionObject):
         self.target_list = []
 
     def update(self, data):
-        ani = self.render(data)  # 计算动画
-
-        mask = ani.get_mask(self.direction)  # 人物mask
-        mask.rect = self.get_rect_of_world(ani)
-
-        highlight = self.mouse_over(data, ani, mask.rect)
-
-        ani.draw(data["window_left_top_pos"], self.current, highlight)
-
-        name, ns = render_text(self.name, (40, 180, 50))
-        blit_text(name, ns, data["window_left_top_pos"], self.current, 20)
-
-        # self._detecting_portal(data, ani, mask.rect)
-        return mask
-
-    def render(self, data):
+        """
+        UPDATE方法用来计算动画,并返回动画帧图片的mask
+        :param data:
+        :return:
+        """
+        if not data["collision_window"].collidepoint(self.current):  # 如果当前检测视窗中
+            self.ani = None
+            self.mask = None
+            return
         self._moving_to_next_target()  # 判断是否更新到下一个target
         if not is_same_coordinate(self.current, self.target):
             self.direction = cal_direction_8(self)  # 计算方向
             if self.is_running:
                 self._move_to_next_pc(Running_Speed)  # 计算下一个当前坐标，地图坐标
-                ani = self.figure.run(data["mask_list"], data["window_left_top_pos"],
+                self.ani = self.figure.run(data["mask_list"], data["window_left_top_pos"],
                                       self.current, self.direction, data["ticks"])
             else:
                 self._move_to_next_pc(Walking_Speed)  # 计算下一个当前坐标，地图坐标
-                ani = self.figure.walk(data["mask_list"], data["window_left_top_pos"],
+                self.ani = self.figure.walk(data["mask_list"], data["window_left_top_pos"],
                                        self.current, self.direction, data["ticks"])
         else:
-            ani = self.figure.stand(data["mask_list"], data["window_left_top_pos"],
+            self.ani = self.figure.stand(data["mask_list"], data["window_left_top_pos"],
                                     self.current, self.direction, data["ticks"])
-        return ani
+        self.mask = self.ani.get_mask(self.direction)  # 人物mask
+        self.world_rect = self.get_rect_of_world(self.ani)
+        self.mask.rect = self.world_rect
+        self.window_rect = self.get_rect_of_window(data["window_left_top_pos"])
+
+        self.highlight = self.mouse_over(data, self.ani, self.mask.rect)
+        # self._detecting_portal(data, ani, mask.rect)
+        return self.mask
+
+    def draw(self):
+        if self.ani:
+            self.ani.draw(self.window_rect, self.highlight)
+            self.highlight = False
 
     def mouse_over(self, data, ani, world_rect):
         mouse_mask = data["mouse_mask"]
@@ -147,4 +160,7 @@ class Player(BaseInteractionObject):
         w = ani.res.w
         h = ani.res.h
         return Rect(x, y, w, h)
+
+    def get_rect_of_window(self, left_top):
+        return self.world_rect.move(-left_top[0], -left_top[1])
 

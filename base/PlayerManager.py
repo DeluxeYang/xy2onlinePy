@@ -12,10 +12,18 @@ class PlayerManager(BaseInteractionObject):
         pass
 
     def update(self, data):
-        players = [self.me] + self.others
-        players.sort(key=lambda p: p.current[1])  # 排序
-        for player in players:
+        # players = [self.me] + self.others
+        # players.sort(key=lambda p: p.current[1])  # 排序
+        self.me.update(data)
+        for player in self.others:
             player.update(data)
+        data["me"] = self.me
+
+    def draw(self):
+        players = [self.me] + self.others
+        players.sort(key=lambda p: p.current[1])  # Y坐标排序
+        for player in players:
+            player.draw()
 
 
     def init_data(self, player_list):

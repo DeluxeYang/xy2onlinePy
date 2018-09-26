@@ -24,8 +24,7 @@ class Scene:
 
         self.x = 0
         self.y = 0
-        self.left = 0
-        self.top = 0
+        self.window = Rect((0, 0), Window_Size)
 
         self.MAP = None
         self.MASK = {}
@@ -43,21 +42,55 @@ class Scene:
         self.n = 0
         self.coordinate = None
 
-    def update(self):
+    def set_window(self, world_pc):
         """
-        场景帧更新
-        :return: 返回window_left_top和地形Mask
+        根据中心像素位置，获取显示窗口
+        :return:
+        """
+        self.x = world_pc[0]
+        self.y = world_pc[1]
+        window_left = self.x - Window_Size[0] // 2
+        window_right = self.x + Window_Size[0] // 2
+        if window_left < 0:
+            window_right = Window_Size[0]
+            window_left = 0
+        elif window_right > self.map_width:
+            window_right = self.map_width
+            window_left = self.map_width - Window_Size[0]
+        window_top = self.y - Window_Size[1] // 2
+        window_bottom = self.y + Window_Size[1] // 2
+        if window_top < 0:
+            window_top = 0
+            window_bottom = Window_Size[1]
+        elif window_bottom > self.map_height:
+            window_top = self.map_height - Window_Size[1]
+            window_bottom = self.map_height
+        self.window = Rect((window_left, window_top), (window_right, window_bottom))
+
+    def update(self, data):
+        """
+        场景帧更新，并生成场景地形mask
+        :return:
         """
         no_repeat = {}
         masks = []
-        units = self._pixel_to_units_num(width_margin=60, height_margin=40)
+        units = self._quest_16(width_margin=60, height_margin=40)
         for i in units:
             for mask in self.masks_of_unit[i]:
                 if (mask.rect.x, mask.rect.y) not in no_repeat:
                     no_repeat[(mask.rect.x, mask.rect.y)] = True
                     masks.append(mask)
-        self._blit()
-        return masks
+        data["mask_list"] = masks
+        data["window_left_top_pos"] = self.get_left_top()
+        data["collision_window"] =  self.get_collision_window()
+
+    def draw(self):
+        """
+        场景绘制
+        :return:
+        """
+        _screen = pygame.display.get_surface()
+        _screen.blit(self.MAP, (0, 0), self.window)
 
     def quest(self, client):
         """
@@ -72,6 +105,34 @@ class Scene:
                 self.quest_clock[i] = +1
                 if self.quest_clock[i] == 5:  # 累计请求5次后重置为0
                     self.quest_clock[i] = 0
+
+    def get_world_pc(self, pos):
+        """
+        获得地图像素坐标
+        :param pos:
+        :return:
+        """
+        left, top = self.get_left_top()
+        x = left + pos[0]  # 屏幕左上角地图绝对像素点 + 鼠标相对点 = 地图绝对点
+        y = top + pos[1]
+        if x < 0:
+            x = 0
+        elif x > self.map_width:
+            x = self.map_width
+        if y < 0:
+            y = 0
+        elif y > self.map_height:
+            y = self.map_height
+        return x, y
+
+    def get_center(self):
+        return self.window.centerx, self.window.centery
+
+    def get_left_top(self):
+        return self.window.left, self.window.top
+
+    def get_collision_window(self):
+        return self.window.inflate(100, 100)  # 放大100像素
 
     def get_map(self, client):
         """
@@ -126,34 +187,6 @@ class Scene:
                         print(e)
                 self.masks_of_unit[data["unit_num"]] = masks  # 将该unit对应Mask放入对应位置
 
-    def get_map_xy(self, mouse_pos):
-        """
-        获得地图像素坐标
-        :param mouse_pos:
-        :return:
-        """
-        x = self.left + mouse_pos[0]  # 屏幕左上角地图绝对像素点 + 鼠标相对点 = 地图绝对点
-        y = self.top + mouse_pos[1]
-        if x < 0:
-            x = 0
-        elif x > self.map_width:
-            x = self.map_width
-        if y < 0:
-            y = 0
-        elif y > self.map_height:
-            y = self.map_height
-        return x, y
-
-    def set_xy(self, xy):
-        self.x = xy[0]
-        self.y = xy[1]
-
-    def get_xy(self):
-        return self.x, self.y
-
-    def get_left_top(self):
-        return self.left, self.top
-
     def _blit_unit(self, jpg, unit_num):
         """
         将单元图片blit到MAP上
@@ -191,30 +224,6 @@ class Scene:
             collision_mask = pygame.mask.from_threshold(_surface, (0, 0, 85, 255), (10, 10, 10, 255))  # 85的是0x11
             self.MASK[(x, y)] = Mask(_rect, py_mask, collision_mask)
         return self.MASK[(x, y)]
-
-    def _get_window(self):
-        """
-        根据中心像素位置，获取显示窗口
-        :return:
-        """
-        window_left = self.x - Window_Size[0] // 2
-        window_right = self.x + Window_Size[0] // 2
-        if window_left < 0:
-            window_right = Window_Size[0]
-            window_left = 0
-        elif window_right > self.map_width:
-            window_right = self.map_width
-            window_left = self.map_width - Window_Size[0]
-        window_top = self.y - Window_Size[1] // 2
-        window_bottom = self.y + Window_Size[1] // 2
-        if window_top < 0:
-            window_top = 0
-            window_bottom = Window_Size[1]
-        elif window_bottom > self.map_height:
-            window_top = self.map_height - Window_Size[1]
-            window_bottom = self.map_height
-        window = Rect((window_left, window_top), (window_right, window_bottom))
-        return window
 
     def _quest_25(self):
         row = self.y // 240 if self.y // 240 != self.row else self.y // 240 - 1  # 向下取整
@@ -278,7 +287,7 @@ class Scene:
         _units.sort()
         return _units
 
-    def _pixel_to_units_num(self, width_margin=160, height_margin=120):
+    def _quest_16(self, width_margin=160, height_margin=120):
         """
         根据地图像素位置，获取需要的units_num
         :param width_margin:
@@ -305,10 +314,10 @@ class Scene:
         else:  # 中间
             _units += [pos + 1, pos - 1]
             left = right = 1
-            if self.x % 320 >= 320 - width_margin and col + 2 <= self.col - 1:  # 单元格内靠右，则右边预读
+            if self.window.centerx % 320 >= 320 - width_margin and col + 2 <= self.col - 1:  # 单元格内靠右，则右边预读
                 _units.append(pos + 2)
                 right += 1
-            elif self.x % 320 <= width_margin and col - 2 >= 0:  # 单元格内靠左，左边预读
+            elif self.window.centerx % 320 <= width_margin and col - 2 >= 0:  # 单元格内靠左，左边预读
                 _units.append(pos - 2)
                 left += 1
 
@@ -327,10 +336,10 @@ class Scene:
         else:
             _units += [pos + self.col, pos - self.col]
             up = down = 1
-            if self.y % 240 >= 240 - height_margin and row + 2 <= self.row - 1:  # 单元格内靠下，则预读下面
+            if self.window.centery % 240 >= 240 - height_margin and row + 2 <= self.row - 1:  # 单元格内靠下，则预读下面
                 _units.append(pos + self.col * 2)
                 down += 1
-            elif self.y % 240 <= height_margin and row - 2 >= 0:  # 单元格内靠上，则预读上面
+            elif self.window.centery % 240 <= height_margin and row - 2 >= 0:  # 单元格内靠上，则预读上面
                 _units.append(pos - self.col * 2)
                 up += 1
         if left * up > 0:
@@ -351,14 +360,3 @@ class Scene:
                     _units.append((pos + i) + self.col * j)
         _units.sort()
         return _units
-
-    def _blit(self):
-        """
-        将MAP blit到屏幕上
-        :return:
-        """
-        window_rect = self._get_window()
-        _screen = pygame.display.get_surface()
-        _screen.blit(self.MAP, (0, 0), window_rect)
-        self.left = window_rect.left
-        self.top = window_rect.top
