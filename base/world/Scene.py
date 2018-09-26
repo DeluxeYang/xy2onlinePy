@@ -22,8 +22,6 @@ class Scene:
         self.map_info = map_info[map_name]  # 地图信息
         self.map_id = self.map_info["map_file"].split("/")[-1]  # 记录Map编号
 
-        self.x = 0
-        self.y = 0
         self.window = Rect((0, 0), Window_Size)
 
         self.MAP = None
@@ -47,25 +45,20 @@ class Scene:
         根据中心像素位置，获取显示窗口
         :return:
         """
-        self.x = world_pc[0]
-        self.y = world_pc[1]
-        window_left = self.x - Window_Size[0] // 2
-        window_right = self.x + Window_Size[0] // 2
+        window_left = world_pc[0] - Window_Size[0] // 2
+        window_right = world_pc[0] + Window_Size[0] // 2
         if window_left < 0:
-            window_right = Window_Size[0]
             window_left = 0
         elif window_right > self.map_width:
-            window_right = self.map_width
             window_left = self.map_width - Window_Size[0]
-        window_top = self.y - Window_Size[1] // 2
-        window_bottom = self.y + Window_Size[1] // 2
+        window_top = world_pc[1] - Window_Size[1] // 2
+        window_bottom = world_pc[1] + Window_Size[1] // 2
         if window_top < 0:
             window_top = 0
-            window_bottom = Window_Size[1]
         elif window_bottom > self.map_height:
             window_top = self.map_height - Window_Size[1]
-            window_bottom = self.map_height
-        self.window = Rect((window_left, window_top), (window_right, window_bottom))
+        del self.window
+        self.window = Rect((window_left, window_top), (Window_Size[0], Window_Size[1]))
 
     def update(self, data):
         """
@@ -226,8 +219,8 @@ class Scene:
         return self.MASK[(x, y)]
 
     def _quest_25(self):
-        row = self.y // 240 if self.y // 240 != self.row else self.y // 240 - 1  # 向下取整
-        col = self.x // 320 if self.x // 320 != self.col else self.x // 320 - 1  # 向下取整
+        row = self.window.centery // 240 if self.window.centery // 240 != self.row else self.window.centery // 240 - 1  # 向下取整
+        col = self.window.centerx // 320 if self.window.centerx // 320 != self.col else self.window.centerx // 320 - 1  # 向下取整
         pos = int(row * self.col + col)  # 当前单元格
         _units = [pos]  # 正在
         left = right = up = down = 0
@@ -294,8 +287,8 @@ class Scene:
         :param height_margin:
         :return:
         """
-        row = self.y // 240 if self.y // 240 != self.row else self.y // 240 - 1  # 向下取整
-        col = self.x // 320 if self.x // 320 != self.col else self.x // 320 - 1  # 向下取整
+        row = self.window.centery // 240 if self.window.centery // 240 != self.row else self.window.centery // 240 - 1  # 向下取整
+        col = self.window.centerx // 320 if self.window.centerx // 320 != self.col else self.window.centerx // 320 - 1  # 向下取整
         pos = int(row * self.col + col)  # 当前单元格
         _units = [pos]  # 正在
         left = right = up = down = 0
