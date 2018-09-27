@@ -1,16 +1,38 @@
 from time import sleep
 from weakref import WeakKeyDictionary
+from queue import Queue
 
 from PodSixNet.Channel import Channel
 from PodSixNet.Server import Server
 
-
 from utils.MAPX import MapX
 from Settings import Resource_Port
 
+queue = Queue()  # 地图单元读取队列
+
+class Task:
+    """
+    地图读取任务包装
+    """
+    def __init__(self, channel, map_x, data):
+        self.channel = channel
+        self.data = data
+        self.map_x = map_x
+
+    def run(self):  # 执行
+        unit_num = self.data["unit_num"]
+        jpeg, masks = self.map_x.read_unit(unit_num)
+        send_data = {
+            'action': "receive_map_unit",
+            'map_id': self.map_x.map_id,
+            'unit_num': unit_num,
+            'jpg': jpeg,
+            'masks': masks
+        }
+        self.channel.Send(send_data)
+
 
 class ResourceChannel(Channel):
-
 
     def __init__(self, *args, **kwargs):
         Channel.__init__(self, *args, **kwargs)
@@ -20,6 +42,11 @@ class ResourceChannel(Channel):
         pass
 
     def Network_get_map_info(self, data):
+        """
+        地图信息获取，直接返回
+        :param data:
+        :return:
+        """
         map_x = self._get_map_x(data)
         send_data = {
             'action': "receive_map_info",
@@ -37,19 +64,21 @@ class ResourceChannel(Channel):
         self.Send(send_data)
 
     def Network_get_map_unit(self, data):
+        """
+        地图单元读取，放入队列，轮询读取
+        :param data:
+        :return:
+        """
         map_x = self._get_map_x(data)
-        unit_num = data["unit_num"]
-        jpeg, masks = map_x.read_unit(unit_num)
-        send_data = {
-            'action': "receive_map_unit",
-            'map_id': map_x.map_id,
-            'unit_num': unit_num,
-            'jpg': jpeg,
-            'masks': masks
-        }
-        self.Send(send_data)
+        task = Task(self, map_x, data)
+        queue.put(task)
 
     def Network_find_path(self, data):
+        """
+        获取行走路径，直接返回
+        :param data:
+        :return:
+        """
         map_x = self._get_map_x(data)
         path_list = map_x.find_path(data["current"], data["target"])
         send_data = {
@@ -78,20 +107,17 @@ class ResourceServer(Server):
     def Connected(self, channel, addr):
         self.add_client(channel)
 
-    def Launch(self):
-        while True:
-            self.Pump()
-            sleep(0.0001)
-
     def add_client(self, client):
         print("New Player" + str(client.addr))
         self.clients[client] = True
 
 
-
-
-
 host, port = "localhost", Resource_Port
 resource_server = ResourceServer(localaddr=(host, int(port)))
+
 while True:
-    resource_server.Launch()
+    resource_server.Pump()
+    if not queue.empty():  # 检测有没有地图单元读取任务
+        task = queue.get(block=False)
+        task.run()
+    sleep(0.0001)
