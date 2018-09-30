@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 
+from utils import ptext
+
 from ResourceClient import scene_client, map_connection
 from base.events import event_filter
 
@@ -51,32 +53,16 @@ def run_game():
 
         screen.blit(talking_bar, (800, 0))
 
-        font = pygame.font.SysFont(None, 24)  # 通过字体文件获得字体对象
-        text = font.render("Target_PC: " + str(pm.me.target), True, (0, 0, 0))  # 配置要显示的文字
-        text_rect = text.get_rect()  # 获得要显示的对象的rect
-        text_rect.center = (900, 150)  # 设置显示对象的坐标
-        screen.blit(text, text_rect)  #
+        ptext.draw("Target_PC: " + str(pm.me.target), (850, 100), owidth=0.1, ocolor=(0, 0, 0), color=(255, 30, 50))
 
-        text = font.render("Current_PC: " + str(pm.me.current), True, (0, 0, 0))  # 配置要显示的文字
-        text_rect = text.get_rect()  # 获得要显示的对象的rect
-        text_rect.center = (900, 200)  # 设置显示对象的坐标
-        screen.blit(text, text_rect)  # 绘制字体
+        ptext.draw("Current_PC: " + str(int(pm.me.current[0])) +", "+ str(int(pm.me.current[1])), (850, 200), owidth=0.5, ocolor=(0, 0, 0), color=(255, 30, 50))
 
         mouse_pos = pygame.mouse.get_pos()
-        text = font.render("MOUSE: " + str(mouse_pos[0] + input_data["window_left_top_pos"][0]) + "  "
-                           + str(mouse_pos[1] + input_data["window_left_top_pos"][1]), True,
-                           (0, 0, 0))  # 配置要显示的文字
-        text_rect = text.get_rect()  # 获得要显示的对象的rect
-        text_rect.center = (900, 300)  # 设置显示对象的坐标
-        screen.blit(text, text_rect)  # 绘制字体
-        pygame.display.update()
+        ptext.draw("MOUSE: " + str(mouse_pos[0] + input_data["window_left_top_pos"][0]) + "  "
+                           + str(mouse_pos[1] + input_data["window_left_top_pos"][1]),
+                   (850, 150), owidth=0.5, ocolor=(0, 0, 0), color=(255, 30, 50))
 
-        text = font.render("MOUSE: " + str(fps), True, (0, 0, 0))  # 配置要显示的文字
-        text_rect = text.get_rect()  # 获得要显示的对象的rect
-        text_rect.center = (900, 400)  # 设置显示对象的坐标
-        screen.blit(text, text_rect)  # 绘制字体
-        pygame.display.flip()
-
+        ptext.draw("MOUSE: " + str(fps), (850, 400), owidth=0.5, ocolor=(0, 0, 0), color=(255, 30, 50))
 
 
         pygame.display.flip()
