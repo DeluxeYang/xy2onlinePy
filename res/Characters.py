@@ -1,6 +1,6 @@
 characters = {
     "ren": {
-        "old": {
+        "old_0": {
             "qiaoqianjin": {
                 "name": "俏千金",
                 "gender": 0,
@@ -177,10 +177,50 @@ characters = {
                 "describe": "潇洒倜傥，风度不凡。或手执长剑，或手握双锤，锄强扶弱，直指世间一切不平事。儿女情，英雄意，都付笑谈中。",
             },
         },
-        "new": {
+        "new_0": {
 
         },
-        "12": {
+        "old_1": {
+            "yanshanxue": {
+                "name": "燕山雪",
+                "gender": 0,
+                "run": ["shape.wd1", "0x0717DFD0"],  #
+                "stand": [["shape.wd1", "0x297A1A88"], ["shape.wd1", "0xDD0961D4"]],  #
+                "walk": ["shape.wd1", "0x19B6F23F"],  #
+                "weapon": {
+                    "sword": {
+                        "run": ["shape.wd1", "0xA77131EC"],  #
+                        "stand": ["shape.wd1", "0x871B64ED"],
+                        "hit": ["shape.wd1", "0x0690A869"],
+                        "beaten": ["shape.wd1", "0x37D498D5"],
+                        "defence": ["shape.wd1", "0xF7B59374"],
+                        "magic": ["shape.wd1", "0xC8DB4D66"],
+                        "dead": ["shape.wd1", "0x683652CA"]
+                    },
+                },
+                "faction": ["datangguanfu", "nvercun", "fangcunshan"],
+                "describe": "使得一手绝世剑法，武林中人不知其剑法从何而来，只知她出剑之处剑光如雪花，无处不在。是个十载燕山苦学艺，一朝功成闯江湖的侠义女子。",
+            },
+            "feijianxia": {
+                "name": "飞剑侠",
+                "gender": 1,
+                "run": ["shape.wd1", "0x91939A14"],  #
+                "stand": [["shape.wd1", "0xF03537C9"], ["shape.wd1", "0xAD85A6C0"]],  #
+                "walk": ["shape.wd1", "0x8D750366"],  #
+                "weapon": {
+                    "sword": {
+                        "run": ["shape.wd1", "0xC7E418E1"],  #
+                        "stand": ["shape.wd1", "0xBA62A2A1"],
+                        "hit": ["shape.wd1", "0x8707BB97"],
+                        "beaten": ["shape.wd1", "0xE0AD4B2F"],
+                        "defence": ["shape.wd1", "0x10E43052"],
+                        "magic": ["shape.wd1", "0x7027B2B7"],
+                        "dead": ["shape.wd1", "0xB9162535"]
+                    },
+                },
+                "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
+                "describe": "行走江湖多年，现退隐江湖，已经不再过问江湖之事，一身绝世武功，能剑随意走，人剑合一。真是御剑游神州，世外逍遥侠。",
+            },
 
         },
         "3": {
@@ -189,7 +229,7 @@ characters = {
 
     },
     "mo": {
-        "old": {
+        "old_0": {
             "jumowang": {
                 "name": "巨魔王",
                 "gender": 1,
@@ -365,18 +405,57 @@ characters = {
                 "describe": "天生对动物有着特别的感情，爱与动物为伴；驯有一妖狐，使得一手好鞭法，好胜心强，喜欢追求各种刺激和挑战。",
             },
         },
-        "new": {
+        "new_0": {
 
         },
-        "12": {
-
+        "old_1": {
+            "nitianmo": {
+                "name": "逆天魔",
+                "gender": 1,
+                "run": ["shape.wd1", "0x13B89957"],  #
+                "stand": [["shape.wd1", "0x6F90AB3E"], ["shape.wd1", "0x832B6FE5"]],  #
+                "walk": ["shape.wd1", "0xDCFB663D"],  #
+                "weapon": {
+                    "spear": {
+                        "run": ["shape.wd1", "0xF130025E"],  #
+                        "stand": ["shape.wd1", "0x00780156"],
+                        "hit": ["shape.wd1", "0x5706CC01"],
+                        "beaten": ["shape.wd1", "0x98208E76"],
+                        "defence": ["shape.wd1", "0xE5914F72"],
+                        "magic": ["shape.wd1", "0x602193D5"],
+                        "dead": ["shape.wd1", "0xC76DBDA8"]
+                    },
+                },
+                "faction": ["youmingdifu", "mowangzhai", "shituoling"],
+                "describe": "吸取日月精华，潜心修行千年，终于练就魔功。手中一把夺魂枪犀利非凡。一出手石破天惊，鬼哭神嚎，连神佛都不敢等闲视之。",
+            },
+            "meilinghu": {
+                "name": "媚灵狐",
+                "gender": 0,
+                "run": ["shape.wd1", "0xAD09F9D2"],  #
+                "stand": [["shape.wd1", "0x79D93048"], ["shape.wd1", "0x179A6B1F"]],  #
+                "walk": ["shape.wd1", "0x61842A0D"],  #
+                "weapon": {
+                    "knife": {
+                        "run": ["shape.wd1", "0x786ED70D"],  #
+                        "stand": ["shape.wd1", "0x3C1B48F0"],
+                        "hit": ["shape.wd1", "0xFE417568"],
+                        "beaten": ["shape.wd1", "0x1E4CA11A"],
+                        "defence": ["shape.wd1", "0xFC0388C2"],
+                        "magic": ["shape.wd1", "0x293474B6"],
+                        "dead": ["shape.wd1", "0x9620689F"]
+                    },
+                },
+                "faction": ["youmingdifu", "mowangzhai", "pansidong"],
+                "describe": "乃是千年灵狐，吸天地灵气，修得正果，已是妖中之仙。手中一把半月刀更是灵气逼人，能在无形间取人性命。",
+            },
         },
         "3": {
         
         }
     },
     "xian": {
-        "old": {
+        "old_0": {
             "zhishengxian": {
                 "name": "智圣仙",
                 "gender": 1,
@@ -551,11 +630,50 @@ characters = {
                 "describe": "本为西海龙族，面容绝世。相传其出生之时，西海之上龙吟彻天。乃为龙族同辈中之翘楚，倾倒四海水族女子无数。生性飘逸潇洒的他，却不为龙宫内浮华的生活所醉，一心向道。后看破族内纷繁争斗，愤而出走。云游天地之际，得缘拜入高人门下。随师父入深山潜心修炼十八载，习得高深仙法。艺成下山，降妖除魔。手中一根盘龙杖，一旦舞起——雷霆万钧，龙战将坐骑状态九洲动容！",
             },
         },
-        "new": {
+        "new_0": {
 
         },
-        "12": {
-
+        "old_1": {
+            "wuzunshen": {
+                "name": "武尊神",
+                "gender": 1,
+                "run": ["shape.wd1", "0x1206BEDD"],  #
+                "stand": [["shape.wd1", "0x4B8B5CA9"], ["shape.wd1", "0xD8189589"]],  #
+                "walk": ["shape.wd1", "0xFF80700B"],  #
+                "weapon": {
+                    "spear": {
+                        "run": ["shape.wd1", "0xC6D98DF4"],  #
+                        "stand": ["shape.wd1", "0x208F8946"],
+                        "hit": ["shape.wd1", "0x6B92F9ED"],
+                        "beaten": ["shape.wd1", "0xAE092A41"],
+                        "defence": ["shape.wd1", "0x758F4E1E"],
+                        "magic": ["shape.wd1", "0x60C49B7B"],
+                        "dead": ["shape.wd1", "0xFF6D7DD5"]
+                    },
+                },
+                "faction": ["longgong", "wuzhuangguan", "tiangong"],
+                "describe": "天神之子，自幼在天宫勤修仙术，虽未授神职，然仙力不亚大罗金仙，一身神功在天界早已传为嘉话，是未来仙界青睐的栋梁之材。",
+            },
+            "xuantianji": {
+                "name": "玄天姬",
+                "gender": 0,
+                "run": ["shape.wd1", "0x3B096E79"],  #
+                "stand": [["shape.wd1", "0x16C9AD1A"], ["shape.wd1", "0xCCC8DD74"]],  # 站立，
+                "walk": ["shape.wd1", "0x5FE8BA81"],  #
+                "weapon": {
+                    "ribbon": {
+                        "run": ["shape.wd1", "0x"],  #
+                        "stand": ["shape.wd1", "0x5E4DB33C"],  # DEA5A289
+                        "hit": ["shape.wd1", "0x28D0431D"],
+                        "beaten": ["shape.wd1", "0xBCEF3BBE"],
+                        "defence": ["shape.wd1", "0x93D6284C"],
+                        "magic": ["shape.wd1", "0x270C75D4"],
+                        "dead": ["shape.wd1", "0x28C72344"]
+                    },
+                },
+                "faction": ["longgong", "putuoshan", "tiangong"],
+                "describe": "",
+            },
         },
         "3": {
         
