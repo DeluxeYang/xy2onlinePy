@@ -662,7 +662,7 @@ characters = {
                 "walk": ["shape.wd1", "0x5FE8BA81"],  #
                 "weapon": {
                     "ribbon": {
-                        "run": ["shape.wd1", "0x"],  #
+                        "run": ["shape.wd1", "0x3B096E79"],  #
                         "stand": ["shape.wd1", "0x5E4DB33C"],  # DEA5A289
                         "hit": ["shape.wd1", "0x28D0431D"],
                         "beaten": ["shape.wd1", "0xBCEF3BBE"],
@@ -691,6 +691,80 @@ characters = {
         },
         "3": {
         
+        }
+    }
+    "other": {
+        "tongnan":{
+            "name": "",
+            "gender": 1,
+            "run": ["shape.wd2", "0x"],  #
+            "stand": [["shape.wd2", "0x"], ["shape.wd2", "0x"]],  # 站立，
+            "walk": ["shape.wd2", "0x"],  #
+            "weapon": {
+                "any": {
+                    "run": ["shape.wd2", "0x"],  #
+                    "stand": ["shape.wd2", "0x"],  # DEA5A289
+                    "hit": ["shape.wd2", "0x"],
+                    "beaten": ["shape.wd2", "0x"],
+                    "defence": ["shape.wd2", "0x"],
+                    "magic": ["shape.wd2", "0x"],
+                    "dead": ["shape.wd2", "0x"]
+                },
+            },
+        },
+        "tongnv": {
+            "name": "",
+            "gender": 0,
+            "run": ["shape.wd2", "0x"],  #
+            "stand": [["shape.wd2", "0x"], ["shape.wd2", "0x"]],  # 站立，
+            "walk": ["shape.wd2", "0x"],  #
+            "weapon": {
+                "any": {
+                    "run": ["shape.wd2", "0x"],  #
+                    "stand": ["shape.wd2", "0x"],  # DEA5A289
+                    "hit": ["shape.wd2", "0x"],
+                    "beaten": ["shape.wd2", "0x"],
+                    "defence": ["shape.wd2", "0x"],
+                    "magic": ["shape.wd2", "0x"],
+                    "dead": ["shape.wd2", "0x"]
+                },
+            },
+        },
+        "shaonian": {
+            "name": "",
+            "gender": 1,
+            "run": ["shape.wd2", "0x"],  #
+            "stand": [["shape.wd2", "0x"], ["shape.wd2", "0x"]],  # 站立，
+            "walk": ["shape.wd2", "0x"],  #
+            "weapon": {
+                "any": {
+                    "run": ["shape.wd2", "0x"],  #
+                    "stand": ["shape.wd2", "0x"],  # DEA5A289
+                    "hit": ["shape.wd2", "0x"],
+                    "beaten": ["shape.wd2", "0x"],
+                    "defence": ["shape.wd2", "0x"],
+                    "magic": ["shape.wd2", "0x0252D0DF"],
+                    "dead": ["shape.wd2", "0x"]
+                },
+            },
+        },
+        "shaonv": {
+            "name": "",
+            "gender": 0,
+            "run": ["shape.wd2", "0x"],  #
+            "stand": [["shape.wd2", "0x"], ["shape.wd2", "0x"]],  # 站立，
+            "walk": ["shape.wd2", "0x"],  #
+            "weapon": {
+                "any": {
+                    "run": ["shape.wd2", "0x"],  #
+                    "stand": ["shape.wd2", "0x"],  # DEA5A289
+                    "hit": ["shape.wd2", "0x"],
+                    "beaten": ["shape.wd2", "0x"],
+                    "defence": ["shape.wd2", "0x"],
+                    "magic": ["shape.wd2", "0x"],
+                    "dead": ["shape.wd2", "0x"]
+                },
+            },
         }
     }
 }
