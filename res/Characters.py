@@ -692,7 +692,7 @@ characters = {
         "3": {
         
         }
-    }
+    },
     "other": {
         "tongnan":{
             "name": "",
