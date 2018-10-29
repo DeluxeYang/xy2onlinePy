@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import binascii
 
-from utils.XY2Res import read_color_palette, read_pic
-from Settings import XY2_PATH
+from utils.xy2_res import read_color_palette, read_pic
+from settings import XY2_PATH
 
 """
 WDF --> WdfFile --> WAS

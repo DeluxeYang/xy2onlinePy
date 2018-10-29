@@ -1,5 +1,5 @@
 from base.interactions.BaseInteractionObject import BaseInteractionObject
-from base.animations.ItemAnimation import ItemAnimation
+from base.animations.item_animation import ItemAnimation
 
 
 class Frame(BaseInteractionObject):

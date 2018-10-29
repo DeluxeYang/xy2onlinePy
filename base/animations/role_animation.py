@@ -1,4 +1,4 @@
-from base.animations.Animation import Animation
+from base.animations.animation import Animation
 
 
 class RoleAnimation(Animation):

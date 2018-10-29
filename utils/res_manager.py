@@ -2,9 +2,9 @@ import pygame
 from pygame.locals import *
 from PIL import Image
 from io import BytesIO
-from Settings import Res_Margin
-from utils.WDF import WDF
-from utils.Mask import Mask
+from settings import Res_Margin
+from utils.wdf import WDF
+from utils.mask import Mask
 
 
 class WAS:

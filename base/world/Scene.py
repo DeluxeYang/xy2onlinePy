@@ -5,8 +5,8 @@ from io import BytesIO
 import pygame
 from pygame.locals import *
 
-from Settings import *
-from utils.Mask import Mask
+from settings import *
+from utils.mask import Mask
 
 from res.MapInfo import map_info
 

@@ -1,5 +1,5 @@
 import pygame
-from utils.Math import get_window_pc
+from utils.math import get_window_pc
 
 pygame.font.init()
 font = pygame.font.SysFont('fangsong', 17, bold=True)  # 通过字体文件获得字体对象

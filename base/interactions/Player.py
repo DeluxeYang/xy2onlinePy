@@ -3,11 +3,11 @@ from pygame.math import Vector2
 
 from base.Font import render_text, blit_text
 from base.events import event_manager
-from base.animations.Role import Role
+from base.animations.role import Role
 from base.interactions.BaseInteractionObject import BaseInteractionObject
 
-from utils.Math import cal_direction_8, is_same_coordinate
-from Settings import *
+from utils.math import cal_direction_8, is_same_coordinate
+from settings import *
 
 class Player(BaseInteractionObject):
     def __init__(self, data):

@@ -1,5 +1,5 @@
 from res.Characters import characters
-from base.animations.RoleAnimation import RoleAnimation
+from base.animations.role_animation import RoleAnimation
 
 
 class Role:

@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from utils import ptext
 
-from ResourceClient import scene_client, map_connection
+from map_client import scene_client, map_connection
 from base.events import event_filter
 
 from base.PlayerManager import player_manager as pm

@@ -1,8 +1,7 @@
 import pygame
 from pygame.locals import *
-from utils.ResManager import res_manager
-from Settings import Res_Margin
-from utils.Math import get_window_pc
+from utils.res_manager import res_manager
+from settings import Res_Margin
 
 bright = pygame.Surface((400, 400), flags=pygame.SRCALPHA)
 bright.fill((80, 80, 80, 0))
@@ -31,7 +30,7 @@ class Animation:
         """
         image = self.image.copy()
         if highlight:
-            image.blit(bright, (0, 0), special_flags = BLEND_RGB_ADD)
+            image.blit(bright, (0, 0), special_flags=BLEND_RGB_ADD)
         _screen = pygame.display.get_surface()
         _screen.blit(image, window_rect)
 
@@ -93,8 +92,8 @@ class Animation:
         for mask in other_masks:
             offset_x = mask.rect.x - sprite_map_x
             offset_y = mask.rect.y - sprite_map_y
-            if mask.collision_mask and sprite_mask.overlap(mask.collision_mask, (offset_x, offset_y)):  # 如果和collision_mask重叠
-                continue  # 则判定角色在mask前面，不产生遮挡，跳过
+            if mask.collision_mask and sprite_mask.overlap(mask.collision_mask, (offset_x, offset_y)):
+                continue  # 如果和collision_mask重叠, 则判定角色在mask前面，不产生遮挡，跳过
             alpha = 127
             overlap = sprite_mask.overlap(mask.mask, (offset_x, offset_y))
             if overlap:  # 如果遮挡

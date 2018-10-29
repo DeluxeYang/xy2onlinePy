@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import Rect
 
-from utils.Mask import Mask
+from utils.mask import Mask
 
 mouse_mask = pygame.Mask((2, 2))
 mouse_mask.fill()
