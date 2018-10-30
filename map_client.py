@@ -1,82 +1,19 @@
 import asyncio
-
-from settings import ResourcePort
-
-
-class MapClient:
-    def __new__(cls, host, port):
-        if not hasattr(cls, '_instance'):
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
-    def __init__(self, host, port):
-        self.reader = None
-        self.writer = None
-        self.host = host
-        self.port = port
-
-    async def connect(self):
-        self.reader, self.writer = await asyncio.open_connection(self.host, self.port)
-
-    def send(self, send_data):
-        data = str(send_data).encode()
-        self.writer.write(data)
-
-    def close(self):
-        self.writer.close()
-
-    async def get_map_info(self, map_id):
-        send_data = {
-            'request': "map_info",
-            'map_id': map_id,
-        }
-        self.send(send_data)
-        return await self.read()
-
-    async def get_map_unit(self, map_id, unit_num):
-        send_data = {
-            'request': "map_unit",
-            'map_id': map_id,
-            'unit_num': unit_num
-        }
-        self.send(send_data)
-        return await self.read()
-
-    async def find_path(self, map_id, current, target, is_running=True):
-        send_data = {
-            'request': "find_path",
-            'map_id': map_id,
-            'current': current,
-            'target': target,
-            'is_running': is_running
-        }
-        self.send(send_data)
-        return await self.read()
-
-    async def read(self):
-        data = await self.reader.read()
-        return data
-
-
-'''
-import asyncio
-import pygame
 import logging
-from pygame import *
 log = logging.getLogger('')
 
 
-class Client:
+class MapClient:
     def __init__(self, host, port, loop):
         self.host = host
         self.port = port
         self.loop = loop
+        self.reader = None
+        self.writer = None
         self.send_q = asyncio.Queue()
 
     async def connect(self):
-        self.reader, self.writer = await asyncio.open_connection(self.host, 
-                                                                 self.port, 
-                                                                 loop=self.loop)
+        self.reader, self.writer = await asyncio.open_connection(self.host, self.port, loop=self.loop)
         self.loop.create_task(self._handle_packets())
         self.loop.create_task(self._send())
 
@@ -86,9 +23,10 @@ class Client:
             if not data:
                 continue
             message = data.decode()
-            log.debug("(NET) Received "+message)
+            log.debug("(NET) Received " + message)
 
-    def send(self, data):
+    def send(self, send_data):
+        data = str(send_data).encode()
         self.send_q.put_nowait(data)
 
     async def _send(self):
@@ -100,6 +38,15 @@ class Client:
     def disconnect(self):
         print("DC")
         self.writer.close()
+
+
+'''
+import asyncio
+import pygame
+import logging
+from pygame import *
+log = logging.getLogger('')
+
 
 
 async def main(loop):
