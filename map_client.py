@@ -4,22 +4,24 @@ log = logging.getLogger('')
 
 
 class MapClient:
-    def __init__(self, host, port, loop):
+    def __init__(self, host, port):
         self.host = host
         self.port = port
-        self.loop = loop
+        self.loop = None
+        self.running = True
         self.reader = None
         self.writer = None
         self.send_q = asyncio.Queue()
 
-    async def connect(self):
+    async def connect(self, loop):
+        self.loop = loop
         self.reader, self.writer = await asyncio.open_connection(self.host, self.port, loop=self.loop)
         self.loop.create_task(self._handle_packets())
         self.loop.create_task(self._send())
 
     async def _handle_packets(self):
-        while True:
-            data = await self.reader.read(4096)
+        while self.running:
+            data = await self.reader.read()
             if not data:
                 continue
             message = data.decode()
@@ -30,13 +32,14 @@ class MapClient:
         self.send_q.put_nowait(data)
 
     async def _send(self):
-        while True:
+        while self.running:
             data = await self.send_q.get()
             self.writer.write(data)
             await self.writer.drain()
 
     def disconnect(self):
-        print("DC")
+        print("MapClient Disconnect")
+        self.running = False
         self.writer.close()
 
 

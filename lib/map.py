@@ -29,7 +29,7 @@ class Map(GameObject):
         self.n = 0
         self.coordinate = None
 
-    def load_map_info(self):
+    def load(self):
         send_data = {
             'request': "map_info",
             'map_id': self.map_id,

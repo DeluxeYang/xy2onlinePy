@@ -1,13 +1,15 @@
+from lib.event_component import EventComponent
+
+
 class Scene:
-    def __init__(self, _event, title="The Lib", resolution=(800, 600), fps=60):
-        self.title = title
-        self.resolution = resolution
-        self.fps = fps
+    def __init__(self, **kwargs):
         self.children = []
-        self._event = _event
+
+        for key, value in kwargs.items():
+            self.__setattr__(key, value)
 
     def handle_event(self, event):
-        self._event.update(self, event)
+        getattr(self, "_event").update(self, event)
 
     def update(self, dt):
         pass
@@ -15,11 +17,14 @@ class Scene:
     def draw(self, screen):
         pass
 
-    def set_screen(self, director):
-        director.resolution = self.resolution
+    def enter(self, director):
+        director.title = self.__dict__.get("title")
+        director.resolution = self.__dict__.get("resolution")
 
-    def on_enter(self, event):
+    def exit(self, director):
         pass
 
-    def on_exit(self, event):
-        pass
+
+def scene_factory(init_data):
+    init_data["_event"] = EventComponent()
+    return Scene(**init_data)

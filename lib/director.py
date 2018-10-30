@@ -1,5 +1,9 @@
+import asyncio
 import pygame
 from pygame.locals import *
+
+from settings import *
+from map_client import MapClient
 
 from .event import Event, events
 
@@ -10,9 +14,12 @@ class Director:
         self.title = title
         self.resolution = resolution
         self.fps = fps
+
+        self.running = True
         self._screen = None
         self._scene = None
         self.old_scene = None
+        self.map_client = MapClient("localhost", ResourcePort)
 
     @property
     def title(self):
@@ -30,18 +37,14 @@ class Director:
     def resolution(self, value):
         self._screen = pygame.display.set_mode(value)
 
-    @property
-    def _scene(self):
-        return self._scene
-
-    @_scene.setter
-    def _scene(self, scene):
-        self._scene = scene
-
     def change_scene(self, scene):
-        pass
+        scene.enter(self)
+        self.old_scene = self._scene
+        self._scene = scene
+        if self.old_scene:
+            self.old_scene.exit(self)
 
-    def run(self, scene=None):
+    async def run(self, loop, scene=None):
         if scene is None:
             if self._scene is None:
                 raise ValueError('No scene provided')
@@ -51,17 +54,20 @@ class Director:
         if self._screen is None:
             self._scene.set_screen()
 
+        await self.map_client.connect(loop)
+
         fps = pygame.time.Clock()
 
-        while self._scene is not None:
+        while self.running:
             # event pack
             event_queue = []
             for event in pygame.event.get():
                 _dict = event.__dict__
-                _dict["name"] = events.get(event.type, _dict["name"])
-                event_queue.append(Event(**_dict))
+                if event.type in events:
+                    _dict["name"] = events.get(event.type, "Unknown")
+                    event_queue.append(Event(**_dict))
             # handle_event
-            self._scene.handle_event()
+            self.handle_events(event_queue)
             # update
             dt = fps.tick(self.fps)
 
@@ -71,7 +77,7 @@ class Director:
 
             pygame.display.flip()
 
-    def handle_event(self, event_queue):
+    def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
             if hasattr(self, "on_"+event.name):  # 如果self有该事件的处理方法
                 getattr(self, "on_"+event.name)(event)  # 则处理
@@ -91,4 +97,9 @@ class Director:
         pass
 
     def on_quit(self, event):
-        pass
+        self.running = False
+        self.map_client.disconnect()
+        event.handled = True
+
+
+director = Director()
