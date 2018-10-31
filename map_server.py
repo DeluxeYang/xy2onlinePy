@@ -13,24 +13,22 @@ class MapServer:
         self.map_x_pool = {}
 
     async def map_quest_handler(self, reader, writer):
-        self.reader = reader
-        self.writer = writer
+        while True:
+            client = writer.get_extra_info('peername')  # 返回套接字连接的远程地址
+            print('Received from {}'.format(client))  # 在控制台打印查询记录
+            data = await reader.readuntil(b"}")
+            request_data = eval(data.decode())
 
-        data = await self.reader.read(100)
-        request_data = eval(data.decode())
+            print(request_data)
+            if request_data["request"] == "map_info":
+                await self.get_map_info(writer, request_data["map_id"])
+            elif request_data["request"] == "map_unit":
+                await self.get_map_unit(writer, request_data["map_id"], request_data["unit_num"])
+            elif request_data["request"] == "find_path":
+                await self.get_path(writer, request_data["map_id"], request_data["current"],
+                                    request_data["target"], request_data["is_running"])
 
-        print(request_data)
-
-        if request_data["request"] == "map_info":
-            await self.get_map_info(request_data["map_id"])
-        elif request_data["request"] == "map_unit":
-            await self.get_map_unit(request_data["map_id"], request_data["unit_num"])
-        elif request_data["request"] == "find_path":
-            await self.get_path(request_data["map_id"], request_data["current"],
-                          request_data["target"], request_data["is_running"])
-        writer.close()
-
-    async def get_map_info(self, map_id):
+    async def get_map_info(self, writer, map_id):
         map_x = self._get_map_x(map_id)
         send_data = {
             'event': "receive_map_info",
@@ -45,10 +43,10 @@ class MapServer:
             'n': map_x.n,
             'coordinate': map_x.coordinate
         }
-        self.writer.write(str(send_data).encode("utf-8"))
-        await self.writer.drain()
+        writer.write(str(send_data).encode("utf-8"))
+        await writer.drain()
 
-    async def get_map_unit(self, map_id, unit_num):
+    async def get_map_unit(self, writer, map_id, unit_num):
         map_x = self._get_map_x(map_id)
         await asyncio.sleep(0.1)
         jpeg, masks = map_x.read_unit(unit_num)
@@ -58,10 +56,10 @@ class MapServer:
             'jpeg': jpeg,
             'masks': masks
         }
-        self.writer.write(str(send_data).encode("utf-8"))
-        await self.writer.drain()
+        writer.write(str(send_data).encode("utf-8"))
+        await writer.drain()
 
-    async def get_path(self, map_id, current, target, is_running):
+    async def get_path(self, writer, map_id, current, target, is_running):
         map_x = self._get_map_x(map_id)
         path_list = map_x.find_path(current, target)
         send_data = {
@@ -69,8 +67,8 @@ class MapServer:
             'path_list': path_list,
             'is_running': is_running
         }
-        self.writer.write(str(send_data).encode("utf-8"))
-        await self.writer.drain()
+        writer.write(str(send_data).encode("utf-8"))
+        await writer.drain()
 
     def _get_map_x(self, map_id):
         if map_id not in self.map_x_pool:
@@ -85,6 +83,7 @@ class MapServer:
 
         async with self.server:
             await self.server.serve_forever()
+
 
 map_server = MapServer()
 asyncio.run(map_server.loop("localhost", int(ResourcePort)))

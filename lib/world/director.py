@@ -1,15 +1,13 @@
 import pygame
-
-from settings import *
+import asyncio
 from .scene import scene_factory
-from map_client import MapClient
-from game_client import NetworkClient
 
 from lib.event.event import Event, events
 
 
 class Director:
-    def __init__(self, title="The Lib", resolution=(800, 600), fps=60):
+    def __init__(self, map_client, network_client,
+                 title="The Lib", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title
         self.resolution = resolution
@@ -19,8 +17,8 @@ class Director:
         self._screen = None
         self._scene = None
         self.old_scene = None
-        self.map_client = MapClient("localhost", ResourcePort)
-        self.network_client = NetworkClient()
+        self.map_client = map_client
+        self.network_client = network_client
 
     @property
     def title(self):
@@ -55,11 +53,10 @@ class Director:
         if self._screen is None:
             self._scene.set_screen()
 
-        await self.map_client.connect(loop)
-
         fps = pygame.time.Clock()
 
         while self.running:
+            await asyncio.sleep(0)
             # event pack
             event_queue = []
             for event in pygame.event.get():
@@ -108,6 +105,3 @@ class Director:
         self.running = False
         self.map_client.disconnect()
         event.handled = True
-
-
-director = Director()

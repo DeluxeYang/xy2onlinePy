@@ -21,10 +21,11 @@ class MapClient:
 
     async def _handle_packets(self):
         while self.running:
-            data = await self.reader.read()
+            data = await self.reader.readuntil(b"}")
             if not data:
                 continue
             message = data.decode()
+            print(message)
             log.debug("(NET) Received " + message)
 
     def send(self, send_data):
@@ -41,40 +42,3 @@ class MapClient:
         print("MapClient Disconnect")
         self.running = False
         self.writer.close()
-
-
-'''
-import asyncio
-import pygame
-import logging
-from pygame import *
-log = logging.getLogger('')
-
-
-
-async def main(loop):
-    pygame.init()
-    screen = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption("Pyond client")
-    bg = Surface((640, 480))
-    bg.fill(Color("#004400"))
-    client = Client('127.0.0.1', 2508, loop)
-    await client.connect()
-    while True:
-        pygame.event.pump()
-        for e in pygame.event.get():
-            if e.type == QUIT:
-                raise SystemExit
-            elif e.type == KEYUP:
-                if e.key == K_UP:
-                    client.send(b"{'Hello':'World'}")
-        screen.blit(bg, (0, 0))
-        pygame.display.update()
-    client.disconnect()
-
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(loop))
-    loop.close()
-'''
