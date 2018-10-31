@@ -1,11 +1,11 @@
-import asyncio
 import pygame
-from pygame.locals import *
 
 from settings import *
+from .scene import scene_factory
 from map_client import MapClient
+from game_client import NetworkClient
 
-from .event import Event, events
+from lib.event.event import Event, events
 
 
 class Director:
@@ -20,6 +20,7 @@ class Director:
         self._scene = None
         self.old_scene = None
         self.map_client = MapClient("localhost", ResourcePort)
+        self.network_client = NetworkClient()
 
     @property
     def title(self):
@@ -64,7 +65,11 @@ class Director:
             for event in pygame.event.get():
                 _dict = event.__dict__
                 if event.type in events:
-                    _dict["name"] = events.get(event.type, "Unknown")
+                    thing = events[event.type]
+                    if isinstance(thing, dict):  # 如果有二级列表
+                        _dict["name"] = thing[_dict["button"]]
+                    else:
+                        _dict["name"] = thing
                     event_queue.append(Event(**_dict))
             # handle_event
             self.handle_events(event_queue)
@@ -89,6 +94,9 @@ class Director:
 
     def draw(self, screen):
         self._scene.draw(screen)
+
+    def get_new_scene(self, map_id):
+        return scene_factory(map_id, self)
 
     def on_change_scene(self, event):
         pass
