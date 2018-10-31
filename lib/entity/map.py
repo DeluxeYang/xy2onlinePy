@@ -22,7 +22,7 @@ class Map(GameObject):
         self.surface = pygame.Surface(WindowSize)
         self.window = Rect((0, 0), WindowSize)
 
-        self.inited = True
+        self.inited = False
         self.mask = {}
         self.masks_of_unit = None
 
@@ -37,7 +37,6 @@ class Map(GameObject):
         self.coordinate = None
 
         self.target = (0, 0)
-
 
     def load(self):
         self._request_map_info()
@@ -61,6 +60,7 @@ class Map(GameObject):
             'request': "map_info",
             'map_id': self.map_id,
         }
+        print(send_data)
         self.map_client.send(send_data)
 
     def _request_map_unit(self, unit_id):
@@ -86,17 +86,18 @@ class Map(GameObject):
         场景帧更新，并生成场景地形mask
         :return:
         """
-        no_repeat = {}
-        masks = []
-        units = self._quest_16(width_margin=60, height_margin=40)
-        for i in units:
-            for mask in self.masks_of_unit[i]:
-                if (mask.rect.x, mask.rect.y) not in no_repeat:
-                    no_repeat[(mask.rect.x, mask.rect.y)] = True
-                    masks.append(mask)
-        # data["mask_list"] = masks
-        # data["window_left_top_pos"] = self.get_left_top()
-        # data["collision_window"] = self.get_collision_window()
+        if self.inited:
+            no_repeat = {}
+            masks = []
+            units = self._quest_16(width_margin=60, height_margin=40)
+            for i in units:
+                for mask in self.masks_of_unit[i]:
+                    if (mask.rect.x, mask.rect.y) not in no_repeat:
+                        no_repeat[(mask.rect.x, mask.rect.y)] = True
+                        masks.append(mask)
+            # data["mask_list"] = masks
+            # data["window_left_top_pos"] = self.get_left_top()
+            # data["collision_window"] = self.get_collision_window()
 
     def draw(self, screen):
         screen.blit(self.surface, (0, 0), self.window)

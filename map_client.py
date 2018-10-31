@@ -13,11 +13,14 @@ class MapClient:
         self.writer = None
         self.send_q = asyncio.Queue()
 
+        self.read_task = None
+        self.send_task = None
+
     async def connect(self, loop):
         self.loop = loop
         self.reader, self.writer = await asyncio.open_connection(self.host, self.port, loop=self.loop)
-        self.loop.create_task(self._handle_packets())
-        self.loop.create_task(self._send())
+        self.read_task = asyncio.ensure_future(self._handle_packets())
+        self.send_task = asyncio.ensure_future(self._send())
 
     async def _handle_packets(self):
         while self.running:
@@ -42,3 +45,5 @@ class MapClient:
         print("MapClient Disconnect")
         self.running = False
         self.writer.close()
+        self.read_task.cancel()
+        self.send_task.cancel()

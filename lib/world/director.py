@@ -6,7 +6,7 @@ from lib.event.event import Event, events
 
 
 class Director:
-    def __init__(self, map_client, network_client,
+    def __init__(self, map_client, network_client, loop,
                  title="The Lib", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title
@@ -14,11 +14,14 @@ class Director:
         self.fps = fps
 
         self.running = True
+        self.run_task = None
         self._screen = None
         self._scene = None
         self.old_scene = None
+
         self.map_client = map_client
         self.network_client = network_client
+        self.loop = loop
 
     @property
     def title(self):
@@ -43,7 +46,10 @@ class Director:
         if self.old_scene:
             self.old_scene.exit(self)
 
-    async def run(self, loop, scene=None):
+    def start(self, scene=None):
+        self.run_task = asyncio.ensure_future(self.run(scene))
+
+    async def run(self, scene=None):
         if scene is None:
             if self._scene is None:
                 raise ValueError('No scene provided')
@@ -98,10 +104,11 @@ class Director:
     def on_change_scene(self, event):
         pass
 
-    def on_change_screen(self,event):
+    def on_change_screen(self, event):
         pass
 
     def on_quit(self, event):
         self.running = False
         self.map_client.disconnect()
+        self.run_task.cancel()
         event.handled = True

@@ -1,19 +1,36 @@
+#
+# class T:
+#     def __init__(self, a):
+#         self.__setattr__("on_a", a)
+#
+#     def handle_event(self, name):
+#         return hasattr(self, "on_"+name)
+#
+#     def on_q(self):
+#         return "123"
+#
+# t = T(1)
+# print()
+# print(t.handle_event("a"))
+#
+# l = []
+# l.insert(0,9)
+# l.insert(0,8)
+# print(l)
+import asyncio
+from map_client import MapClient
 
-class T:
-    def __init__(self, a):
-        self.__setattr__("on_a", a)
+mc = MapClient("localhost", 8001)
 
-    def handle_event(self, name):
-        return hasattr(self, "on_"+name)
+loop = asyncio.get_event_loop()
 
-    def on_q(self):
-        return "123"
+loop.create_task(mc.connect(loop))
 
-t = T(1)
-print()
-print(t.handle_event("a"))
+mc.send({"request": "deluxe"})
+mc.send({"request": "dawn"})
+mc.send({"request": "?"})
 
-l = []
-l.insert(0,9)
-l.insert(0,8)
-print(l)
+
+loop.run_forever()
+
+loop.close()

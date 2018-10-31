@@ -14,12 +14,14 @@ map_client = MapClient("localhost", ResourcePort)
 
 network_client = NetworkClient()
 
-director = Director(map_client, network_client)
+director = Director(map_client, network_client, loop)
 
 scene = director.get_new_scene("newscene/1410.map")
 
+director.start(scene)
+
 loop.create_task(map_client.connect(loop))
-loop.create_task(director.run(loop, scene))
+
 loop.run_forever()
 
 loop.close()
