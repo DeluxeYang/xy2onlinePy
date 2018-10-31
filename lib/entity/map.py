@@ -1,19 +1,22 @@
 import pygame
 from pygame.locals import *
 
-from .game_object import GameObject
+from lib.entity.game_object import GameObject
+from lib.component.map_component import *
 
 from settings import WindowSize
 
 
 class Map(GameObject):
-    def __init__(self, _event, map_id, map_client, z):
-        super().__init__(_event)
-        self.map_id = map_id
+    def __init__(self, map_id, map_client, network_client, *components):
+        super().__init__(*components)
         self.map_client = map_client
+        self.network_client = network_client
+
+        self.map_id = map_id
 
         self.unit_has_blitted = []
-        self.surface = None
+        self.surface = pygame.Surface(WindowSize)
         self.window = Rect((0, 0), WindowSize)
 
         self.mask = {}
@@ -28,6 +31,8 @@ class Map(GameObject):
         self.row = 0
         self.n = 0
         self.coordinate = None
+
+        self.target = (0, 0)
 
     def load(self):
         send_data = {
@@ -54,15 +59,15 @@ class Map(GameObject):
         }
         self.map_client.send(send_data)
 
-    def on_receive_map_info(self, event):
+    def update(self, dt):
         pass
 
-    def on_receive_map_unit(self, event):
-        pass
+    def draw(self, screen):
+        screen.blit(self.surface, (0, 0), self.window)
 
-    def on_mouse_left_down(self, event):
-        pass
 
-    def on_mouse_right_down(self, event):
-        pass
-
+def map_factory(map_id, map_client, network_client):
+    _map = Map(map_id, map_client, network_client)
+    _map.add_component(MapMouseComponent())
+    _map.add_component(MapReceiveComponent())
+    return _map
