@@ -111,4 +111,5 @@ class Director:
         self.running = False
         self.map_client.disconnect()
         self.run_task.cancel()
+        self.loop.stop()
         event.handled = True
