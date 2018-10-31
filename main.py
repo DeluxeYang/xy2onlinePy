@@ -1,19 +1,14 @@
 import asyncio
-import pygame
-from pygame import *
 
-from lib.director import director
-from lib.scene import scene_factory
-from map_client import MapClient
+from lib.world.director import director
+from lib.world.scene import scene_factory
 
 import logging
 log = logging.getLogger('')
 
 loop = asyncio.get_event_loop()
 
-scene = scene_factory({"title": "大话西游",
-                       "resolution": (800, 600),
-                       "fps": 60})
+scene = director.get_new_scene("newscene/1410.map")
 
 loop.run_until_complete(director.run(loop, scene))
 loop.close()

@@ -12,3 +12,8 @@ class T:
 t = T(1)
 print()
 print(t.handle_event("a"))
+
+l = []
+l.insert(0,9)
+l.insert(0,8)
+print(l)
