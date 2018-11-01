@@ -34,5 +34,7 @@ class ConnectionListener:
 
     @staticmethod
     def send(data):
-        """ Convenience method to allow this listener to appear to send network data, whilst actually using connection. """
+        """
+        Convenience method to allow this listener to appear
+        to send network data, whilst actually using connection. """
         connection.send(data)
