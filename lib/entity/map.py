@@ -24,7 +24,7 @@ class Map(GameObject):
 
         self.inited = False
         self.mask = {}
-        self.masks_of_unit = None
+        self.masks_of_unit = []
 
         self.map_type = 0
         self.map_width = 0
@@ -60,7 +60,6 @@ class Map(GameObject):
             'request': "map_info",
             'map_id': self.map_id,
         }
-        print(send_data)
         self.map_client.send(send_data)
 
     def _request_map_unit(self, unit_id):
@@ -87,6 +86,8 @@ class Map(GameObject):
         :return:
         """
         if self.inited:
+            self.quest()
+
             no_repeat = {}
             masks = []
             units = self._quest_16(width_margin=60, height_margin=40)
@@ -132,7 +133,7 @@ class Map(GameObject):
         """
         if self.map_id == data["map_id"]:
             if not self.unit_has_blitted[data["unit_num"]]:
-                self._blit_unit(data["jpg"], data["unit_num"])  # 将图片blit
+                self._blit_unit(data["jpeg"], data["unit_num"])  # 将图片blit
                 masks = []
                 for mask in data["masks"]:
                     try:

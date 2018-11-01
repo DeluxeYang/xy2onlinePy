@@ -19,7 +19,7 @@ class Mask:
 
 class MapX:
     def __init__(self, path):
-        self.map_id = ""
+        self.map_id = path
         self.map_type = 0  # 地图类型，1旧地图，2新地图
         self.unit_offset = []  # 地图各单元索引
         self.pic = []  # 各单元解压缩后的图片RGB字节
@@ -57,7 +57,6 @@ class MapX:
         except FileNotFoundError:
             raise Exception("找不到地图")
         else:
-            self.map_id = path.split("/")[-1]  # 记录Map编号
             map_sign = self._read_bytes_to_hex_list(4)  # map标识
             if map_sign == ['30', '2e', '31', '4d']:   # 大话2新地图
                 self.map_type = 2

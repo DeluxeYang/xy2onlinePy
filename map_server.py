@@ -13,10 +13,10 @@ class MapServer:
         self.map_x_pool = {}
 
     async def map_quest_handler(self, reader, writer):
+        client = writer.get_extra_info('peername')  # 返回套接字连接的远程地址
+        print('Received from {}'.format(client))  # 在控制台打印查询记录
         while True:
-            client = writer.get_extra_info('peername')  # 返回套接字连接的远程地址
-            print('Received from {}'.format(client))  # 在控制台打印查询记录
-            data = await reader.readuntil(b"}")
+            data = await reader.readline()
             request_data = eval(data.decode())
 
             print(request_data)
@@ -31,7 +31,7 @@ class MapServer:
     async def get_map_info(self, writer, map_id):
         map_x = self._get_map_x(map_id)
         send_data = {
-            'event': "receive_map_info",
+            'name': "receive_map_info",
             'map_id': map_x.map_id,
             'map_type': map_x.map_type,
             'map_width': map_x.map_width,
@@ -43,31 +43,35 @@ class MapServer:
             'n': map_x.n,
             'coordinate': map_x.coordinate
         }
-        writer.write(str(send_data).encode("utf-8"))
-        await writer.drain()
+        await self.drain(writer, send_data)
 
     async def get_map_unit(self, writer, map_id, unit_num):
         map_x = self._get_map_x(map_id)
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.001)
         jpeg, masks = map_x.read_unit(unit_num)
         send_data = {
-            'event': "receive_map_info",
+            'name': "receive_map_unit",
             'map_id': map_x.map_id,
+            'unit_num': unit_num,
             'jpeg': jpeg,
             'masks': masks
         }
-        writer.write(str(send_data).encode("utf-8"))
-        await writer.drain()
+        await self.drain(writer, send_data)
 
     async def get_path(self, writer, map_id, current, target, is_running):
         map_x = self._get_map_x(map_id)
         path_list = map_x.find_path(current, target)
         send_data = {
-            'action': "receive_path_list",
+            'name': "receive_path_list",
             'path_list': path_list,
             'is_running': is_running
         }
-        writer.write(str(send_data).encode("utf-8"))
+        print("p")
+        await self.drain(writer, send_data)
+
+    @staticmethod
+    async def drain(writer, send_data):
+        writer.write((str(send_data)).encode("utf-8") + b'\n')
         await writer.drain()
 
     def _get_map_x(self, map_id):

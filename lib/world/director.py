@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import asyncio
 from .scene import scene_factory
 
@@ -73,14 +74,17 @@ class Director:
                         _dict["name"] = thing[_dict["button"]]
                     else:
                         _dict["name"] = thing
-                    event_queue.append(Event(**_dict))
+                    event_queue.append(Event(_dict))
+                elif event.type == USEREVENT:
+                    event_queue.append(Event(_dict))
             # handle_event
             self.handle_events(event_queue)
             # update
             dt = fps.tick(self.fps)
 
             self.update(dt)
-            # draw
+
+            self._screen.fill((0, 0, 0))
             self.draw(self._screen)
 
             pygame.display.flip()

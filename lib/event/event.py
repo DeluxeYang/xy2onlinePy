@@ -1,11 +1,17 @@
+import pygame
+from pygame.locals import *
+
 class Event:
-    def __init__(self, **kwargs):
-        if "name" not in kwargs:
+    def __init__(self, data):
+        if "name" not in data:
             raise KeyError("Event must have a 'name'.")
-        for key, value in kwargs.items():
+        for key, value in data.items():
             self.__setattr__(key, value)
         self.handled = False
 
+def post_event(data_dict):
+    event = pygame.event.Event(USEREVENT, data_dict)
+    pygame.event.post(event)
 
 events = {
     12: "quit",
