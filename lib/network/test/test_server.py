@@ -18,7 +18,7 @@ class TChannel(Channel):
         print(data)
 
     def network_qwe(self, data):
-        print(data, "@@@@@@@")
+        self.transmit(data)
 
 
 class TServer(Server):

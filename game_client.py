@@ -27,3 +27,6 @@ class NetworkClient:
 
         }
         return data[player_id]
+
+
+network_client = NetworkClient()

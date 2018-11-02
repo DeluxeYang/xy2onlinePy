@@ -38,8 +38,11 @@ class ResourceClient(MapConnectionListener):
         }
         self.transmit(send_data)
 
+    def network_qwe(self, data):
+        print(data)
 
-scene_client = ResourceClient("localhost", 9999)
+
+scene_client = ResourceClient("localhost", 8001)
 scene_client.transmit({"action": "qwe", "data": b"1234"})
 while 1:
     map_connection.pump()
