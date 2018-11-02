@@ -1,13 +1,31 @@
 from __future__ import print_function
 
 from lib.network.end import End
-from lib.network.connection import ConnectionListener
+from lib.event.event import post_event
 
 from settings import ResourcePort
 
 map_connection = End()
 
-class MapClient(ConnectionListener):
+class MapConnectionListener:
+
+    def do_connect(self, *args, **kwargs):
+        map_connection.do_connect(*args, **kwargs)
+        # check for connection errors:
+        self.pump()
+
+    def pump(self):
+        for data in map_connection.get_queue():
+            [getattr(self, n)(data) for n in ("network_" + data['action'], "network") if hasattr(self, n)]
+
+    @staticmethod
+    def transmit(data):
+        """
+        Convenience method to allow this listener to appear
+        to send network data, whilst actually using connection. """
+        map_connection.transmit(data)
+
+class MapClient(MapConnectionListener):
     def __new__(cls, host, port):
         if not hasattr(cls, '_instance'):
             cls._instance = super().__new__(cls)
@@ -18,22 +36,22 @@ class MapClient(ConnectionListener):
 
     def request_map_info(self, map_id):
         send_data = {
-            'action': "get_map_info",
+            'action': "request_map_info",
             'map_file': map_id,
         }
         self.transmit(send_data)
 
     def request_map_unit(self, map_id, unit_num):
         send_data = {
-            'action': "get_map_unit",
+            'action': "request_map_unit",
             'map_file': map_id,
             'unit_num': unit_num
         }
         self.transmit(send_data)
 
-    def request_path_finding(self, map_id, current, target, is_running=True):
+    def request_find_path(self, map_id, current, target, is_running=True):
         send_data = {
-            'action': "find_path",
+            'action': "request_find_path",
             'map_file': map_id,
             'current': current,
             'target': target,
@@ -41,7 +59,9 @@ class MapClient(ConnectionListener):
         }
         self.transmit(send_data)
 
-    def network(self, data):
-        pass
+    @staticmethod
+    def network(data):
+        data["name"] = data["action"]
+        post_event(data)
 
 map_client = MapClient( "localhost", int(ResourcePort))

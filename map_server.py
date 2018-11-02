@@ -26,7 +26,7 @@ class MapUnitReadTask:
             'action': "receive_map_unit",
             'map_id': self.map_x.map_id,
             'unit_num': unit_num,
-            'jpg': jpeg,
+            'jpeg': jpeg,
             'masks': masks
         }
         self.channel.transmit(send_data)
@@ -37,8 +37,8 @@ class MapServerChannel(Channel):
         Channel.__init__(self, *args, **kwargs)
         self.map_x_pool = {}
 
-    def network(self):
-        pass
+    def network(self, data):
+        print(data)
 
     def network_request_map_info(self, data):
         """
@@ -72,7 +72,7 @@ class MapServerChannel(Channel):
         _task = MapUnitReadTask(self, map_x, data)
         queue.put(_task)
 
-    def network_find_path(self, data):
+    def network_request_find_path(self, data):
         """
         获取行走路径，直接返回
         :param data:
@@ -109,10 +109,9 @@ class MapServer(Server):
     def add_client(self, client):
         self.clients[client] = True
 
-resource_server = MapServer(local_address=("localhost", int(ResourcePort)))
+map_server = MapServer(local_address=("localhost", int(ResourcePort)))
 while True:
-    resource_server.pump()
+    map_server.pump()
     if not queue.empty():  # 检测有没有地图单元读取任务
         task = queue.get(block=False)
         task.run()
-    sleep(0.0001)
