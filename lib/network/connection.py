@@ -16,15 +16,9 @@ connection = End()
 
 
 class ConnectionListener:
-    """
-    Looks at incoming data and calls "Network_" methods in self, based on what messages come in.
-    Subclass this to have your own classes monitor incoming network messages.
-    For example, a method called "Network_players(self, data)" will be called when a message arrives like:
-        {"action": "players", "number": 5, ....}
-    """
 
-    def connect(self, *args, **kwargs):
-        connection.connect(*args, **kwargs)
+    def do_connect(self, *args, **kwargs):
+        connection.do_connect(*args, **kwargs)
         # check for connection errors:
         self.pump()
 
@@ -33,8 +27,8 @@ class ConnectionListener:
             [getattr(self, n)(data) for n in ("network_" + data['action'], "network") if hasattr(self, n)]
 
     @staticmethod
-    def send(data):
+    def transmit(data):
         """
         Convenience method to allow this listener to appear
         to send network data, whilst actually using connection. """
-        connection.send(data)
+        connection.transmit(data)

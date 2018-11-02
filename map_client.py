@@ -1,56 +1,47 @@
-import asyncio
+from __future__ import print_function
 
-from lib.event.event import post_event
-import logging
-log = logging.getLogger('')
+from lib.network.end import End
+from lib.network.connection import ConnectionListener
 
+from settings import ResourcePort
 
-class MapClient:
+map_connection = End()
+
+class MapClient(ConnectionListener):
+    def __new__(cls, host, port):
+        if not hasattr(cls, '_instance'):
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, host, port):
-        self.host = host
-        self.port = port
-        self.loop = None
-        self.running = True
-        self.reader = None
-        self.writer = None
-        self.send_q = asyncio.Queue()
+        self.do_connect((host, port))
 
-        self.read_task = None
-        self.send_task = None
+    def request_map_info(self, map_id):
+        send_data = {
+            'action': "get_map_info",
+            'map_file': map_id,
+        }
+        self.transmit(send_data)
 
-    async def connect(self, loop):
-        self.loop = loop
-        self.reader, self.writer = await asyncio.open_connection(self.host, self.port,
-                                                                 loop=self.loop, limit=2**32)
-        self.read_task = asyncio.create_task(self._handle_packets())
-        self.send_task = asyncio.create_task(self._send())
+    def request_map_unit(self, map_id, unit_num):
+        send_data = {
+            'action': "get_map_unit",
+            'map_file': map_id,
+            'unit_num': unit_num
+        }
+        self.transmit(send_data)
 
-    async def _handle_packets(self):
-        while self.running:
-            data = await self.reader.readline()
-            message = data.decode()
+    def request_path_finding(self, map_id, current, target, is_running=True):
+        send_data = {
+            'action': "find_path",
+            'map_file': map_id,
+            'current': current,
+            'target': target,
+            'is_running': is_running
+        }
+        self.transmit(send_data)
 
-            response = eval(message)
-            if response["name"] == "receive_map_info":
-                post_event(response)
-            elif response["name"] == "receive_map_unit":
-                post_event(response)
-            elif response["name"] == "receive_path_list":
-                post_event(response)
+    def network(self, data):
+        pass
 
-    def send(self, send_data):
-        data = str(send_data).encode() + b"\n"
-        self.send_q.put_nowait(data)
-
-    async def _send(self):
-        while self.running:
-            data = await self.send_q.get()
-            self.writer.write(data)
-            await self.writer.drain()
-
-    def disconnect(self):
-        print("MapClient Disconnect")
-        self.running = False
-        self.writer.close()
-        self.read_task.cancel()
-        self.send_task.cancel()
+map_client = MapClient( "localhost", int(ResourcePort))

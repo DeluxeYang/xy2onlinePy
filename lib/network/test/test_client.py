@@ -15,11 +15,11 @@ class MapConnectionListener:
         for data in map_connection.get_queue():
             [getattr(self, n)(data) for n in ("network_" + data['action'], "network") if hasattr(self, n)]
 
-    def send(self, data):
+    def transmit(self, data):
         """
         Convenience method to allow this listener to appear
         to send network data, whilst actually using connection. """
-        map_connection.send(data)
+        map_connection.transmit(data)
 
 
 class ResourceClient(MapConnectionListener):
@@ -36,11 +36,11 @@ class ResourceClient(MapConnectionListener):
             'action': "get_map_info",
             'map_file': map_path,
         }
-        self.send(send_data)
+        self.transmit(send_data)
 
 
 scene_client = ResourceClient("localhost", 9999)
-
+scene_client.transmit({"action": "qwe", "data": b"1234"})
 while 1:
     map_connection.pump()
     scene_client.pump()

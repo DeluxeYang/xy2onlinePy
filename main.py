@@ -1,7 +1,7 @@
 import asyncio
 
 from settings import *
-from map_client import MapClient
+from map_client_asyncio import MapClient
 from game_client import NetworkClient
 from lib.world.director import Director
 

@@ -1,37 +1,54 @@
-import asyncio
+from time import sleep
+from weakref import WeakKeyDictionary
+from queue import Queue
+
+from lib.network.channel import Channel
+from lib.network.server import Server
 
 from utils.map_x import MapX
 from settings import ResourcePort
 
+queue = Queue()
 
-class MapServer:
-    def __init__(self):
-        self.server = None
-        self.reader = None
-        self.writer = None
+class MapUnitReadTask:
+    """
+    地图读取任务包装
+    """
+    def __init__(self, channel, map_x, data):
+        self.channel = channel
+        self.data = data
+        self.map_x = map_x
 
+    def run(self):
+        unit_num = self.data["unit_num"]
+        jpeg, masks = self.map_x.read_unit(unit_num)
+        send_data = {
+            'action': "receive_map_unit",
+            'map_id': self.map_x.map_id,
+            'unit_num': unit_num,
+            'jpg': jpeg,
+            'masks': masks
+        }
+        self.channel.transmit(send_data)
+
+
+class MapServerChannel(Channel):
+    def __init__(self, *args, **kwargs):
+        Channel.__init__(self, *args, **kwargs)
         self.map_x_pool = {}
 
-    async def map_quest_handler(self, reader, writer):
-        client = writer.get_extra_info('peername')  # 返回套接字连接的远程地址
-        print('Received from {}'.format(client))  # 在控制台打印查询记录
-        while True:
-            data = await reader.readline()
-            request_data = eval(data.decode())
+    def network(self):
+        pass
 
-            print(request_data)
-            if request_data["request"] == "map_info":
-                await self.get_map_info(writer, request_data["map_id"])
-            elif request_data["request"] == "map_unit":
-                await self.get_map_unit(writer, request_data["map_id"], request_data["unit_num"])
-            elif request_data["request"] == "find_path":
-                await self.get_path(writer, request_data["map_id"], request_data["current"],
-                                    request_data["target"], request_data["is_running"])
-
-    async def get_map_info(self, writer, map_id):
-        map_x = self._get_map_x(map_id)
+    def network_request_map_info(self, data):
+        """
+        地图信息获取，直接返回
+        :param data:
+        :return:
+        """
+        map_x = self._get_map_x(data)
         send_data = {
-            'name': "receive_map_info",
+            'action': "receive_map_info",
             'map_id': map_x.map_id,
             'map_type': map_x.map_type,
             'map_width': map_x.map_width,
@@ -43,51 +60,59 @@ class MapServer:
             'n': map_x.n,
             'coordinate': map_x.coordinate
         }
-        await self.drain(writer, send_data)
+        self.transmit(send_data)
 
-    async def get_map_unit(self, writer, map_id, unit_num):
-        map_x = self._get_map_x(map_id)
-        await asyncio.sleep(0.001)
-        jpeg, masks = map_x.read_unit(unit_num)
-        send_data = {
-            'name': "receive_map_unit",
-            'map_id': map_x.map_id,
-            'unit_num': unit_num,
-            'jpeg': jpeg,
-            'masks': masks
-        }
-        await self.drain(writer, send_data)
+    def network_request_map_unit(self, data):
+        """
+        地图单元读取，放入队列，轮询读取
+        :param data:
+        :return:
+        """
+        map_x = self._get_map_x(data)
+        _task = MapUnitReadTask(self, map_x, data)
+        queue.put(_task)
 
-    async def get_path(self, writer, map_id, current, target, is_running):
-        map_x = self._get_map_x(map_id)
-        path_list = map_x.find_path(current, target)
+    def network_find_path(self, data):
+        """
+        获取行走路径，直接返回
+        :param data:
+        :return:
+        """
+        map_x = self._get_map_x(data)
+        path_list = map_x.find_path(data["current"], data["target"])
         send_data = {
-            'name': "receive_path_list",
+            'action': "receive_path_list",
             'path_list': path_list,
-            'is_running': is_running
+            'is_running': data["is_running"]
         }
-        print("p")
-        await self.drain(writer, send_data)
+        self.transmit(send_data)
 
-    @staticmethod
-    async def drain(writer, send_data):
-        writer.write((str(send_data)).encode("utf-8") + b'\n')
-        await writer.drain()
+    def _get_map_x(self, data):
+        map_path = data["map_file"]
+        if map_path not in self.map_x_pool:
+            self.map_x_pool[map_path] = MapX(map_path)
+        return self.map_x_pool[map_path]
 
-    def _get_map_x(self, map_id):
-        if map_id not in self.map_x_pool:
-            self.map_x_pool[map_id] = MapX(map_id)
-        return self.map_x_pool[map_id]
+class MapServer(Server):
+    channel_class  = MapServerChannel
 
-    async def loop(self, host, port):
-        self.server = await asyncio.start_server(self.map_quest_handler, host, port)
+    def __init__(self, *args, **kwargs):
+        self.id = 0
+        Server.__init__(self, *args, **kwargs)
+        self.clients = WeakKeyDictionary()
+        print('Server launched')
 
-        client_address = self.server.sockets[0].getsockname()
-        print(f'Serving on {client_address}')
+    def on_connected(self, channel, address):
+        print("New Map Client" + str(address))
+        self.add_client(channel)
 
-        async with self.server:
-            await self.server.serve_forever()
+    def add_client(self, client):
+        self.clients[client] = True
 
-
-map_server = MapServer()
-asyncio.run(map_server.loop("localhost", int(ResourcePort)))
+resource_server = MapServer(local_address=("localhost", int(ResourcePort)))
+while True:
+    resource_server.pump()
+    if not queue.empty():  # 检测有没有地图单元读取任务
+        task = queue.get(block=False)
+        task.run()
+    sleep(0.0001)

@@ -48,7 +48,7 @@ class End(Channel):
         self.close()
         self.queue.append({"action": "disconnected"})
 
-    def connected(self):
+    def on_connected(self):
         self.queue.append({"action": "socketConnect"})
 
     def network_connected(self, data):

@@ -18,18 +18,18 @@ class Channel(asynchat.async_chat):
         self._buffer += data
 
     def found_terminator(self):
-        data = self._buffer.decode("utf-8")
+        data = eval(self._buffer.decode("utf-8"))
         self._buffer = b""
         if isinstance(data, dict) and 'action' in data:
             [getattr(self, n)(data) for n in ('network_' + data['action'], 'network') if hasattr(self, n)]
         else:
-            print("Not Json Data: ", data)
+            print("Not Valid Data: ", data)
 
     def pump(self):
         [asynchat.async_chat.push(self, d) for d in self.send_queue]
         self.send_queue = []
 
-    def send(self, data):
+    def transmit(self, data):
         """Returns the number of bytes sent after encoding."""
         outgoing = (str(data) + self.end_chars).encode("utf-8")
         self.send_queue.append(outgoing)
