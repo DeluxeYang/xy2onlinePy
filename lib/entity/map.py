@@ -23,6 +23,7 @@ class Map(GameObject):
         self.window = Rect((0, 0), WindowSize)
 
         self.inited = False
+        self.ready = False
         self.mask = {}
         self.masks_of_unit = []
 
@@ -40,6 +41,7 @@ class Map(GameObject):
 
     def load(self):
         self._request_map_info()
+        print()
 
     def quest(self):
         """
@@ -56,29 +58,13 @@ class Map(GameObject):
                     self.quest_timer[i] = 0
 
     def _request_map_info(self):
-        send_data = {
-            'request': "map_info",
-            'map_id': self.map_id,
-        }
-        self.map_client.send(send_data)
+        self.map_client.request_map_info(self.map_id)
 
-    def _request_map_unit(self, unit_id):
-        send_data = {
-            'request': "map_unit",
-            'map_id': self.map_id,
-            'unit_num': unit_id
-        }
-        self.map_client.send(send_data)
+    def _request_map_unit(self, unit_num):
+        self.map_client.request_map_unit(self.map_id, unit_num)
 
     def find_path(self, mouse_pos, is_running):
-        send_data = {
-            'request': "find_path",
-            'map_id': self.map_id,
-            'current': self.window.center,
-            'target': mouse_pos,
-            'is_running': is_running
-        }
-        self.map_client.send(send_data)
+        self.map_client.request_find_path(self.map_id, self.window.center, mouse_pos, is_running)
 
     def update(self, dt):
         """
@@ -91,17 +77,23 @@ class Map(GameObject):
             no_repeat = {}
             masks = []
             units = self._quest_16(width_margin=60, height_margin=40)
+            flag = True
             for i in units:
+                if not self.unit_has_blitted[i]:
+                    flag = False
                 for mask in self.masks_of_unit[i]:
                     if (mask.rect.x, mask.rect.y) not in no_repeat:
                         no_repeat[(mask.rect.x, mask.rect.y)] = True
                         masks.append(mask)
+            self.ready = flag
+            # print(self.ready)
             # data["mask_list"] = masks
             # data["window_left_top_pos"] = self.get_left_top()
             # data["collision_window"] = self.get_collision_window()
 
     def draw(self, screen):
-        screen.blit(self.surface, (0, 0), self.window)
+        if self.ready:
+            screen.blit(self.surface, (0, 0), self.window)
 
     def receive_map_info(self, data):
         """
