@@ -1,14 +1,15 @@
 import pygame
 from pygame.locals import *
-import asyncio
+
 from .scene import scene_factory
 
 from lib.event.event import Event, events
 
+from map_client import map_client, map_connection
 
 class Director:
-    def __init__(self, map_client, network_client, loop,
-                 title="The Lib", resolution=(800, 600), fps=60):
+
+    def __init__(self, network_client, title="The Lib", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title
         self.resolution = resolution
@@ -20,9 +21,9 @@ class Director:
         self._scene = None
         self.old_scene = None
 
+        self.map_connection = map_connection
         self.map_client = map_client
         self.network_client = network_client
-        self.loop = loop
 
     @property
     def title(self):
@@ -47,10 +48,7 @@ class Director:
         if self.old_scene:
             self.old_scene.exit(self)
 
-    def start(self, scene=None):
-        self.run_task = asyncio.ensure_future(self.run(scene))
-
-    async def run(self, scene=None):
+    def run(self, scene=None):
         if scene is None:
             if self._scene is None:
                 raise ValueError('No scene provided')
@@ -63,7 +61,6 @@ class Director:
         fps = pygame.time.Clock()
 
         while self.running:
-            await asyncio.sleep(0)
             # event pack
             event_queue = []
             for event in pygame.event.get():
@@ -85,9 +82,13 @@ class Director:
             self.update(dt)
 
             self._screen.fill((0, 0, 0))
+
             self.draw(self._screen)
 
             pygame.display.flip()
+
+            self.map_connection.pump()
+            self.map_client.pump()
 
     def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
@@ -113,7 +114,4 @@ class Director:
 
     def on_quit(self, event):
         self.running = False
-        self.map_client.disconnect()
-        self.run_task.cancel()
-        self.loop.stop()
         event.handled = True
