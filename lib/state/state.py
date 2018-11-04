@@ -1,8 +1,11 @@
 class State:
     def __init__(self):
-        pass
+        self.game_object = None
 
-    def update(self, dt):
+    def register(self, obj):
+        self.game_object = obj
+
+    def update(self, data):
         pass
 
     def draw(self, screen):
