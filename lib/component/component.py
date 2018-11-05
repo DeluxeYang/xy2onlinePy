@@ -27,7 +27,7 @@ class Component:
         self.game_object = obj
         self.game_object.components.append(self)
 
-        method_list = [func for func in dir(self) if callable(getattr(self, func)) and func[:2] != "__"]
+        method_list = [func for func in dir(self) if callable(getattr(self, func)) and func[:1] != "_"]
         event_flag = False
         do_not_register = False
         for method_name in method_list:
@@ -48,6 +48,7 @@ class Component:
                     elif method_name == "draw":
                         self.game_object.draw_components.append(self)
                     elif method_name[:2] == "on" and not event_flag:
+
                         self.game_object.event_components.append(self)
                         event_flag = True
                 do_not_register = False
