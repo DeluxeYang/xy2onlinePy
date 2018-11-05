@@ -12,7 +12,6 @@ class MapMouseComponent(Component):
 
 class MapReceiveComponent(Component):
     def on_receive_map_info(self, event):
-        print(event.__dict__)
         if self.game_object.map_id == event.map_id:
             self.game_object.receive_map_info(event.__dict__)
             event.handled = True

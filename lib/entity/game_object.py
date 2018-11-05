@@ -4,6 +4,9 @@ from lib.component.component import Component
 
 
 class GameObject:
+    """
+    组件与状态混用
+    """
     def __init__(self, *components):
         self.rect = Rect((0, 0), (0, 0))  # GameObject矩形
 
@@ -13,7 +16,12 @@ class GameObject:
 
         self._state = None
 
-        self._components = []
+        self.components = []
+        self.event_components = []
+        self.early_update_components = []
+        self.update_components = []
+        self.late_update_components = []
+        self.draw_components = []
 
     def add_components(self, *components):
         for component in components:
@@ -21,37 +29,29 @@ class GameObject:
 
     def add_component(self, component):
         if isinstance(component, Component):
-            self._components.append(component)
-            component.start(self)
+            component.register(self)
 
-    def remove_component(self, component):
-        if component is None or not isinstance(component, Component):
-            return
-        self._components.remove(component)
-
-    def send_message(self, string, data=None):
-        for component in self._components:
-            result = component.handle_message(string, data)
+    def send_message(self, message, data=None):
+        for component in self.components:
+            result = component.handle_message(message, data)
             if result is not None:
                 return result
 
     def handle_event(self, event):
-        for component in self._components:
+        for component in self.event_components:
             component.handle_event(event)
 
     def update(self, dt):
-        for component in self._components:
+        for component in self.early_update_components:
             component.early_update()
-        for component in self._components:
+        for component in self.update_components:
             component.update(dt)
         self._state.update()
-        for component in self._components:
+        for component in self.late_update_components:
             component.late_update()
 
     def draw(self, screen):
-        for component in self._components:
+        for component in self.draw_components:
             component.draw(screen)
         self._state.draw(screen)
-
-    def late_draw(self, screen):
         self._state.late_draw(screen)
