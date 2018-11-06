@@ -205,7 +205,8 @@ characters = {
                 "name": "飞剑侠",
                 "gender": 1,
                 "run": ["shape.wd1", "0x91939A14"],  #
-                "stand": [["shape.wd1", "0xF03537C9"], ["shape.wd1", "0xAD85A6C0"]],  #
+                "stand_normal": ["shape.wd1", "0xF03537C9"],
+                "stand_tease": ["shape.wd1", "0xAD85A6C0"],  #
                 "walk": ["shape.wd1", "0x8D750366"],  #
                 "weapon": {
                     "sword": {

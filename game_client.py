@@ -1,3 +1,5 @@
+from res.Characters import characters
+
 class NetworkClient:
     def __init__(self):
         pass
@@ -21,12 +23,15 @@ class NetworkClient:
             "00001": {
                 "id": "00001",
                 "name": "Deluxe",
+                "character": ["ren", "old_1", "feijianxia"],
                 "map_id": "newscene/1410.map",
                 "position": (500, 500),
             }
-
         }
         return data[player_id]
+
+    def get_character(self, character_index):
+        return characters[character_index[0]][character_index[1]][character_index[2]]
 
 
 network_client = NetworkClient()
