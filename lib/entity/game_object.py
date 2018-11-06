@@ -9,8 +9,6 @@ class GameObject:
     组件与状态混用
     """
     def __init__(self):
-        self.rect = Rect((0, 0), (0, 0))  # GameObject矩形
-
         self.x = 0  # GameObject关键点 X
         self.y = 0  # GameObject关键点 Y
         self.z = 0  # GameObject Z序
@@ -39,6 +37,8 @@ class GameObject:
         if isinstance(state, State):  # 如果是State实例
             self._state = state
             self._state.register(self)
+            # if not self.old_state:
+            #     self.old_state = self._state
 
     def send_message(self, message, data=None):
         for component in self.components:
@@ -50,19 +50,36 @@ class GameObject:
         for component in self.event_components:
             component.handle_event(event)
 
-    def update(self, data):
+    def early_update(self, data):
         if self.inited:
             for component in self.early_update_components:
-                component.early_update()
+                component.early_update(data)
+
+    def update(self, data):
+        if self.inited:
             for component in self.update_components:
                 component.update(data)
             self._state.update(data)
-            for component in self.late_update_components:
-                component.late_update()
+
+    def late_update(self, data):
+        for component in self.late_update_components:
+            component.late_update(data)
 
     def draw(self, screen):
         if self.ready:
             for component in self.draw_components:
                 component.draw(screen)
-            self._state.draw(screen)
+            self.old_state.draw(screen)
+
+    def late_draw(self, screen):
+        if self.ready:
             self._state.late_draw(screen)
+
+    def get_xy(self):
+        return self.x, self.y
+
+    def changing_state(self, next_state):
+        if not isinstance(self._state, type(next_state)):
+            self._state.exit()
+            self.init_state(next_state)
+            self._state.enter()

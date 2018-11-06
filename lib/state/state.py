@@ -5,6 +5,9 @@ class State:
     def register(self, obj):
         self.game_object = obj
 
+    def enter(self):
+        pass
+
     def update(self, data):
         pass
 
@@ -12,4 +15,7 @@ class State:
         pass
 
     def late_draw(self, screen):
+        pass
+
+    def exit(self):
         pass
