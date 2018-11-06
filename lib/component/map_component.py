@@ -13,9 +13,11 @@ class MapMouseComponent(Component):
         # self.game_object.find_path(event.pos, is_running=True)
 
     def on_mouse_left_down(self, event):
+        left_top = self.game_object.get_left_top()
         self.game_object.map_client.request_find_path(self.game_object.map_id,
                                                       self.game_object.window.center,
-                                                      event.pos, is_running=False)
+                                                      (event.pos[0]+left_top[0], event.pos[1]+left_top[1]),
+                                                      is_running=False)
 
 
 class MapReceiveComponent(Component):
@@ -50,9 +52,6 @@ class MapReceiveComponent(Component):
                         print(e)
                 self.game_object.masks_of_unit[event.unit_num] = masks  # 将该unit对应Mask放入对应位置
             event.handled = True
-
-    def on_receive_path_list(self, event):
-        print(event.__dict__)
 
     def on_update_map_window(self, world_pc):
         pass
@@ -97,7 +96,7 @@ class MapReceiveComponent(Component):
 
 
 class MapQuestComponent(Component):
-    def early_update(self):
+    def early_update(self, data=None):
         units_needed = quest_25(self.game_object.window, self.game_object.row, self.game_object.col)
         for i in units_needed:
             if not self.game_object.unit_has_blitted[i]:  # 如果该单元还没有数据
@@ -106,27 +105,6 @@ class MapQuestComponent(Component):
                 self.game_object.quest_timer[i] = +1
                 if self.game_object.quest_timer[i] == 5:  # 累计请求5次后重置为0
                     self.game_object.quest_timer[i] = 0
-
-
-class MapUpdateComponent(Component):
-    def update(self, data=None):
-        no_repeat = {}
-        masks = []
-        units = quest_16(self.game_object.window, self.game_object.row, self.game_object.col,
-                         width_margin=60, height_margin=40)
-        flag = True
-        for i in units:
-            if not self.game_object.unit_has_blitted[i]:
-                flag = False
-            for mask in self.game_object.masks_of_unit[i]:
-                if (mask.rect.x, mask.rect.y) not in no_repeat:
-                    no_repeat[(mask.rect.x, mask.rect.y)] = True
-                    masks.append(mask)
-        self.game_object.ready = flag
-        # print(self.ready)
-        # event.mask_list = masks
-        # event.window_left_top_pos = self.get_left_top()
-        # event.collision_window = self.get_collision_window()
 
 
 class Mask:
