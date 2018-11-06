@@ -62,14 +62,15 @@ class GameObject:
             self._state.update(data)
 
     def late_update(self, data):
-        for component in self.late_update_components:
-            component.late_update(data)
+        if self.inited:
+            for component in self.late_update_components:
+                component.late_update(data)
 
     def draw(self, screen):
         if self.ready:
             for component in self.draw_components:
                 component.draw(screen)
-            self.old_state.draw(screen)
+            self._state.draw(screen)
 
     def late_draw(self, screen):
         if self.ready:
@@ -78,8 +79,10 @@ class GameObject:
     def get_xy(self):
         return self.x, self.y
 
-    def changing_state(self, next_state):
+    def changing_state(self, next_state, data=None):
         if not isinstance(self._state, type(next_state)):
             self._state.exit()
             self.init_state(next_state)
             self._state.enter()
+            if data:
+                self._state.update(data)

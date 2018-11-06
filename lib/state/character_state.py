@@ -18,7 +18,7 @@ class CharacterStandNormalState(AnimationState):
         if one_loop:
             self.loops_count += 1
             if self.loops_count >= 3:
-                self.game_object.changing_state(CharacterStandTeaseState())
+                self.game_object.changing_state(CharacterStandTeaseState(), data)
 
 
 class CharacterStandTeaseState(AnimationState):
@@ -27,27 +27,26 @@ class CharacterStandTeaseState(AnimationState):
     def update(self, data):
         one_loop = self._update(data)
         if one_loop:
-            self.game_object.changing_state(CharacterStandNormalState())
+            self.game_object.changing_state(CharacterStandNormalState(), data)
 
 
 class CharacterMovingState(AnimationState):
     speed = 5
 
     def update(self, data):
-        self._update(data)
         self.calc_next_target()
         if is_same_coordinate(self.game_object.get_xy(), self.game_object.target):  # 如果已经到达目标坐标点
-            self.game_object.changing_state(CharacterStandNormalState())
+            self.game_object.changing_state(CharacterStandNormalState(), data)
         else:
             self.game_object.direction = calc_direction_8(self.game_object)
             self.move(self.speed)
+        self._update(data)
 
     def calc_next_target(self):
         if len(self.game_object.target_list) > 0:
             if self.game_object.is_new_target or is_same_coordinate(self.game_object.get_xy(), self.game_object.target):
                 self.game_object.is_new_target = False
-                self.game_object.target = self.game_object.target_list[0]
-                self.game_object.target_list.pop(0)
+                self.game_object.target = self.game_object.target_list.pop(0)
 
     def move(self, speed):
         vector = Vector2()

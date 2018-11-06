@@ -9,7 +9,7 @@ from map_client import map_client, map_connection
 
 class Director:
 
-    def __init__(self, network_client, title="The Lib", resolution=(800, 600), fps=10):
+    def __init__(self, network_client, title="The Lib", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title
         self.resolution = resolution

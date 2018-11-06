@@ -35,9 +35,6 @@ class Layer:
             self.children.append(game_object)
 
 class MapLayer(Layer):
-    def late_update(self, data):
-        pass
-
     def draw(self, screen):
         self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:

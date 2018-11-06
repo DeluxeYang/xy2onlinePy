@@ -5,7 +5,7 @@ def get_screen_rect_pc(left_top, world_pc):
 
 
 def is_same_coordinate(current, target):
-    return abs(target[0] - current[0]) < 5 and abs(target[1] - current[1]) < 5
+    return abs(target[0] - current[0]) < 1 and abs(target[1] - current[1]) < 1
 
 
 def calc_direction_8(obj):
