@@ -9,7 +9,7 @@ class Scene:
         self.title = ""
         self.resolution = (800, 600)
 
-    def network_init(self):
+    def load(self):
         data = self.director.network_client.get_scene(self.map_id)
         self.title = data["title"]
         self.resolution = data["resolution"]
@@ -23,16 +23,21 @@ class Scene:
                 if event.handled:  # 如果被handle则退出
                     break
 
-    def update(self, dt):
-        for layer in self.layers:  # 遍历每个layer
-            layer.update(dt)
+    def update(self, data):
+        reversed_layers = self.layers[::-1]
+        for layer in reversed_layers:  # 遍历每个layer  early_update
+            layer.early_update(data)
+        for layer in reversed_layers:  # 遍历每个layer  update
+            layer.update(data)
+        for layer in reversed_layers:  # 遍历每个layer  late_update
+            layer.late_update(data)
 
     def draw(self, screen):
         for layer in self.layers[::-1]:  # 逆序遍历每个layer
             layer.draw(screen)
 
-    def add_layer(self, layer, z=0):
-        self.layers.insert(z, layer)
+    def add_layer(self, layer):
+        self.layers.append(layer)
 
     def enter(self, director):
         director.title = self.title
@@ -44,15 +49,15 @@ class Scene:
 
 def scene_factory(map_id, director):
     scene = Scene(map_id, director)
-    scene.network_init()
+    scene.load()
 
-    map_layer = map_layer_factory(map_id, director.map_client, director.network_client)
-    scene.add_layer(map_layer)
+    ui_layer = ui_layer_factory(director.network_client)  # ui层，最近
+    scene.add_layer(ui_layer)
 
     shape_layer = shape_layer_factory(director.network_client)
     scene.add_layer(shape_layer)
 
-    ui_layer = ui_layer_factory(director.network_client)  # ui层，最近
-    scene.add_layer(ui_layer)
+    map_layer = map_layer_factory(map_id, director.map_client, director.network_client)
+    scene.add_layer(map_layer)
 
     return scene

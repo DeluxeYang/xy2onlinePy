@@ -9,7 +9,7 @@ from map_client import map_client, map_connection
 
 class Director:
 
-    def __init__(self, network_client, title="The Lib", resolution=(800, 600), fps=60):
+    def __init__(self, network_client, title="The Lib", resolution=(800, 600), fps=10):
         pygame.init()
         self.title = title
         self.resolution = resolution
@@ -60,6 +60,14 @@ class Director:
 
         fps = pygame.time.Clock()
 
+        running_data = {
+            "delta_time": 0.0,
+            "current_time": 0.0,
+            "other_masks": [],
+            "left_top": (0, 0),
+            "collision_window": Rect((0, 0), (0, 0))
+        }
+
         while self.running:
             # event pack
             event_queue = []
@@ -77,9 +85,10 @@ class Director:
             # handle_event
             self.handle_events(event_queue)
             # update
-            dt = fps.tick(self.fps)
+            running_data["delta_time"] = fps.tick(self.fps)
+            running_data["current_time"] = pygame.time.get_ticks()
 
-            self.update(dt)
+            self.update(running_data)
 
             self._screen.fill((0, 0, 0))
 
@@ -97,8 +106,8 @@ class Director:
             if not event.handled:  # 如果该事件没有被handle
                 self._scene.handle_event(event)  # 则继续向下级传递
 
-    def update(self, dt):
-        self._scene.update(dt)
+    def update(self, data):
+        self._scene.update(data)
 
     def draw(self, screen):
         self._scene.draw(screen)
