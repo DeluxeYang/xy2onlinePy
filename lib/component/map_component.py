@@ -4,20 +4,25 @@ import numpy
 from io import BytesIO
 
 from .component import Component
-from utils.math import quest_16, quest_25
+from utils.math import quest_25
 
 
 class MapMouseComponent(Component):
     def on_mouse_right_down(self, event):
-        self.game_object.set_window(self.game_object.get_world_pc(event.pos))
-        # self.game_object.find_path(event.pos, is_running=True)
+        left_top = self.game_object.get_left_top()
+        self.game_object.map_client.request_find_path(
+            self.game_object.map_id,
+            self.game_object.me_world_pc,
+            (event.pos[0] + left_top[0], event.pos[1] + left_top[1]),
+            is_running=True)
 
     def on_mouse_left_down(self, event):
         left_top = self.game_object.get_left_top()
-        self.game_object.map_client.request_find_path(self.game_object.map_id,
-                                                      self.game_object.window.center,
-                                                      (event.pos[0]+left_top[0], event.pos[1]+left_top[1]),
-                                                      is_running=False)
+        self.game_object.map_client.request_find_path(
+            self.game_object.map_id,
+            self.game_object.me_world_pc,
+            (event.pos[0]+left_top[0], event.pos[1]+left_top[1]),
+            is_running=False)
 
 
 class MapReceiveComponent(Component):
@@ -95,7 +100,7 @@ class MapReceiveComponent(Component):
         return self.game_object.mask[(x, y)]
 
 
-class MapQuestComponent(Component):
+class MapUpdateComponent(Component):
     def early_update(self, data=None):
         units_needed = quest_25(self.game_object.window, self.game_object.row, self.game_object.col)
         for i in units_needed:
@@ -105,6 +110,10 @@ class MapQuestComponent(Component):
                 self.game_object.quest_timer[i] = +1
                 if self.game_object.quest_timer[i] == 5:  # 累计请求5次后重置为0
                     self.game_object.quest_timer[i] = 0
+
+    def late_update(self, data=None):
+        self.game_object.set_window(data["me_world_pc"])
+        self.game_object.me_world_pc = data["me_world_pc"]
 
 
 class Mask:

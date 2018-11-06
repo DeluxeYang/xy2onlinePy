@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from lib.entity.game_object import GameObject
 from lib.component.map_component import MapMouseComponent, MapReceiveComponent,\
-    MapQuestComponent
+    MapUpdateComponent
 from lib.state.map_state import MapState
 
 from settings import WindowSize
@@ -26,7 +26,9 @@ class Map(GameObject):
         self.ready = False
         self.mask = {}
         self.masks_of_unit = []
+
         self.left_top = (0, 0)
+        self.me_world_pc = (0, 0)
 
         self.map_type = 0
         self.map_width = 0
@@ -96,5 +98,5 @@ def map_factory(map_id, map_client, network_client):
     _map.init_state(MapState())
     _map.add_component(MapMouseComponent())
     _map.add_component(MapReceiveComponent())
-    _map.add_component(MapQuestComponent())
+    _map.add_component(MapUpdateComponent())
     return _map

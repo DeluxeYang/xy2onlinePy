@@ -9,7 +9,6 @@ from lib.state.character_state import CharacterRunningState, CharacterWalkingSta
 
 class MainCharacterComponent(Component):
     def on_receive_path_list(self, event):
-        print(event, self.game_object)
         self.game_object.target_list = event.path_list
         self.game_object.is_new_target = True
         self.game_object.is_running = event.is_running

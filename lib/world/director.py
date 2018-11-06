@@ -65,7 +65,8 @@ class Director:
             "current_time": 0.0,
             "other_masks": [],
             "left_top": (0, 0),
-            "collision_window": Rect((0, 0), (0, 0))
+            "collision_window": Rect((0, 0), (0, 0)),
+            "me_world_pc": (0, 0),
         }
 
         while self.running:

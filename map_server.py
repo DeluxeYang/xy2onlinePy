@@ -10,6 +10,7 @@ from settings import ResourcePort
 
 queue = Queue()
 
+
 class MapUnitReadTask:
     """
     地图读取任务包装
@@ -93,8 +94,9 @@ class MapServerChannel(Channel):
             self.map_x_pool[map_path] = MapX(map_path)
         return self.map_x_pool[map_path]
 
+
 class MapServer(Server):
-    channel_class  = MapServerChannel
+    channel_class = MapServerChannel
 
     def __init__(self, *args, **kwargs):
         self.id = 0
@@ -108,6 +110,7 @@ class MapServer(Server):
 
     def add_client(self, client):
         self.clients[client] = True
+
 
 map_server = MapServer(local_address=("localhost", int(ResourcePort)))
 while True:

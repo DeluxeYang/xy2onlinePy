@@ -44,6 +44,7 @@ class AnimationState(State):
         self.game_object.mask = self.get_mask(self.game_object.direction)  # 设定shape对应的mask
         self.game_object.ready = True
         self.game_object.screen_rect = self.get_screen_rect(data["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
+        data["me_world_pc"] = self.game_object.get_xy()
         return one_loop
 
     def draw(self, _screen, highlight=False):
