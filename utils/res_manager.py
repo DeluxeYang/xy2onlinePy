@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from PIL import Image
 from io import BytesIO
-from settings import Res_Margin
+from settings import ResMargin
 from utils.wdf import WDF
 from utils.mask import Mask
 
@@ -60,10 +60,10 @@ class ResManager:
                 rect = Rect(0, 0, 0, 0)
                 for j in range(_instance.direction_pic_num):
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
-                    image = pygame.Surface((_instance.width+Res_Margin*2,
-                                            _instance.height+Res_Margin*2), pygame.SRCALPHA)
+                    image = pygame.Surface((_instance.width+ResMargin*2,
+                                            _instance.height+ResMargin*2), pygame.SRCALPHA)
                     im = pygame.image.frombuffer(pic.data, (pic.width, pic.height), "RGBA").convert_alpha()
-                    position = (_instance.x+Res_Margin - pic.x, _instance.y+Res_Margin - pic.y)  # was关键点 - 帧图片关键点
+                    position = (_instance.x+ResMargin - pic.x, _instance.y+ResMargin - pic.y)  # was关键点 - 帧图片关键点
                     image.blit(im, position)
                     _surface.append(image)
                     if with_mask:

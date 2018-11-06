@@ -2,7 +2,7 @@
 import binascii
 
 from utils.xy2_res import read_color_palette, read_pic
-from settings import XY2_PATH
+from settings import XY2PATH
 
 """
 WDF --> WdfFile --> WAS
@@ -15,7 +15,7 @@ class WDF:
     """
     def __init__(self, name):
         self.name = name
-        self.path = XY2_PATH + name
+        self.path = XY2PATH + name
         self.hand = None
         self.flag = None  # 文件标签50，46，44，57
         self.n = 0
