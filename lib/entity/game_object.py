@@ -1,3 +1,4 @@
+import pygame
 from pygame.locals import *
 
 from lib.state.state import State
@@ -9,6 +10,8 @@ class GameObject:
     组件与状态混用
     """
     def __init__(self):
+        self.surface = pygame.Surface((0, 0))
+
         self.x = 0  # GameObject关键点 X
         self.y = 0  # GameObject关键点 Y
         self.z = 0  # GameObject Z序

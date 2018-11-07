@@ -7,6 +7,7 @@ from settings import ResMargin
 
 bright = pygame.Surface((400, 400), flags=pygame.SRCALPHA)
 bright.fill((80, 80, 80, 0))
+ResMargin_2 = ResMargin * 2
 
 
 class AnimationState(State):
@@ -18,7 +19,7 @@ class AnimationState(State):
     def __init__(self):
         super().__init__()
         self.res = None
-        self.surface = None
+
         self.frame = 0
         self.first_frame = 0
         self.last_frame = 0
@@ -54,9 +55,10 @@ class AnimationState(State):
         :param highlight:
         :return:
         """
-        surface = self.surface.copy()
-        if highlight:
+        surface = self.game_object.surface.copy()
+        if self.game_object.is_mouse_over:
             surface.blit(bright, (0, 0), special_flags=BLEND_RGB_ADD)
+            self.game_object.is_mouse_over = False
         _screen.blit(surface, self.game_object.screen_rect)
 
     def get_mask(self, direction):
@@ -88,9 +90,9 @@ class AnimationState(State):
         """
         if self.frame != self.old_frame:
             if other_masks:
-                self.surface = self.get_image_under_mask(direction, other_masks, world_pc)
+                self.game_object.surface = self.get_image_under_mask(direction, other_masks, world_pc)
             else:
-                self.surface = self.get_image(direction)
+                self.game_object.surface = self.get_image(direction)
             self.old_frame = self.frame
 
     def get_image(self, direction):
@@ -99,7 +101,8 @@ class AnimationState(State):
         :param direction:
         :return:
         """
-        return self.res.image_group[direction][self.frame]
+        surface = self.res.image_group[direction][self.frame].copy()
+        return surface
 
     def get_image_under_mask(self, direction, other_masks, world_pc):
         """
@@ -136,8 +139,8 @@ class AnimationState(State):
     def get_world_rect(self):
         x = int(self.game_object.x) - ResMargin - self.res.x
         y = int(self.game_object.y) - ResMargin - self.res.y
-        w = self.res.w
-        h = self.res.h
+        w = self.res.w + ResMargin_2
+        h = self.res.h + ResMargin_2
         return Rect(x, y, w, h)
 
     def get_screen_rect(self, left_top):
