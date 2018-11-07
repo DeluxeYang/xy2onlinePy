@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from .scene import scene_factory
 
-from lib.event.event import Event, events
+from lib.event.event import event_filter
 
 from map_client import map_client, map_connection
 
@@ -70,19 +70,7 @@ class Director:
         }
 
         while self.running:
-            # event pack
-            event_queue = []
-            for event in pygame.event.get():
-                _dict = event.__dict__
-                if event.type in events:
-                    thing = events[event.type]
-                    if isinstance(thing, dict):  # 如果有二级列表
-                        _dict["name"] = thing[_dict["button"]]
-                    else:
-                        _dict["name"] = thing
-                    event_queue.append(Event(_dict))
-                elif event.type == USEREVENT:
-                    event_queue.append(Event(_dict))
+            event_queue = event_filter()
             # handle_event
             self.handle_events(event_queue)
             # update
