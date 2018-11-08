@@ -40,6 +40,12 @@ class MapReceiveComponent(Component):
             self.game_object.surface = pygame.Surface((event.map_width, event.map_height))  # 整个地图Surface
             self.game_object.unit_has_blitted = [False for _ in range(event.n)]
             self.game_object.masks_of_unit = [[] for _ in range(event.n)]
+            self.game_object.portals_of_unit = [[] for _ in range(event.n)]
+            for portal in self.game_object.portals:
+                col = portal["position"][0] // self.game_object.unit_width
+                row = portal["position"][1] // self.game_object.unit_height
+                n = row * self.game_object.col + col
+                self.game_object.portals_of_unit[n].append(portal)
             self.game_object.quest_timer = [0 for _ in range(event.n)]
             self.game_object.inited = True
 

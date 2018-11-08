@@ -26,6 +26,8 @@ class Map(GameObject):
         self.ready = False
         self.mask = {}
         self.masks_of_unit = []
+        self.portals = {}
+        self.portals_of_unit = []
 
         self.left_top = (0, 0)
         self.me_world_pc = (0, 0)
@@ -42,7 +44,11 @@ class Map(GameObject):
 
         self.target = (0, 0)
 
+        self.load()
+
+    def load(self):
         self.map_client.request_map_info(self.map_id)
+        self.portals = self.network_client.get_map_portals(self.map_id)
 
     def get_world_pc(self, screen_pos):
         """

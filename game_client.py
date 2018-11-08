@@ -1,19 +1,19 @@
 from res.Characters import characters
+from res.MapInfo import map_info
 
 class NetworkClient:
     def __init__(self):
         pass
 
     def get_scene(self, map_id):
-        data = {
-            "newscene/1410.map": {
-                "title": "大话西游",
-                "resolution": (800, 600),
-                "portal": [],
-                "npc": [],
-            }
+        temp_data = {
+            "title": map_info[map_id]["title"],
+            "resolution": map_info[map_id]["resolution"],
         }
-        return data[map_id]
+        return temp_data
+
+    def get_map_portals(self, map_id):
+        return map_info[map_id]["portal"]
 
     def get_players_around(self):
         pass
