@@ -41,15 +41,28 @@ class MapReceiveComponent(Component):
             self.game_object.unit_has_blitted = [False for _ in range(event.n)]
             self.game_object.masks_of_unit = [[] for _ in range(event.n)]
             self.game_object.portals_of_unit = [[] for _ in range(event.n)]
+            self.game_object.quest_timer = [0 for _ in range(event.n)]
+            self.game_object.inited = True
+            self._request_map_portals()  # 地图初始化后
+
+            event.handled = True
+
+    def _request_map_portals(self):
+        # TODO  network_client发送请求portals
+        self.game_object.portals = self.game_object.network_client.get_map_portals(self.game_object.map_id)
+        # TODO  然后network_client收到回复后，会发送以下事件
+        event = pygame.event.Event(24, {"name": "receive_map_portals", "map_id": self.game_object.map_id})
+        pygame.event.post(event)
+
+    def on_receive_map_portals(self, event):
+        if self.game_object.map_id == event.map_id:
             for portal in self.game_object.portals:
                 col = portal["position"][0] // self.game_object.unit_width
                 row = portal["position"][1] // self.game_object.unit_height
                 n = row * self.game_object.col + col
                 self.game_object.portals_of_unit[n].append(portal)
-            self.game_object.quest_timer = [0 for _ in range(event.n)]
-            self.game_object.inited = True
-
             event.handled = True
+            print(self.game_object.portals_of_unit)
 
     def on_receive_map_unit(self, event):
         if self.game_object.map_id == event.map_id:
@@ -116,6 +129,9 @@ class MapUpdateComponent(Component):
                 self.game_object.quest_timer[i] = +1
                 if self.game_object.quest_timer[i] == 5:  # 累计请求5次后重置为0
                     self.game_object.quest_timer[i] = 0
+
+    def update(self, data=None):
+        self.game_object.portals_of_unit
 
     def late_update(self, data=None):
         self.game_object.set_window(data["me_world_pc"])

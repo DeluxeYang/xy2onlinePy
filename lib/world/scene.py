@@ -1,5 +1,6 @@
 from lib.world.layer import map_layer_factory, shape_layer_factory, ui_layer_factory
 
+
 class Scene:
     def __init__(self, map_id, director):
         self.director = director
@@ -8,6 +9,8 @@ class Scene:
         self.map_id = map_id
         self.title = ""
         self.resolution = (800, 600)
+
+        self.load()
 
     def load(self):
         data = self.director.network_client.get_scene(self.map_id)
@@ -49,7 +52,6 @@ class Scene:
 
 def scene_factory(map_id, director):
     scene = Scene(map_id, director)
-    scene.load()
 
     ui_layer = ui_layer_factory(director.network_client)  # ui层，最近
     scene.add_layer(ui_layer)

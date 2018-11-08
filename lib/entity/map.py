@@ -48,7 +48,6 @@ class Map(GameObject):
 
     def load(self):
         self.map_client.request_map_info(self.map_id)
-        self.portals = self.network_client.get_map_portals(self.map_id)
 
     def get_world_pc(self, screen_pos):
         """

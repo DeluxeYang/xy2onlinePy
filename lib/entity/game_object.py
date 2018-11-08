@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import *
 
 from lib.state.state import State
 from lib.component.component import Component
@@ -11,6 +10,9 @@ class GameObject:
     """
     def __init__(self):
         self.surface = pygame.Surface((0, 0))
+
+        self.parent = None
+        self.sub_game_objects = []
 
         self.x = 0  # GameObject关键点 X
         self.y = 0  # GameObject关键点 Y
@@ -40,8 +42,6 @@ class GameObject:
         if isinstance(state, State):  # 如果是State实例
             self._state = state
             self._state.register(self)
-            # if not self.old_state:
-            #     self.old_state = self._state
 
     def send_message(self, message, data=None):
         for component in self.components:

@@ -2,6 +2,7 @@ from lib.entity.game_object import GameObject
 from lib.entity.map import map_factory
 from lib.entity.character import character_factory
 
+
 class Layer:
     def __init__(self):
         self.children = []  # GameObject列表
@@ -34,17 +35,20 @@ class Layer:
         if isinstance(game_object, GameObject):
             self.children.append(game_object)
 
+
 class MapLayer(Layer):
     def draw(self, screen):
         self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:
             child.draw(screen)
 
+
 def map_layer_factory(map_id, map_client, network_client):
     map_layer = MapLayer()
     _map = map_factory(map_id, map_client, network_client)
     map_layer.add_game_object(_map)
     return map_layer
+
 
 class ShapeLayer(Layer):
     def draw(self, screen):
@@ -54,17 +58,20 @@ class ShapeLayer(Layer):
         for child in self.children:
             child.late_draw(screen)
 
+
 def shape_layer_factory(network_client):
     shape_layer = ShapeLayer()
     character = character_factory("00001", network_client)
     shape_layer.add_game_object(character)
     return shape_layer
 
+
 class UILayer(Layer):
     def draw(self, screen):
         self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:
             child.draw(screen)
+
 
 def ui_layer_factory(network_client):
     ui_layer = UILayer()
