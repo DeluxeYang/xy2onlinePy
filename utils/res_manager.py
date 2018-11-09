@@ -43,14 +43,14 @@ class ResManager:
         :param with_mask:  是否生成对应的mask
         :return:
         """
+        if (wdf_name, _hash) in self.was_pool:
+            return self.was_pool[(wdf_name, _hash)]
         if wdf_name not in self.wdf_pool:  # 该实例为单例模式，并且将所有已读取的wdf资源缓存
             self.wdf_pool[wdf_name] = WDF(wdf_name)
         _wdf = self.wdf_pool[wdf_name]  # wdf
         _instance = _wdf.get(_hash)  # was tga jpg 等
         res = None
         if _instance.type == "WAS":
-            if (wdf_name, _hash) in self.was_pool:
-                return self.was_pool[(wdf_name, _hash)]
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
             self.was_pool[(wdf_name, _hash)] = res
