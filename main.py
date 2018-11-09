@@ -1,12 +1,12 @@
 from settings import *
-from game_client import network_client
-from lib.world.director import Director
+
+from core.world.director import Director
 
 import logging
 log = logging.getLogger('')
 
-director = Director(network_client)
+director = Director()
 
-scene = director.get_new_scene("newscene/1410.map")
+scene = director.get_new_scene("00001", "newscene/1410.map")
 
 director.run(scene)
