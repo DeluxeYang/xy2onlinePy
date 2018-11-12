@@ -4,7 +4,8 @@ from pygame.locals import *
 from utils.mask import Mask
 from core.entity.game_object import GameObject
 from core.state.state import state_factory
-from game.character.state_component import CharacterStandNormalState, MainCharacterComponent, CharacterMouseComponent
+from game.character.character_state import CharacterStandNormalState
+from game.character.character_component import  MainCharacterComponent, CharacterMouseComponent
 
 
 class Character(GameObject):
@@ -17,7 +18,7 @@ class Character(GameObject):
 
         self.res_info = None
 
-        self.target = None
+        self.target = (0, 0)
         self.target_list = []
         self.direction = 0
         self.is_new_target = False
@@ -36,6 +37,10 @@ class Character(GameObject):
         self.res_info = self.network_client.get_character(player_info["character"])
         self.x = player_info["position"][0]
         self.y = player_info["position"][1]
+        self.target = (self.x, self.y)
+
+    def reset_target(self):
+        self.target = self.x, self.y
 
 
 def character_factory(character_id, network_client, is_main_character=False):
