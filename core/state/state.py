@@ -48,7 +48,10 @@ class State:
         pass
 
     def exit(self):
-        pass
+        self.destroy()
+
+    def destroy(self):
+        del self
 
 
 def state_factory(state_class, component_classes):
