@@ -64,6 +64,7 @@ class Director:
         running_data = {
             "delta_time": 0.0,
             "current_time": 0.0,
+            "portals": [],
             "other_masks": [],
             "left_top": (0, 0),
             "collision_window": Rect((0, 0), (0, 0)),

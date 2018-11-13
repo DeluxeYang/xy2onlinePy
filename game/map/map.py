@@ -4,7 +4,7 @@ from pygame.locals import *
 from core.entity.game_object import GameObject
 from core.state.state import state_factory
 from game.map.map_state import MapState
-from game.map.map_component import MapMouseComponent, MapReceiveComponent
+from game.map.map_component import MapMouseComponent, MapReceiveComponent, MapPortalComponent
 
 from settings import WindowSize
 
@@ -26,7 +26,6 @@ class Map(GameObject):
         self.ready = False
         self.mask = {}
         self.masks_of_unit = []
-        self.portals = {}
         self.portals_of_unit = []
 
         self.left_top = (0, 0)
@@ -100,6 +99,6 @@ class Map(GameObject):
 
 def map_factory(map_id, map_client, network_client):
     _map = Map(map_id, map_client, network_client)
-    _state = state_factory(MapState, [MapMouseComponent, MapReceiveComponent])
+    _state = state_factory(MapState, [MapMouseComponent, MapReceiveComponent, MapPortalComponent])
     _map.init_state(_state)
     return _map

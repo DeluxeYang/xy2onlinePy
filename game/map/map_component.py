@@ -4,7 +4,7 @@ from pygame.locals import *
 from io import BytesIO
 
 from core.component.component import Component
-
+from game.map.portal import portal_factory
 
 from utils.mask import Mask
 
@@ -45,6 +45,7 @@ class MapReceiveComponent(Component):
             self.state.game_object.portals_of_unit = [[] for _ in range(event.n)]
             self.state.game_object.quest_timer = [0 for _ in range(event.n)]
             self.state.game_object.inited = True
+            self.state.send_message("_map_inited")
             event.handled = True
 
     def on_receive_map_unit(self, event):
@@ -97,3 +98,28 @@ class MapReceiveComponent(Component):
             collision_mask = pygame.mask.from_threshold(_surface, (0, 0, 85, 255), (10, 10, 10, 255))  # 85的是0x11
             self.state.game_object.mask[(x, y)] = Mask(_rect, py_mask, collision_mask)
         return self.state.game_object.mask[(x, y)]
+
+
+class MapPortalComponent(Component):
+    def _map_inited(self, data):
+        """
+        一次性事件:由MapReceiveComponent当地图初始化完成后发送
+        """
+        # TODO  network_client发送请求portals 然后network_client收到回复后，会发送以下事件
+        event = pygame.event.Event(24, {"name": "receive_map_portals", "map_id": self.state.game_object.map_id})
+        pygame.event.post(event)
+        return True  # 截断
+
+    def on_receive_map_portals(self, event):
+        if self.state.game_object.map_id == event.map_id:
+            portals = self.state.game_object.network_client.get_map_portals(self.state.game_object.map_id)  # 获取所有portals
+
+            for portal in portals:
+                portal_instance = portal_factory(**portal)  # Portal实例
+
+                col = portal["position"][0] // self.state.game_object.unit_width
+                row = portal["position"][1] // self.state.game_object.unit_height
+                n = row * self.state.game_object.col + col  # 属于第n个unit
+
+                self.state.game_object.portals_of_unit[n].append(portal_instance)
+            event.handled = True
