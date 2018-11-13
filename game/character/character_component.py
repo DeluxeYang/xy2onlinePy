@@ -8,6 +8,12 @@ class MainCharacterComponent(Component):
         self.state.game_object.is_running = event.is_running
         event.handled = True
 
+    def update(self, data=None):
+        data["me_world_pc"] = self.state.game_object.get_xy()
+        for portal in data["portals"]:
+            if portal.portal_rect.collidepoint(self.state.game_object.get_xy()):
+                print(portal, portal.x, portal.y)
+
 
 class CharacterMouseComponent(Component):
     def on_mouse_over(self, event):
