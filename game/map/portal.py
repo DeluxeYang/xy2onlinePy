@@ -11,7 +11,7 @@ class Portal(GameObject):
         self.y = position[1]
         self.portal_rect = Rect((self.x-10, self.y-10), (20, 20))
 
-        self.target_map_id =  target_map_id
+        self.target_map_id = target_map_id
         self.target_position = target_position
 
         self.direction = 0

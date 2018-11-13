@@ -23,7 +23,7 @@ class NetworkClient:
             "00001": {
                 "id": "00001",
                 "name": "Deluxe",
-                "character": ["ren", "old_1", "feijianxia"],
+                "character": ["mo", "old_1", "nitianmo"],
                 "map_id": "newscene/1410.map",
                 "position": (500, 500),
             }

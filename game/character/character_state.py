@@ -11,7 +11,7 @@ from settings import RunningSpeed, WalkingSpeed
 
 
 class CharacterWorldState(AnimationState):
-    def is_on_moving(self, data):
+    def is_moving_to_new_target(self, data):
         if self.game_object.is_new_target:  # 有新的移动目的地
             if self.game_object.is_running:
                 if self.game_object.is_main_character:
@@ -34,7 +34,7 @@ class CharacterMovingState(CharacterWorldState):
     speed = 5
 
     def update(self, data):
-        if self.is_on_moving(data):
+        if self.is_moving_to_new_target(data):
             return None
         self.calc_next_target()
         if is_same_coordinate(self.game_object.get_xy(), self.game_object.target):  # 如果已经到达目标坐标点
@@ -71,7 +71,7 @@ class CharacterStandNormalState(CharacterWorldState):
         self.loops_count = 0
 
     def update(self, data):
-        if self.is_on_moving(data):
+        if self.is_moving_to_new_target(data):
             return
         one_loop = super().update(data)
         if one_loop:
@@ -88,7 +88,7 @@ class CharacterStandTeaseState(CharacterWorldState):
     res_index = "stand_tease"
 
     def update(self, data):
-        if self.is_on_moving(data):
+        if self.is_moving_to_new_target(data):
             return
         one_loop = super().update(data)
         if one_loop:

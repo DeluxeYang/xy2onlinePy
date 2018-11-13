@@ -414,7 +414,8 @@ characters = {
                 "name": "逆天魔",
                 "gender": 1,
                 "run": ["shape.wd1", "0x13B89957"],  #
-                "stand": [["shape.wd1", "0x6F90AB3E"], ["shape.wd1", "0x832B6FE5"]],  #
+                "stand_normal": ["shape.wd1", "0x6F90AB3E"],
+                "stand_tease": ["shape.wd1", "0x832B6FE5"],  #
                 "walk": ["shape.wd1", "0xDCFB663D"],  #
                 "weapon": {
                     "spear": {
@@ -434,7 +435,8 @@ characters = {
                 "name": "媚灵狐",
                 "gender": 0,
                 "run": ["shape.wd1", "0xAD09F9D2"],  #
-                "stand": [["shape.wd1", "0x79D93048"], ["shape.wd1", "0x179A6B1F"]],  #
+                "stand_normal": ["shape.wd1", "0x79D93048"],
+                "stand_tease": ["shape.wd1", "0x179A6B1F"],  #
                 "walk": ["shape.wd1", "0x61842A0D"],  #
                 "weapon": {
                     "knife": {
