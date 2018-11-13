@@ -111,10 +111,10 @@ class Director:
     def get_new_scene(self, character_id, map_id):
         return scene_factory(character_id, map_id, self)
 
-    def on_change_scene(self, event):
+    def on_changing_scene(self, event):
         pass
 
-    def on_change_screen(self, event):
+    def on_changing_screen(self, event):
         pass
 
     def on_quit(self, event):
