@@ -7,7 +7,11 @@ class State:
 
         self.components = []
         self.event_components = []
+
+        self.early_update_components = []
         self.update_components = []
+        self.late_update_components = []
+
         self.draw_components = []
 
     def register(self, obj):
@@ -28,14 +32,16 @@ class State:
             component.handle_event(event)
 
     def early_update(self, data):
-        pass
+        for component in self.early_update_components:
+            component.early_update(data)
 
     def update(self, data):  # update 处理
         for component in self.update_components:
             component.update(data)
 
     def late_update(self, data):
-        pass
+        for component in self.late_update_components:
+            component.late_update(data)
 
     def draw(self, screen):  # draw 处理
         for component in self.draw_components:

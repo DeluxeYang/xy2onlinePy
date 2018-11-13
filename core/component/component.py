@@ -42,8 +42,12 @@ class Component:
                 pass
             finally:
                 if not do_not_register:
-                    if method_name == "update":
+                    if method_name == "early_update":
+                        self.state.early_update_components.append(self)
+                    elif method_name == "update":
                         self.state.update_components.append(self)
+                    elif method_name == "late_update":
+                        self.state.late_update_components.append(self)
                     elif method_name == "draw":
                         self.state.draw_components.append(self)
                     elif method_name[:2] == "on" and not event_flag:
@@ -67,9 +71,6 @@ class Component:
     def draw(self, screen=None):
         raise NotImplementedError
 
-    def late_draw(self, screen=None):
-        raise NotImplementedError
-
-    def _handle_message(self, name=None, value=None):
-        if hasattr(self, name):
-            self.__setattr__(name, value)
+    def handle_message(self, func_name=None, param=None):
+        if hasattr(self, func_name):
+            getattr(self, func_name)(param)
