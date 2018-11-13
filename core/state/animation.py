@@ -34,19 +34,23 @@ class AnimationState(State):
         :return:
         """
         super().register(obj)
-        address = self.game_object.res_info[self.res_index]
+        if isinstance(self.res_index, list):  # ["weapon", "knife", "run"]
+            address = self.game_object.res_info
+            for x in self.res_index:
+                address = address[x]
+        else:
+            address = self.game_object.res_info[self.res_index]
         self.res = res_manager.get_res(address[0], address[1])  # 找到动画资源
         self.last_frame = self.res.frame_num
         self.game_object.inited = True  # 初始化完成
 
     def update(self, data):
-        super().update(data)
         one_loop = self.calc_next_frame(data["current_time"], rate=100)  # 计算下一帧的帧数
         self.set_surface(self.game_object.direction, data["other_masks"], self.game_object.get_xy())  # 设定surface
         self.game_object.mask = self.get_mask(self.game_object.direction)  # 设定shape对应的mask
         self.game_object.ready = True
         self.game_object.screen_rect = self.get_screen_rect(data["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
-        data["me_world_pc"] = self.game_object.get_xy()
+        super().update(data)
         return one_loop
 
     def draw(self, _screen, highlight=False):
