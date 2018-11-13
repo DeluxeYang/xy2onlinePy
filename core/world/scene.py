@@ -23,14 +23,20 @@ class Scene:
                 layer.handle_event(event)  # 调用其handle_event方法
                 if event.handled:  # 如果被handle则退出
                     break
-
+    """
+    layer 更新流
+        event   early   update  late    draw
+        
+    ui    \      \         /     \        /
+    shape  \      \       /       \      /
+    map     \      \     /         \    / 
+    """
     def update(self, data):
-        reversed_layers = self.layers[::-1]
-        for layer in reversed_layers:  # 遍历每个layer  early_update
+        for layer in self.layers:  # 遍历每个layer  early_update
             layer.early_update(data)
-        for layer in reversed_layers:  # 遍历每个layer  update
+        for layer in self.layers[::-1]:  # 遍历每个layer  update
             layer.update(data)
-        for layer in reversed_layers:  # 遍历每个layer  late_update
+        for layer in self.layers:  # 遍历每个layer  late_update
             layer.late_update(data)
 
     def draw(self, screen):
