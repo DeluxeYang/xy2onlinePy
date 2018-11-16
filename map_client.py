@@ -1,7 +1,7 @@
 from __future__ import print_function
 
-from lib.network.end import End
-from lib.event.event import post_event
+from core.network.end import End
+from core.event.event import post_event
 
 from settings import ResourcePort
 

@@ -2,8 +2,8 @@ from time import sleep
 from weakref import WeakKeyDictionary
 from queue import Queue
 
-from lib.network.channel import Channel
-from lib.network.server import Server
+from core.network.channel import Channel
+from core.network.server import Server
 
 from utils.map_x import MapX
 from settings import ResourcePort
