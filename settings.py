@@ -4,3 +4,4 @@ ResMargin = 20
 RunningSpeed = 4
 WalkingSpeed = 2
 ResourcePort = 8001
+NetworkPort = 9006

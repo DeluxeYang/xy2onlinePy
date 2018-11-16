@@ -5,18 +5,18 @@ from core.world.scene import scene_factory
 from core.event.event import event_filter
 
 from map_client import map_client, map_connection
-from game_client import network_client
+# from game_client import network_client
+from network_client import network_client, network_connection
 
 class Director:
 
-    def __init__(self, title="The Lib", resolution=(800, 600), fps=60):
+    def __init__(self, title="Director", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title
         self.resolution = resolution
         self.fps = fps
 
         self.running = True
-        self.run_task = None
         self._screen = None
         self._scene = None
         self.old_scene = None
@@ -24,6 +24,7 @@ class Director:
         self.map_connection = map_connection
         self.map_client = map_client
 
+        self.network_connection = network_connection
         self.network_client = network_client
 
     @property
@@ -94,6 +95,9 @@ class Director:
             # map_client pump
             self.map_connection.pump()
             self.map_client.pump()
+            # network_client pump
+            self.network_connection.pump()
+            self.network_client.pump()
 
     def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
