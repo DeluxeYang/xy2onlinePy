@@ -18,7 +18,7 @@
 # l.insert(0,8)
 # print(l)
 import asyncio
-from map_client_asyncio import MapClient
+from utils.map_client_asyncio import MapClient
 
 mc = MapClient("localhost", 8001)
 
