@@ -60,3 +60,7 @@ class GameObject:
             self.init_state(next_state)
             if data:
                 self.state.update(data)
+
+    def add_child(self, child):
+        child.parent = self
+        self.children.append(child)
