@@ -43,13 +43,6 @@ class Director:
     def resolution(self, value):
         self._screen = pygame.display.set_mode(value)
 
-    def change_scene(self, scene):
-        scene.enter(self)
-        self.old_scene = self._scene
-        self._scene = scene
-        if self.old_scene:
-            self.old_scene.exit(self)
-
     def run(self, scene=None):
         if scene is None:
             if self._scene is None:
@@ -114,6 +107,13 @@ class Director:
 
     def get_new_scene(self, character_id, map_id):
         return scene_factory(character_id, map_id, self)
+
+    def change_scene(self, scene):
+        scene.enter(self)
+        self.old_scene = self._scene
+        self._scene = scene
+        if self.old_scene:
+            self.old_scene.exit(self)
 
     def on_changing_scene(self, event):
         pass

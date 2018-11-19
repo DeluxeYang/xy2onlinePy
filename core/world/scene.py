@@ -18,6 +18,8 @@ class Scene:
         self.resolution = data["resolution"]
 
     def handle_event(self, event):
+        if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法
+            getattr(self, "on_" + event.name)(event)  # 则处理
         if not event.handled:  # 如果该事件没有被handle & obj对象有Children属性
             for layer in self.layers:  # 则循环遍历每个layer
                 layer.handle_event(event)  # 调用其handle_event方法
