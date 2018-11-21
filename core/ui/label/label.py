@@ -1,4 +1,4 @@
-from core.ui.ui_base import UI
+from core.entity.ui import UI
 
 
 class Label(UI):
