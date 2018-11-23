@@ -13,6 +13,8 @@ class GameObject:
         self.parent = None
         self.children = []
 
+        self.res_info = None
+
         self.x = 0  # GameObject关键点 X
         self.y = 0  # GameObject关键点 Y
         self.z = 0  # GameObject Z序
