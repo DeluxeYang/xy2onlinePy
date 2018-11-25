@@ -1,4 +1,4 @@
-from core.state.static_ui_state import StaticUIState
+from core.ui.static_ui_state import StaticUIState
 
 
 class LabelState(StaticUIState):

@@ -1,5 +1,4 @@
-from core.entity.ui import UI
-from utils import ptext
+from core.ui.ui import UI
 
 
 class TextBox(UI):

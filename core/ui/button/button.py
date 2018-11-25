@@ -1,5 +1,4 @@
-from core.entity.ui import UI
-from utils import ptext
+from core.ui.ui import UI
 
 
 class Button(UI):
@@ -9,3 +8,5 @@ class Button(UI):
 
         self.parent = parent
         self.parent.add_child(self)
+
+        self.is_pressed = False
