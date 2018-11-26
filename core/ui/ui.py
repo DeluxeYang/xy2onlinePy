@@ -13,6 +13,8 @@ class UI(GameObject):
         self.h = h
         self.screen_rect = Rect((x, y), (w, h))
 
+        self.event_components = []
+
     def handle_event(self, event):
         if event.name.startswith("mouse"):  # 如果是鼠标事件
             if self.screen_rect.collidepoint(event.pos[0], event.pos[1]):  # 且鼠标在ui的范围内
@@ -20,13 +22,15 @@ class UI(GameObject):
                     if not event.handled:
                         child.handle_event(event)
                 if not event.handled:
-                    self.state.handle_event(event)
+                    for component in self.event_components:
+                        component.handle_event(event)
         elif self.focus:  # 如果是焦点
             for child in self.children:  # 则处理该事件
                 if not event.handled:
                     child.handle_event(event)
             if not event.handled:
-                self.state.handle_event(event)
+                for component in self.event_components:
+                    component.handle_event(event)
 
     def update(self, data):
         if self.inited:
@@ -43,6 +47,9 @@ class UI(GameObject):
             self.state.draw(screen)
             for child in self.children:
                 child.draw(screen)
+
+    def add_component(self, component):
+        self.event_components.append(component)
 
     def early_update(self, data):
         pass

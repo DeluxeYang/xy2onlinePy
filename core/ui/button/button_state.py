@@ -1,6 +1,5 @@
-from core.ui.animated_ui_state import AnimatedUIState
-from core.ui.static_ui_state import StaticUIState
-from core.state.state import state_factory
+from core.ui.state.animated_ui_state import AnimatedUIState
+from core.ui.state.static_ui_state import StaticUIState
 
 
 class ButtonStaticState(StaticUIState):
@@ -15,5 +14,4 @@ class ButtonPressedState(AnimatedUIState):
     def update(self, data):
         one_loop = super().update(data)
         if one_loop:  # 如果已经循环了一遍
-            button_static_state = state_factory(ButtonStaticState, [])
-            self.game_object.changing_state(button_static_state, data)  # 则转换为静态状态
+            self.game_object.changing_state(ButtonStaticState(), data)  # 则转换为静态状态
