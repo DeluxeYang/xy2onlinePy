@@ -1,6 +1,6 @@
 from pygame.math import Vector2
 
-from core.state.animation import AnimationState
+from core.state.animation_state import AnimationState
 from core.state.state import state_factory
 
 from game.character.character_component import CharacterMouseComponent, MainCharacterComponent

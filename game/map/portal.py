@@ -1,6 +1,6 @@
 from pygame.locals import *
 
-from core.state.animation import AnimationState
+from core.state.animation_state import AnimationState
 from core.entity.game_object import GameObject
 
 
