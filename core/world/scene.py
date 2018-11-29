@@ -2,20 +2,12 @@ from core.world.layer import map_layer_factory, shape_layer_factory, ui_layer_fa
 
 
 class Scene:
-    def __init__(self, map_id, director):
+    def __init__(self, director):
         self.director = director
         self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
 
-        self.map_id = map_id
         self.title = ""
         self.resolution = (800, 600)
-
-        self.load()  # TODO 加载scene信息
-
-    def load(self):
-        data = self.director.network_client.get_scene(self.map_id)
-        self.title = data["title"]
-        self.resolution = data["resolution"]
 
     def handle_event(self, event):
         if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法

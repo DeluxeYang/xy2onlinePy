@@ -5,11 +5,9 @@ from core.world.scene import scene_factory
 from core.event.event import event_filter
 
 from map_client import map_client, map_connection
-# from game_client import network_client
 from network_client import network_client, network_connection
 
 class Director:
-
     def __init__(self, title="Director", resolution=(800, 600), fps=60):
         pygame.init()
         self.title = title

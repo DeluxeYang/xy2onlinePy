@@ -43,13 +43,6 @@ class MapLayer(Layer):
             child.draw(screen)
 
 
-def map_layer_factory(map_id, map_client, network_client):
-    map_layer = MapLayer()
-    _map = map_factory(map_id, map_client, network_client)
-    map_layer.add_game_object(_map)
-    return map_layer
-
-
 class ShapeLayer(Layer):
     def draw(self, screen):
         self.children.sort(key=lambda obj: obj.y)  # 按GameObject的Y坐标从小到大，也即从游戏中由远即近的渲染
@@ -59,20 +52,8 @@ class ShapeLayer(Layer):
             child.late_draw(screen)
 
 
-def shape_layer_factory(character_id, network_client):
-    shape_layer = ShapeLayer()
-    character = character_factory(character_id, network_client, True)
-    shape_layer.add_game_object(character)
-    return shape_layer
-
-
 class UILayer(Layer):
     def draw(self, screen):
         self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:
             child.draw(screen)
-
-
-def ui_layer_factory(network_client):
-    ui_layer = UILayer()
-    return ui_layer
