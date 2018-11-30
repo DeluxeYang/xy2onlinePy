@@ -1,9 +1,4 @@
-import pygame
-from pygame.locals import *
-
 from core.state.animation_state import AnimationState
-from settings import ResMargin
-
 
 
 class MaterialAnimationState(AnimationState):
@@ -19,9 +14,9 @@ class MaterialAnimationState(AnimationState):
 
     def update(self, data):
         one_loop = super().update(data)
-        self.set_surface(self.game_object.direction)
+        self.set_surface(self.game_object.direction)  # 通常direction为0
         return one_loop
 
     def draw(self, screen):
-        super().draw(screen)
+        super().draw(screen)  # State的draw 即调用组件draw
         screen.blit(self.game_object.surface, self.game_object.screen_rect)
