@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 
-from core.world.scene import scene_factory
 from core.event.event import event_filter
 
 from map_client import map_client, map_connection
@@ -104,7 +103,7 @@ class Director:
         self._scene.draw(screen)
 
     def get_new_scene(self, character_id, map_id):
-        return scene_factory(character_id, map_id, self)
+        pass
 
     def change_scene(self, scene):
         scene.enter(self)
