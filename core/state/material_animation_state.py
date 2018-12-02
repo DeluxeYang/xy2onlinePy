@@ -2,6 +2,8 @@ from core.state.animation_state import AnimationState
 
 
 class MaterialAnimationState(AnimationState):
+    res_index = "normal"
+
     def register(self, obj):
         """
         绑定GameObject
