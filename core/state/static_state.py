@@ -9,7 +9,7 @@ ResMargin_2 = ResMargin * 2
 
 
 class StaticState(State):
-    res_index = ""
+    res_index = "normal"
 
     def __init__(self):
         super().__init__()
