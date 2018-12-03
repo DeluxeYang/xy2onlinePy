@@ -7,7 +7,7 @@ class GameObject:
     """
     组件与状态混用
     """
-    def __init__(self):
+    def __init__(self, x, y, z=0):
         self.surface = pygame.Surface((0, 0))
 
         self.parent = None
@@ -15,9 +15,9 @@ class GameObject:
 
         self.res_info = None
 
-        self.x = 0  # GameObject关键点 X
-        self.y = 0  # GameObject关键点 Y
-        self.z = 0  # GameObject Z序
+        self.x = x  # GameObject关键点 X
+        self.y = y  # GameObject关键点 Y
+        self.z = z  # GameObject Z序
 
         self.state = None
 
