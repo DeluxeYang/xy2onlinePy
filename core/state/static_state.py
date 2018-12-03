@@ -27,6 +27,10 @@ class StaticState(State):
         self.game_object.ready = True  # ready
         super().update(data)
 
+    def draw(self, screen):
+        super().draw(screen)  # State的draw 即调用组件draw
+        screen.blit(self.game_object.surface, self.game_object.screen_rect)
+
     def get_screen_rect(self, left_top):
         world_rect = self.get_world_rect()
         return world_rect.move(-left_top[0], -left_top[1])

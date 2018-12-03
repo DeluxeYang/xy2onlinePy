@@ -6,6 +6,7 @@ from core.event.event import event_filter
 from map_client import map_client, map_connection
 from network_client import network_client, network_connection
 
+
 class Director:
     def __init__(self, title="Director", resolution=(800, 600), fps=60):
         pygame.init()
@@ -46,9 +47,6 @@ class Director:
                 raise ValueError('No scene provided')
         else:
             self.change_scene(scene)
-
-        if self._screen is None:
-            self._scene.set_screen()
 
         fps = pygame.time.Clock()
 
