@@ -166,6 +166,8 @@ class WAS:
             data = self.hand.read(temp_size)  # 先获取pic data
             _pic = Frame(self.pic_offsets[i], self.hand)
             _pic.data = read_pic(data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
+            # TODO 如果图片过大，会引起位置内存错误，暂时先用PicPy代替
+            # _pic = PicPy(self.pic_offsets[i], self.hand, self.color_board, self.color_board_origin)
             self.pic.append(_pic)
 
     def read_bytes_to_hex_list(self, size):
@@ -349,12 +351,12 @@ class PicPy:    # 用Python去解析帧图片，该方法过慢，已经弃用�
         return data
 
     def read_bytes_to_bin(self, size):
-        temp = bin(int.from_bytes(self.hand.read(size), byteorder="big"))[2:]
+        temp = bin(int.from_bytes(self.hand.read(size), byteorder="little"))[2:]
         prefix = "0" * (8 - len(temp))
         return prefix + temp
 
     def from_color_board_get_rgb(self):
-        n = self.read_bytes_to_int(1) * 3
+        n = self.read_bytes_to_int(1) * 4
         return self.color_board[n:n+3]
 
     def mix_rgb_565(self, alpha):
