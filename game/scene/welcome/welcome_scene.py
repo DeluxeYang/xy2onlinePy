@@ -18,12 +18,12 @@ welcome_scene_json = {
                 {
                     "type": "static",
                     "world_position": (200, 200),
-                    "res_info": {"normal": ["shape.wdf", "0x4B313113"]}
+                    "res_info": {"normal": ["gires2.wdf", "0x5A6AB1AF"]}
                 },
                 {
                     "type": "material_animation",
-                    "world_position": (500, 500),
-                    "res_info": {"normal": ["shape.wdf", "0x8E1AF022"]}
+                    "world_position": (400, 400),
+                    "res_info": {"normal": ["gires2.wdf", "0x23C8D064"]}
                 },
             ]
         },
@@ -46,4 +46,4 @@ class WelcomeScene(Scene):
             elif go["type"] == "material_animation":
                 obj = material_animation_object_factory(go["res_info"], go["world_position"][0], go["world_position"][1])
                 welcome_map_layer.add_game_object(obj)
-        self.layers.append(welcome_map_layer)
+        self.add_layer(welcome_map_layer)
