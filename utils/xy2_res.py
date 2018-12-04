@@ -14,7 +14,7 @@ jpeg_dll.read_color_palette.restype = POINTER(c_char * 1024)
 
 
 def read_pic(data, pic, color_board_origin, color_board):
-    jpeg_dll.read_pic.argtype = [c_char_p, c_void_p, c_void_p]
+    jpeg_dll.read_pic.argtype = [c_void_p, c_void_p, c_void_p]
     _size = pic.width * pic.height * 4
     jpeg_dll.read_pic.restype = POINTER(c_char * _size)
     res = jpeg_dll.read_pic(data, color_board_origin, color_board)

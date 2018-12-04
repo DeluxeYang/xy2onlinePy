@@ -17,12 +17,17 @@ welcome_scene_json = {
             "game_objects": [
                 {
                     "type": "static",
-                    "world_position": (200, 200),
+                    "world_position": (0, 0),
                     "res_info": {"normal": ["gires2.wdf", "0x5A6AB1AF"]}
                 },
                 {
+                    "type": "static",
+                    "world_position": (20, 200),
+                    "res_info": {"normal": ["gires2.wdf", "0xFC849F13"]}
+                },
+                {
                     "type": "material_animation",
-                    "world_position": (400, 400),
+                    "world_position": (425, 480-193+113),
                     "res_info": {"normal": ["gires2.wdf", "0x23C8D064"]}
                 },
             ]
