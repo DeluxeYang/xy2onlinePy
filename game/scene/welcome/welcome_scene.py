@@ -21,14 +21,19 @@ welcome_scene_json = {
                     "res_info": {"normal": ["gires2.wdf", "0x5A6AB1AF"]}
                 },
                 {
-                    "type": "static",
-                    "world_position": (20, 200),
-                    "res_info": {"normal": ["gires2.wdf", "0xFC849F13"]}
-                },
-                {
                     "type": "material_animation",
                     "world_position": (425, 480-193+113),
                     "res_info": {"normal": ["gires2.wdf", "0x23C8D064"]}
+                },
+                {
+                    "type": "material_animation",
+                    "world_position": (338, 201),
+                    "res_info": {"normal": ["gires2.wdf", "0xB6C80446"]}
+                },
+                {
+                    "type": "static",
+                    "world_position": (48, 213),
+                    "res_info": {"normal": ["gires2.wdf", "0xFC849F13"]}
                 },
             ]
         },
