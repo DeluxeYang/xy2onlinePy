@@ -156,21 +156,16 @@ class WAS:
         获取was内每一帧图片
         :return:
         """
-        temp_size = 0
         for i in range(len(self.pic_offsets)):
+            _pic = Frame(self.pic_offsets[i], self.hand)
             if i < len(self.pic_offsets) - 1:
                 temp_size = self.pic_offsets[i+1] - self.pic_offsets[i]
             else:
-                temp_size += 100000  # TODO 由于最后一个大小不方便确定，为保证数据完整，多读1000字节
+                temp_size = _pic.width * _pic.height * 4
             self.hand.seek(self.pic_offsets[i])
-            try:
-                data = self.hand.read(temp_size)  # 先获取pic data
-                _pic = Frame(self.pic_offsets[i], self.hand)
-                _pic.data = read_pic(data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
-                # TODO 如果图片过大，会引起位置内存错误，暂时先用PicPy代替
-            except OSError:
-                print("??")
-                _pic = PicPy(self.pic_offsets[i], self.hand, self.color_board, self.color_board_origin)
+            data = self.hand.read(temp_size)  # 先获取pic data
+            _pic.data = read_pic(data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
+            # _pic = PicPy(self.pic_offsets[i], self.hand, self.color_board, self.color_board_origin)
             self.pic.append(_pic)
 
     def read_bytes_to_hex_list(self, size):
