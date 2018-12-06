@@ -1,6 +1,6 @@
-from core.component.component import Component
+from core.ui.ui_component import UIComponent
 
 
-class UIMouseComponent(Component):
+class UIMouseComponent(UIComponent):
     def is_mouse_in_rect(self, event):
-        return self.state.game_object.screen_rect.collidepoint(event.pos[0], event.pos[1])  # 且鼠标在ui的范围内
+        return self.game_object.screen_rect.collidepoint(event.pos[0], event.pos[1])  # 且鼠标在ui的范围内
