@@ -1,6 +1,7 @@
 import pygame
 
 from core.state.state import State
+from core.ui.state.ui_state import UIState
 
 
 class GameObject:
@@ -51,7 +52,7 @@ class GameObject:
         return self.x, self.y
 
     def init_state(self, state):
-        if isinstance(state, State):  # 如果是State实例
+        if isinstance(state, State) or isinstance(state, UIState):  # 如果是State实例
             self.state = state
             self.state.register(self)
             self.state.enter()
