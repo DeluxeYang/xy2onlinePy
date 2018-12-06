@@ -4,8 +4,10 @@ from core.entity.game_object import GameObject
 
 
 class UI(GameObject):
-    def __init__(self, x, y, w, h):
-        super().__init__()
+    def __init__(self, res_info, x, y, w, h):
+        super().__init__(x, y)
+        self.res_info = res_info
+
         self.focus = False
         self.x = x  # 相对坐标
         self.y = y  # 相对坐标
