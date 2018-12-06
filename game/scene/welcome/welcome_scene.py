@@ -6,6 +6,8 @@ from core.entity.material_animation_object import material_animation_object_fact
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
 
+from .welcome_components import EnterButtonMouseComponent
+
 
 welcome_scene_json = {
     "id": "1",
@@ -16,17 +18,17 @@ welcome_scene_json = {
         "ui": [
             {
                 "type": "fixed",
-                "screen_position": (100, 100),
+                "screen_position": (400, 100),
                 "w": 100,
                 "h": 100,
                 "res_info": None,
                 "factor": [
                     {
                         "type": "button",
-                        "relative_position": (100, 100),
+                        "relative_position": (10, 10),
                         "w": 100,
                         "h": 100,
-                        "components": None,
+                        "components": [EnterButtonMouseComponent()],
                         "res_info": {"normal": ["gires2.wdf", "0xC3E7E556"]}
                     }
                 ]
@@ -80,13 +82,15 @@ class WelcomeScene(Scene):
         for frame in welcome_scene_json["layers"]["ui"]:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
-                                            x=frame["screen_position"][0], y=frame["screen_position"][0],
+                                            x=frame["screen_position"][0], y=frame["screen_position"][1],
                                             w=frame["w"], h=frame["h"])
                 for factor in frame["factor"]:
                     if factor["type"] == "button":
                         button_instance = Button(res_info=factor["res_info"],
-                                            x=factor["relative_position"][0], y=factor["relative_position"][0],
-                                            w=factor["w"], h=factor["h"])
+                                                 x=factor["relative_position"][0], y=factor["relative_position"][1],
+                                                 w=factor["w"], h=factor["h"])
+                        for c in factor["components"]:
+                            button_instance.add_component(c)
                         frame_instance.add_child(button_instance)
                 ui_layer.add_game_object(frame_instance)
 

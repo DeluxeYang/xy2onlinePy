@@ -17,6 +17,9 @@ class UI(GameObject):
 
         self.event_components = []
 
+        self.callback = None
+        self.param = None
+
     def handle_event(self, event):
         if event.name.startswith("mouse"):  # 如果是鼠标事件
             if self.screen_rect.collidepoint(event.pos[0], event.pos[1]):  # 且鼠标在ui的范围内
@@ -51,6 +54,7 @@ class UI(GameObject):
                 child.draw(screen)
 
     def add_component(self, component):
+        component.register(self)
         self.event_components.append(component)
 
     def early_update(self, data):
