@@ -1,5 +1,5 @@
 from core.ui.ui import UI
-from core.ui.button.button_state import ButtonStaticState
+from core.ui.button.button_state import ButtonNormalState
 
 
 class Button(UI):
@@ -9,6 +9,7 @@ class Button(UI):
 
         self.parent = parent
 
-        self.is_pressed = False
+        self.is_mouse_down = False
+        self.is_mouse_up = False
 
-        self.init_state(ButtonStaticState())
+        self.init_state(ButtonNormalState())
