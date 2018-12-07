@@ -22,7 +22,8 @@ class UI(GameObject):
 
     def handle_event(self, event):
         if event.name.startswith("mouse"):  # 如果是鼠标事件
-            if self.screen_rect.collidepoint(event.pos[0], event.pos[1]):  # 且鼠标在ui的范围内
+            if self.screen_rect.collidepoint(event.pos[0], event.pos[1])\
+                    or event.name.endswith("up"):  # 如果鼠标在ui的范围内，或是鼠标抬起事件
                 for child in self.children:  # 则处理该事件
                     if not event.handled:
                         child.handle_event(event)

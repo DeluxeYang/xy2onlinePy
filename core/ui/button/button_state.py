@@ -8,9 +8,10 @@ class ButtonNormalState(StaticUIState):
 
     def update(self, data):
         super().update(data)
-        if self.game_object.is_mouse_down:
+        if self.game_object.is_mouse_down:  # 如果被点击，鼠标按下
+            self.game_object.is_mouse_up = False
             self.game_object.is_mouse_down = False
-            self.game_object.changing_state(ButtonMouseUpState(), data)  # 则转换为静态状态
+            self.game_object.changing_state(ButtonMouseDownState(), data)  # 则播放按下动画
 
 
 class ButtonPressedState(StaticUIState):
@@ -19,9 +20,10 @@ class ButtonPressedState(StaticUIState):
 
     def update(self, data):
         super().update(data)
-        if self.game_object.is_mouse_up:
+        if self.game_object.is_mouse_up:  # 如果鼠标抬起
             self.game_object.is_mouse_up = False
-            self.game_object.changing_state(ButtonMouseUpState(), data)  # 则转换为静态状态
+            self.game_object.is_mouse_down = False
+            self.game_object.changing_state(ButtonMouseUpState(), data)  # 则播放抬起动画
 
 
 class ButtonMouseDownState(AnimatedUIState):
@@ -30,18 +32,12 @@ class ButtonMouseDownState(AnimatedUIState):
 
     def register(self, obj):
         super().register(obj)
-        self.last_frame //= 2
+        self.last_frame //= 2  # 仅播放前半段动画，即按下动画
 
     def update(self, data):
         one_loop = super().update(data)
-        if self.game_object.is_mouse_up:
-            self.is_mouse_already_up = True
-            self.game_object.is_mouse_up = False
         if one_loop:
-            if not self.is_mouse_already_up:
-                self.game_object.changing_state(ButtonPressedState(), data)  # 则转换为静态状态
-            else:
-                self.game_object.changing_state(ButtonMouseUpState(), data)  # 则转换为静态状态
+            self.game_object.changing_state(ButtonPressedState(), data)  # 转换为按下静态状态
 
 
 class ButtonMouseUpState(AnimatedUIState):
@@ -49,10 +45,14 @@ class ButtonMouseUpState(AnimatedUIState):
 
     def register(self, obj):
         super().register(obj)
-        # self.first_frame = self.last_frame // 2 + 1
+        self.first_frame = self.last_frame // 2  # 仅播放后半段动画，即抬起动画
+        print(self.last_frame)
 
     def update(self, data):
         one_loop = super().update(data)
         if one_loop:  # 如果已经循环了一遍
-            self.game_object.callback(self.game_object.param)
+            if self.game_object.focus:  # 在按键抬起时，需借用focus标志，判断抬起时鼠标是否还在范围之内，在则出发按键回调
+                if self.game_object.callback:
+                    self.game_object.callback(self.game_object.param)
+            self.game_object.focus = False
             self.game_object.changing_state(ButtonNormalState(), data)
