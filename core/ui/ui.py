@@ -58,7 +58,6 @@ class UI(GameObject):
 
     def add_component(self, component):
         component.register(self)
-        self.event_components.append(component)
 
     def early_update(self, data):
         pass
