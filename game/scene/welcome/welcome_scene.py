@@ -6,7 +6,8 @@ from core.entity.material_animation_object import material_animation_object_fact
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
 
-from .welcome_components import EnterButtonMouseComponent
+from .welcome_components import WelcomeEnterButtonMouseComponent, \
+    WelcomeExitButtonMouseComponent, WelcomeLinkedButtonMouseComponent
 
 
 welcome_scene_json = {
@@ -18,21 +19,37 @@ welcome_scene_json = {
         "ui": [
             {
                 "type": "fixed",
-                "screen_position": (400, 100),
-                "w": 100,
-                "h": 100,
+                "screen_position": (460, 80),
+                "w": 150,
+                "h": 300,
                 "res_info": None,
                 "factor": [
                     {
                         "type": "button",
-                        "relative_position": (10, 10),
-                        "w": 100,
-                        "h": 100,
-                        "components": [EnterButtonMouseComponent()],
+                        "relative_position": (5, 10),
+                        "w": 143,
+                        "h": 37,
+                        "components": [WelcomeEnterButtonMouseComponent()],
                         "res_info": {"normal": ["gires2.wdf", "0x0A247197"]}
+                    },
+                    {
+                        "type": "button",
+                        "relative_position": (5, 70),
+                        "w": 143,
+                        "h": 37,
+                        "components": [WelcomeLinkedButtonMouseComponent()],
+                        "res_info": {"normal": ["gires2.wdf", "0x072DD907"]}
+                    },
+                    {
+                        "type": "button",
+                        "relative_position": (5, 130),
+                        "w": 143,
+                        "h": 37,
+                        "components": [WelcomeExitButtonMouseComponent()],
+                        "res_info": {"normal": ["gires2.wdf", "0xD139A8FE"]}
                     }
                 ]
-            }
+            },
         ],
         "shape": None,
         "map": [
