@@ -1,4 +1,5 @@
 from core.ui.ui_mouse_component import UIMouseComponent
+from core.event.event import post_event
 
 
 class WelcomeEnterButtonMouseComponent(UIMouseComponent):
@@ -50,10 +51,8 @@ class WelcomeExitButtonMouseComponent(UIMouseComponent):
 
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
-            def callback(param):  # Button按键事件回调
-                print(param)
-            self.game_object.callback = callback
-            self.game_object.param = "退出游戏"
+            self.game_object.callback = post_event
+            self.game_object.param = {"name": "quit"}
             event.handled = True
             self.game_object.focus = True  # 如果鼠标仍在范围之内
         self.game_object.is_mouse_up = True
