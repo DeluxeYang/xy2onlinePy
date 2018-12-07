@@ -29,7 +29,7 @@ welcome_scene_json = {
                         "w": 100,
                         "h": 100,
                         "components": [EnterButtonMouseComponent()],
-                        "res_info": {"normal": ["gires2.wdf", "0xC3E7E556"]}
+                        "res_info": {"normal": ["gires2.wdf", "0x0A247197"]}
                     }
                 ]
             }
