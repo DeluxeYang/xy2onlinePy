@@ -46,7 +46,6 @@ class ButtonMouseUpState(AnimatedUIState):
     def register(self, obj):
         super().register(obj)
         self.first_frame = self.last_frame // 2  # 仅播放后半段动画，即抬起动画
-        print(self.last_frame)
 
     def update(self, data):
         one_loop = super().update(data)
