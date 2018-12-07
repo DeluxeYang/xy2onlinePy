@@ -1,3 +1,4 @@
+import pygame
 from pygame.locals import *
 
 from core.entity.game_object import GameObject
@@ -50,6 +51,7 @@ class UI(GameObject):
 
     def draw(self, screen):
         if self.ready:
+            pygame.draw.rect(screen, (255, 0, 0), self.screen_rect, 1)  # TODO DEBUG
             self.state.draw(screen)
             for child in self.children:
                 child.draw(screen)
