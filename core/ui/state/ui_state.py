@@ -1,4 +1,5 @@
 from utils.res_manager import res_manager
+from settings import ResMargin
 
 
 class UIState:
@@ -15,6 +16,7 @@ class UIState:
             address = self.game_object.res_info[self.res_index]
             self.res = res_manager.get_res(address[0], address[1])  # 找到动画资源
             self.last_frame = self.res.frame_num
+            print(self.res.w, self.res.h)  # TODO DEBUG
         self.game_object.inited = True  # 初始化完成
         self.game_object.ready = True
 
@@ -22,7 +24,8 @@ class UIState:
         pass
 
     def draw(self, screen):
-        screen.blit(self.game_object.surface, self.game_object.screen_rect)
+        temp_rect = self.game_object.screen_rect.move(-ResMargin, -ResMargin)
+        screen.blit(self.game_object.surface, temp_rect)
 
     def enter(self):
         pass
