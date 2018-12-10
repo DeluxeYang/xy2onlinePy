@@ -1,5 +1,8 @@
+from core.world.director import director
+
+
 class Scene:
-    def __init__(self, director):
+    def __init__(self):
         self.director = director
         self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
 

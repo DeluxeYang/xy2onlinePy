@@ -79,8 +79,8 @@ welcome_scene_json = {
 
 
 class WelcomeScene(Scene):
-    def __init__(self, director):
-        super().__init__(director)
+    def __init__(self):
+        super().__init__()
         self.title = welcome_scene_json["title"]
         self.resolution = welcome_scene_json["resolution"]
 

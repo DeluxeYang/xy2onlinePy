@@ -1,11 +1,9 @@
 from settings import *
 
-from core.world.director import Director
+from core.world.director import director
 
 from game.scene.welcome.welcome_scene import WelcomeScene
 
-director = Director()
-
-scene = WelcomeScene(director=director)
+scene = WelcomeScene()
 
 director.run(scene)

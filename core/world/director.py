@@ -110,8 +110,8 @@ class Director:
         if self.old_scene:
             self.old_scene.exit(self)
 
-    def on_changing_scene(self, event):
-        pass
+    def on_change_scene(self, event):
+        self.change_scene(event.scene)
 
     def on_changing_screen(self, event):
         pass
@@ -119,3 +119,6 @@ class Director:
     def on_quit(self, event):
         self.running = False
         event.handled = True
+
+
+director = Director()
