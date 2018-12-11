@@ -1,10 +1,4 @@
 from core.world.scene import Scene
-from core.world.layer import MapLayer, UILayer
-from core.entity.static_object import static_object_factory
-from core.entity.material_animation_object import material_animation_object_factory
-
-from core.ui.frame.frame import FixedFrame
-from core.ui.button.button import Button
 
 from .welcome_components import WelcomeEnterButtonMouseComponent, \
     WelcomeExitButtonMouseComponent, WelcomeLinkedButtonMouseComponent
@@ -79,37 +73,4 @@ welcome_scene_json = {
 
 
 class WelcomeScene(Scene):
-    def __init__(self):
-        super().__init__()
-        self.title = welcome_scene_json["title"]
-        self.resolution = welcome_scene_json["resolution"]
-
-        welcome_map_layer = MapLayer()
-        for game_object in welcome_scene_json["layers"]["map"]:
-            if game_object["type"] == "static":
-                obj = static_object_factory(game_object["res_info"],
-                                            game_object["world_position"][0], game_object["world_position"][1])
-                welcome_map_layer.add_game_object(obj)
-            elif game_object["type"] == "material_animation":
-                obj = material_animation_object_factory(game_object["res_info"],
-                                                        game_object["world_position"][0], game_object["world_position"][1])
-                welcome_map_layer.add_game_object(obj)
-
-        ui_layer = UILayer()
-        for frame in welcome_scene_json["layers"]["ui"]:
-            if frame["type"] == "fixed":
-                frame_instance = FixedFrame(res_info=frame["res_info"],
-                                            x=frame["screen_position"][0], y=frame["screen_position"][1],
-                                            w=frame["w"], h=frame["h"])
-                for factor in frame["factor"]:
-                    if factor["type"] == "button":
-                        button_instance = Button(res_info=factor["res_info"],
-                                                 x=factor["relative_position"][0], y=factor["relative_position"][1],
-                                                 w=factor["w"], h=factor["h"])
-                        for c in factor["components"]:
-                            button_instance.add_component(c)
-                        frame_instance.add_child(button_instance)
-                ui_layer.add_game_object(frame_instance)
-
-        self.add_layer(ui_layer)
-        self.add_layer(welcome_map_layer)
+    scene_init_data = welcome_scene_json
