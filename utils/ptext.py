@@ -11,14 +11,12 @@ from math import ceil, sin, cos, radians, exp
 from collections import namedtuple
 import pygame
 
-from settings import XY2PATH
-
 DEFAULT_FONT_SIZE = 24
 REFERENCE_FONT_SIZE = 100
 DEFAULT_LINE_HEIGHT = 1.0
 DEFAULT_PARAGRAPH_SPACE = 0.0
 DEFAULT_FONT_NAME = None
-FONT_NAME_TEMPLATE = XY2PATH+"font/%s.ttf"
+FONT_NAME_TEMPLATE = "utils/fonts/%s.ttf"
 DEFAULT_COLOR = "white"
 DEFAULT_BACKGROUND = None
 DEFAULT_SHADE = 0
