@@ -87,4 +87,9 @@ class Scene:
         director.resolution = self.resolution
 
     def exit(self):
-        pass
+        self.destroy()
+
+    def destroy(self):
+        for layer in self.layers:
+            layer.destroy()
+        del self

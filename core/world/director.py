@@ -1,3 +1,5 @@
+import gc
+
 import pygame
 from pygame.locals import *
 
@@ -63,6 +65,7 @@ class Director:
         while self.running:
             if i > self.fps:
                 print(fps.get_fps())
+                print(len(gc.get_objects()))
                 i = 0
             i += 1
 
@@ -87,6 +90,9 @@ class Director:
             self.network_connection.pump()
             self.network_client.pump()
 
+            gc.collect()
+
+
     def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
             if hasattr(self, "on_"+event.name):  # 如果self有该事件的处理方法
@@ -109,6 +115,7 @@ class Director:
         self._scene = scene
         if self.old_scene:
             self.old_scene.exit()
+            self.old_scene = None
 
     def on_change_scene(self, event):
         self.change_scene(event.scene)

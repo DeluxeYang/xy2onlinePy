@@ -65,3 +65,6 @@ class UIComponent:
     def handle_message(self, func_name=None, param=None):
         if hasattr(self, func_name):
             getattr(self, func_name)(param)
+
+    def destroy(self):
+        del self

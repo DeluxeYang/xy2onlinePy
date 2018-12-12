@@ -67,3 +67,8 @@ class UI(GameObject):
 
     def late_draw(self, screen):
         pass
+
+    def destroy(self):
+        for component in self.event_components:
+            component.destroy()
+        super().destroy()

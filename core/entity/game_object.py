@@ -67,3 +67,9 @@ class GameObject:
     def add_child(self, child):
         child.parent = self
         self.children.append(child)
+
+    def destroy(self):
+        for child in self.children:
+            child.destroy()
+        self.state.destroy()
+        del self

@@ -42,6 +42,7 @@ class Component:
                 pass
             finally:
                 if not do_not_register:
+                    self.state.components.append(self)
                     if method_name == "early_update":
                         self.state.early_update_components.append(self)
                     elif method_name == "update":
@@ -74,3 +75,6 @@ class Component:
     def handle_message(self, func_name=None, param=None):
         if hasattr(self, func_name):
             getattr(self, func_name)(param)
+
+    def destroy(self):
+        del self

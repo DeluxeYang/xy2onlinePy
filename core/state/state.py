@@ -57,6 +57,8 @@ class State:
         self.destroy()
 
     def destroy(self):
+        for component in self.components:
+            component.destroy()
         del self
 
 

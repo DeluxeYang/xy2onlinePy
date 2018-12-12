@@ -32,3 +32,6 @@ class UIState:
 
     def exit(self):
         pass
+
+    def destroy(self):
+        del self

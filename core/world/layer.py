@@ -35,6 +35,11 @@ class Layer:
         if isinstance(game_object, GameObject):
             self.children.append(game_object)
 
+    def destroy(self):
+        for child in self.children:
+            child.destroy()
+        del self
+
 
 class MapLayer(Layer):
     def draw(self, screen):
