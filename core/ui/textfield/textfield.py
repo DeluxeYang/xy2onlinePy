@@ -1,11 +1,9 @@
 from core.ui.ui import UI
 from utils import ptext
 
-template = {
-    "#r": ["color", "red"], "#g": ["color", "green"], "#b": ["color", "blue"],
-    "#p": ["color", "pink"], "#P": ["color", "purple"], "#B": ["color", "black"],
-    "#y": ["color", "yellow"], "#o": ["color", "orange"],
-    "# ": ["color", "pink"],
+templates = {
+    "red": "color",
+    "24": ["gires2.wdf", "0x12345678"]
 }
 
 
