@@ -20,7 +20,7 @@ screen.fill((0, 30, 60))
 # ptext.draw("Vertical text", midleft=(40, 440), angle=90)
 ptext.draw("All together now:\n大话西游",
     midbottom=(427,460), width=360, fontname="hyi1gjm", fontsize=48, underline=True,
-    color="#AAFF00", gcolor="#66AA00", owidth=1.5, ocolor="black", alpha=0.8, angle=5)
+    color="#AAFF00", gcolor="#66AA00", owidth=1.5, ocolor="black", alpha=0.8, angle=5, align="left")
 
 pygame.display.flip()
 while not any(event.type in (pygame.KEYDOWN, pygame.QUIT) for event in pygame.event.get()):
