@@ -2,6 +2,7 @@ from core.ui.ui import UI
 from utils import ptext
 
 from .ptext_wrapper import PTextWrapper
+from .emoji import emoji_factory
 
 templates = {
     "#red": ["color", "red"],
@@ -60,76 +61,58 @@ class TextField(UI):
         self.anchor = anchor
         self.angle = angle
 
-    def translate(self):
-        font_num_each_row_max = self.w //self.font_size  #
-        self.w = font_num_each_row_max * self.font_size  # 字框重新调整
-
-        text_cache = None
-        text_cache_len = 0
-        last_x = self.x
-        last_y = self.y
+    def translate_and_split(self):
+        contents = []
         i = 0
-        under_matching = False
+        pattern_matching = False
         last_pattern = None  # color, bold, italic
-        ptext_pattern = {"color": None}
         pattern_text_cache = "#"
         while i < len(self.text):
             if self.text[i] == "#":  # 如果是#
-                under_matching = True
+                pattern_matching = True
             elif self.text[i].isalnum():  # 如果是数字或者字母
-                if under_matching:
-                    pattern_text_cache += self.text[i]
-                    if pattern_text_cache in templates:
-                        last_pattern = templates[pattern_text_cache]
+                if pattern_matching:  # 如果此时正在匹配
+                    pattern_text_cache += self.text[i]  # 则暂存该字符
+                    if pattern_text_cache in templates:  # 如果有该模式
+                        last_pattern = templates[pattern_text_cache]  # 记录
                     if pattern_text_cache not in prefix:  # 如果前缀不匹配
-                        under_matching = False  # 退出匹配模式
-                        if last_pattern:  # 有模式
-                            if last_pattern[0].endswith("wdf"):  # 表情
-
-                                ptext_instance = PTextWrapper(
-                                    text_cache, last_x, last_y,
-                                    font_name=self.font_name, font_size=self.font_size,
-                                    bold=self.bold, italic=self.italic, underline=self.underline,
-                                    color=ptext_pattern.get("color", self.color), background=self.background,
-                                    width=self.width, width_em=self.width_em,
-                                    line_height=self.line_height, p_space=self.p_space,
-                                    strip=self.strip, align=self.align,
-                                    o_width=self.o_width, o_color=self.o_color,
-                                    shadow=self.shadow, s_color=self.s_color,
-                                    g_color=self.g_color, shade=self.shade,
-                                    alpha=self.alpha, anchor=self.anchor, angle=self.angle)
-                            else:  # 字符样式
-                                ptext_pattern[last_pattern[0]] = last_pattern[1]
-                        else:  # 无模式
-                            text_cache += pattern_text_cache
-                            text_cache_len += len(pattern_text_cache)
-                        pattern_text_cache = "#"
-                        last_pattern = None
-                        text_cache_len = 0
-                    else:  # 如果匹配则继续
-                        continue
-                else:
-                    text_cache += self.text[i]  # 如果是数字或字母，但不在匹配模式下，则记录到text_cache中
-                    text_cache_len += 1
-            else:
-                if under_matching:
-                    under_matching = False  # 退出匹配模式
-                    if last_pattern:  # 有模式
-                        if isinstance(last_pattern, list):
-                            pass  # 断句，生成表情
+                        pattern_matching = False  # 退出匹配模式
+                        if last_pattern:
+                            contents.append(self.pattern_transform(last_pattern))
                         else:
-                            ptext_pattern[last_pattern] = True
-                    else:  # 无模式
-                        text_cache += pattern_text_cache
-                        text_cache_len += 1
-                    pattern_text_cache = "#"
-                    last_pattern = None
+                            for x in pattern_text_cache:
+                                contents.append(x)
+                        last_pattern = None
+                        pattern_text_cache = "#"
                 else:
-                    text_cache += self.text[i]
-                    if self.is_chinese(self.text[i]):  # 如果是中文，则长度+2
-                        text_cache_len += 2
+                    contents.append(self.text[i])
+            else:
+                if pattern_matching:
+                    pattern_matching = False  # 退出匹配模式
+                    if last_pattern:
+                        contents.append(self.pattern_transform(last_pattern))
                     else:
-                        text_cache_len += 1
+                        for x in pattern_text_cache:
+                            contents.append(x)
+                    last_pattern = None
+                    pattern_text_cache = "#"
+                contents.append(self.text[i])
+            i += 1
+        if last_pattern:
+            contents.append(self.pattern_transform(last_pattern))
+        elif pattern_text_cache != "#":
+            for x in pattern_text_cache:
+                contents.append(x)
+
+    def rebuild(self):
+        pass
+
+    @staticmethod
+    def pattern_transform(pattern):
+        if pattern[0] == "color":
+            return "ColorInstance"  # TODO
+        else:
+            return emoji_factory(pattern)
 
     @staticmethod
     def is_chinese(uchar):
@@ -139,5 +122,3 @@ class TextField(UI):
             return True
         else:
             return False
-
-

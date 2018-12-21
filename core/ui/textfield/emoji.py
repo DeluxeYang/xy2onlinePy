@@ -8,6 +8,6 @@ class Emoji(UI):
         self.init_state(EmojiState())
 
 
-def emoji_factory(res_tuple, x, y):
+def emoji_factory(res_tuple):
     res_info = {"normal": res_tuple}
-    return Emoji(res_info, x, y)
+    return Emoji(res_info)
