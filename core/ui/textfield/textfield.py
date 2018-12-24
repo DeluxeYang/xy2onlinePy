@@ -1,8 +1,8 @@
 from core.ui.ui import UI
 from utils import ptext
 
-from .ptext_wrapper import PTextWrapper
-from .emoji import emoji_factory
+from .ptext_wrapper import PTextWrapper, ColorWrapper, EmojiWrapper
+from .emoji import emoji_factory, Emoji
 
 templates = {
     "#red": ["color", "red"],
@@ -103,16 +103,43 @@ class TextField(UI):
         elif pattern_text_cache != "#":
             for x in pattern_text_cache:
                 contents.append(x)
+        return contents
 
-    def rebuild(self):
-        pass
+    def rebuild(self, contents):
+        p_text_instance = self.generate_p_text(text="", x=self.x, y=self.y)
+        temp_x = 0
+        temp_y = 0
+        temp_line_height = self.line_height
+        for content in contents:
+            if isinstance(content, EmojiWrapper):
+                pass
+            elif isinstance(content, ColorWrapper):
+                p_text_instance.set_color(content.color)
+            else:
+                if self.is_chinese(content):
+                    temp_x += self.font_size
+                else:
+                    temp_x += self.font_size // 2
+                p_text_instance.append_text(content)
+
+    def generate_p_text(self, text, x, y):
+        p_text_instance = PTextWrapper(text=text, x=x, y=y, font_name=self.font_name, font_size=self.font_size,
+                                       bold=self.bold, italic=self.italic, underline=self.underline,
+                                       color=self.color, background=self.background,
+                                       width=self.width, width_em=self.width_em, line_height=self.line_height,
+                                       p_space=self.p_space,
+                                       align=self.align, o_width=self.o_width, o_color=self.o_color,
+                                       shadow=self.shadow, s_color=self.s_color,
+                                       g_color=self.g_color, shade=self.shade,
+                                       alpha=self.alpha, anchor=self.anchor, angle=self.angle, strip=self.strip)
+        return p_text_instance
 
     @staticmethod
     def pattern_transform(pattern):
         if pattern[0] == "color":
-            return "ColorInstance"  # TODO
+            return ColorWrapper(pattern[1])
         else:
-            return emoji_factory(pattern)
+            return EmojiWrapper(pattern[0], pattern[1])
 
     @staticmethod
     def is_chinese(uchar):

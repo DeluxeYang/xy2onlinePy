@@ -61,3 +61,18 @@ class PTextWrapper:
                    shadow=self.shadow, scolor=self.s_color,
                    gcolor=self.g_color, shade=self.shade,
                    alpha=self.alpha, anchor=self.anchor, angle=self.angle)
+
+    def set_color(self, color):
+        self.color = color
+
+    def append_text(self, text):
+        self.text += text
+
+class ColorWrapper:
+    def __init__(self, color):
+        self.color = color
+
+class EmojiWrapper:
+    def __init__(self, wdf, _hash):
+        self.wdf = wdf
+        self.hash = _hash
