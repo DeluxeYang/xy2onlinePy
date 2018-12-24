@@ -1,7 +1,7 @@
 from core.ui.ui import UI
 from utils import ptext
 
-from .ptext_wrapper import PTextWrapper, ColorWrapper, EmojiWrapper
+from .ptext_wrapper import PTextWrapper, ColorWrapper, EmojiWrapper, TextWrapper
 from .emoji import emoji_factory, Emoji
 
 templates = {
@@ -106,21 +106,27 @@ class TextField(UI):
         return contents
 
     def rebuild(self, contents):
-        p_text_instance = self.generate_p_text(text="", x=self.x, y=self.y)
+        # p_text_instance = self.generate_p_text(text="", x=self.x, y=self.y)
+
+        temp_text = TextWrapper()
+        p_text_state = {
+            "color": self.color
+        }
         temp_x = 0
         temp_y = 0
         temp_line_height = self.line_height
         for content in contents:
             if isinstance(content, EmojiWrapper):
-                pass
+                pass  #  TODO 结算
             elif isinstance(content, ColorWrapper):
-                p_text_instance.set_color(content.color)
+                p_text_state["color"] = content.color
+                if not temp_text.is_empty():
+                    pass  #  TODO 结算
             else:
-                if self.is_chinese(content):
-                    temp_x += self.font_size
-                else:
-                    temp_x += self.font_size // 2
-                p_text_instance.append_text(content)
+                temp_text.append(content)
+            if temp_text.len + temp_x >= self.w:
+                pass  # TODO 结算
+
 
     def generate_p_text(self, text, x, y):
         p_text_instance = PTextWrapper(text=text, x=x, y=y, font_name=self.font_name, font_size=self.font_size,
