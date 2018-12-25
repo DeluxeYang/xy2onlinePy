@@ -49,7 +49,7 @@ class PTextWrapper:
         self.x = x
         self.y = y
 
-    def draw(self):
+    def draw(self, screen):
         ptext.draw(self.text, left=self.x, top=self.y,
                    fontname=self.font_name, fontsize=self.font_size,
                    bold=self.bold, italic=self.italic, underline=self.underline,
