@@ -26,6 +26,27 @@ notice_scene_json = {
                     },
                 ]
             },
+            {
+                "type": "fixed",
+                "screen_position": (100, 100),
+                "w": 350,
+                "h": 300,
+                "res_info": None,
+                "factor": [
+                    {
+                        "type": "textfield",
+                        "attributes": {
+                            "text": "公告#24",
+                            "res_info": None,
+                            "x": 0,
+                            "y": 0,
+                            "w": 350,
+                            "h": 300,
+                        },
+                        "components": []
+                    },
+                ]
+            },
         ],
         "shape": None,
         "map": [
