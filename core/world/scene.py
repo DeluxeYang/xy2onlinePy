@@ -5,6 +5,7 @@ from core.entity.material_animation_object import material_animation_object_fact
 
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
+from core.ui.textfield.textfield import TextField
 
 
 class Scene:
@@ -45,6 +46,11 @@ class Scene:
                         for c in factor["components"]:
                             button_instance.add_component(c)
                         frame_instance.add_child(button_instance)
+                    elif factor["type"] == "textfield":
+                        text_field_instance = TextField(**factor["attributes"])
+                        for c in factor["components"]:
+                            text_field_instance.add_component(c)
+                        frame_instance.add_child(text_field_instance)
                 ui_layer.add_game_object(frame_instance)
 
         # Layer Adding
