@@ -20,10 +20,10 @@ prefix = {
 
 class TextField(UI):
     def __init__(self, text, res_info, x, y, w, h,
-                 font_name="HYC1GJM", font_size=24,
+                 font_name="HYF2GJM", font_size=16, sys_font=None,
                  bold=False, italic=False, underline=False,
                  color=ptext.DEFAULT_COLOR, background=ptext.DEFAULT_BACKGROUND,
-                 width=None, width_em=None, line_height=ptext.DEFAULT_LINE_HEIGHT, p_space=ptext.DEFAULT_PARAGRAPH_SPACE,
+                 width=None, width_em=None, line_height=16, p_space=ptext.DEFAULT_PARAGRAPH_SPACE,
                  align="left", o_width=None, o_color=ptext.DEFAULT_OUTLINE_COLOR,
                  shadow=None, s_color=ptext.DEFAULT_SHADOW_COLOR,
                  g_color=None, shade=ptext.DEFAULT_SHADE,
@@ -33,6 +33,7 @@ class TextField(UI):
 
         self.font_name = font_name
         self.font_size = font_size
+        self.sys_font = sys_font
 
         self.bold = bold
         self.italic = italic
@@ -66,7 +67,6 @@ class TextField(UI):
         self.rebuild(contents)
 
         self.init_state(TextFieldState())
-
 
     def translate_and_split(self):
         contents = []
@@ -114,41 +114,77 @@ class TextField(UI):
 
     def rebuild(self, contents):
         temp_text = TextWrapper(self.font_size)
-        p_text_state = {
-            "color": self.color
-        }
+        p_text_state = self.generate_text_state()
         temp_x = 0
         temp_y = 0
-        temp_line_height = self.line_height
+        line_height_correcter = {}
+        i = 0
+        line_num = 1
+        emoji_flag = False
         for content in contents:
             if isinstance(content, EmojiWrapper):
                 if not temp_text.is_empty():
-                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
-                                           **p_text_state)
+                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
                     self.add_child(text_instance)  # 添加表情
+                    i += 1
                     temp_x += temp_text.len
                     temp_text = TextWrapper(self.font_size)
                 emoji_instance = emoji_factory([content.wdf, content.hash], temp_x, temp_y)  # 生成表情
                 self.add_child(emoji_instance)  # 添加表情
+                i += 1
                 temp_x += emoji_instance.state.res.w  # 根据表情宽度更改位置
-                # temp_line_height = emoji_instance.state.res.h  # 表情高度
+                emoji_flag = True
+                line_height_correcter[line_num] = emoji_flag, i
             elif isinstance(content, ColorWrapper):
                 if not temp_text.is_empty():
-                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
-                                         **p_text_state)
+                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
                     self.add_child(text_instance)  # 添加表情
+                    i += 1
                     temp_x += temp_text.len
                     temp_text = TextWrapper(self.font_size)
                 p_text_state["color"] = content.color
             else:
                 temp_text.append(content)
             if temp_text.len + temp_x >= self.w:
-                text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
-                                     **p_text_state)
-                self.add_child(text_instance)  # 添加表情
+                if not temp_text.is_empty():
+                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
+                    self.add_child(text_instance)  # 添加表情
+                    i += 1
                 temp_x = 0
-                temp_y += self.font_size + self.line_height
+                temp_y += self.font_size + self.line_height if emoji_flag else self.font_size + 5
                 temp_text = TextWrapper(self.font_size)
+                line_height_correcter[line_num] = emoji_flag, i
+                line_num += 1
+                emoji_flag = False
+        if not temp_text.is_empty():
+            text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
+            self.add_child(text_instance)  # 添加表情
+            i += 1
+            line_height_correcter[line_num] = emoji_flag, i
+        print(line_height_correcter, line_num)
+        i = 0
+        for line_number in range(1, line_num+1):
+            correcter = line_height_correcter[line_number]
+            if correcter[0]:
+                for ii in range(i, correcter[1]):
+                    if isinstance(self.children[ii], Text):
+                        self.children[ii].add_y(12)
+            i = correcter[1]
+        print([x.y for x in self.children])
+
+    def generate_text_state(self):
+        text_state = {
+            "font_name": self.font_name, "font_size": self.font_size, "sys_font": self.sys_font,
+            "bold": self.bold, "italic": self.italic, "underline": self.underline,
+            "color": self.color, "background": self.background,
+            "width": self.width, "width_em": self.width_em, "line_height": self.line_height,
+            "p_space": self.p_space,
+            "align": self.align, "o_width": self.o_width, "o_color": self.o_color,
+            "shadow": self.shadow, "s_color": self.s_color,
+            "g_color": self.g_color, "shade": self.shade,
+            "alpha": self.alpha, "anchor": self.anchor, "angle": self.angle
+        }
+        return text_state
 
     @staticmethod
     def pattern_transform(pattern):

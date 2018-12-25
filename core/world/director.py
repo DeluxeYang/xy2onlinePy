@@ -64,8 +64,7 @@ class Director:
         i = 0
         while self.running:
             if i > self.fps:
-                print(fps.get_fps())
-                print(len(gc.get_objects()))
+                print("帧数：", fps.get_fps())
                 i = 0
             i += 1
 
@@ -91,7 +90,6 @@ class Director:
             self.network_client.pump()
 
             gc.collect()
-
 
     def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
