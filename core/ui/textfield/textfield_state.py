@@ -7,7 +7,3 @@ class TextFieldState(UIState):
         self.game_object = obj
         self.game_object.inited = True
         self.game_object.ready = True
-
-    def draw(self, screen):
-        for content in self.game_object.content:
-            content.draw(screen)

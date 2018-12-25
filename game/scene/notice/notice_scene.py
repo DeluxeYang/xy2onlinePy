@@ -36,7 +36,7 @@ notice_scene_json = {
                     {
                         "type": "textfield",
                         "attributes": {
-                            "text": "公告#24",
+                            "text": "公告#24公告#24公告#24公告#24公告#24公告#24公告#24公告#24公告#2",
                             "res_info": None,
                             "x": 0,
                             "y": 0,

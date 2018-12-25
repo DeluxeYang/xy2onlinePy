@@ -1,5 +1,5 @@
 from core.ui.ui import UI
-from .emoji_state import EmojiState
+from core.ui.emoji.emoji_state import EmojiState
 
 
 class Emoji(UI):

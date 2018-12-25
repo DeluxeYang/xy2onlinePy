@@ -1,9 +1,10 @@
 from core.ui.ui import UI
 from utils import ptext
 
-from .textfield_state import TextFieldState
-from .ptext_wrapper import PTextWrapper, ColorWrapper, EmojiWrapper, TextWrapper
-from .emoji import emoji_factory, Emoji
+from core.ui.textfield.textfield_state import TextFieldState
+from core.ui.text.text import Text
+from core.ui.textfield.wrappers import ColorWrapper, EmojiWrapper, TextWrapper
+from core.ui.emoji.emoji import emoji_factory
 
 templates = {
     "#red": ["color", "red"],
@@ -29,7 +30,6 @@ class TextField(UI):
                  alpha=1.0, anchor=(0.0, 0.0), angle=0, strip=True):
         super().__init__(res_info, x, y, w, h)
         self.text = text
-        self.content = []
 
         self.font_name = font_name
         self.font_size = font_size
@@ -113,55 +113,42 @@ class TextField(UI):
         return contents
 
     def rebuild(self, contents):
-        # p_text_instance = self.generate_p_text(text="", x=self.x, y=self.y)
-        temp_text = TextWrapper()
+        temp_text = TextWrapper(self.font_size)
         p_text_state = {
             "color": self.color
         }
         temp_x = 0
         temp_y = 0
-        # temp_line_height = self.line_height
+        temp_line_height = self.line_height
         for content in contents:
             if isinstance(content, EmojiWrapper):
                 if not temp_text.is_empty():
-                    p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
-                    self.content.append(p_text_instance)  # 添加表情
+                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
+                                           **p_text_state)
+                    self.add_child(text_instance)  # 添加表情
                     temp_x += temp_text.len
-                    temp_text = TextWrapper()
+                    temp_text = TextWrapper(self.font_size)
                 emoji_instance = emoji_factory([content.wdf, content.hash], temp_x, temp_y)  # 生成表情
-                self.content.append(emoji_instance)  # 添加表情
+                self.add_child(emoji_instance)  # 添加表情
                 temp_x += emoji_instance.state.res.w  # 根据表情宽度更改位置
                 # temp_line_height = emoji_instance.state.res.h  # 表情高度
             elif isinstance(content, ColorWrapper):
                 if not temp_text.is_empty():
-                    p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
-                    self.content.append(p_text_instance)  # 添加表情
+                    text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
+                                         **p_text_state)
+                    self.add_child(text_instance)  # 添加表情
                     temp_x += temp_text.len
-                    temp_text = TextWrapper()
+                    temp_text = TextWrapper(self.font_size)
                 p_text_state["color"] = content.color
             else:
                 temp_text.append(content)
             if temp_text.len + temp_x >= self.w:
-                p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
-                self.content.append(p_text_instance)  # 添加表情
+                text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, w=temp_text.len, h=temp_line_height,
+                                     **p_text_state)
+                self.add_child(text_instance)  # 添加表情
                 temp_x = 0
                 temp_y += self.font_size + self.line_height
-                temp_text = TextWrapper()
-        print(self.content)
-        print(self.x, self.y)
-
-
-    def generate_p_text(self, text, x, y):
-        p_text_instance = PTextWrapper(text=text, x=x, y=y, font_name=self.font_name, font_size=self.font_size,
-                                       bold=self.bold, italic=self.italic, underline=self.underline,
-                                       color=self.color, background=self.background,
-                                       width=self.width, width_em=self.width_em, line_height=self.line_height,
-                                       p_space=self.p_space,
-                                       align=self.align, o_width=self.o_width, o_color=self.o_color,
-                                       shadow=self.shadow, s_color=self.s_color,
-                                       g_color=self.g_color, shade=self.shade,
-                                       alpha=self.alpha, anchor=self.anchor, angle=self.angle, strip=self.strip)
-        return p_text_instance
+                temp_text = TextWrapper(self.font_size)
 
     @staticmethod
     def pattern_transform(pattern):
