@@ -1,12 +1,13 @@
 from core.ui.ui import UI
 from utils import ptext
 
+from .textfield_state import TextFieldState
 from .ptext_wrapper import PTextWrapper, ColorWrapper, EmojiWrapper, TextWrapper
 from .emoji import emoji_factory, Emoji
 
 templates = {
     "#red": ["color", "red"],
-    "#24": ["gires2.wdf", "0x12345678"]
+    "#24": ["gires.wdf", "0x1A7FADBF"]
 }
 
 prefix = {
@@ -61,6 +62,12 @@ class TextField(UI):
         self.anchor = anchor
         self.angle = angle
 
+        contents = self.translate_and_split()
+        self.rebuild(contents)
+
+        self.init_state(TextFieldState())
+
+
     def translate_and_split(self):
         contents = []
         i = 0
@@ -107,25 +114,41 @@ class TextField(UI):
 
     def rebuild(self, contents):
         # p_text_instance = self.generate_p_text(text="", x=self.x, y=self.y)
-
         temp_text = TextWrapper()
         p_text_state = {
             "color": self.color
         }
         temp_x = 0
         temp_y = 0
-        temp_line_height = self.line_height
+        # temp_line_height = self.line_height
         for content in contents:
             if isinstance(content, EmojiWrapper):
-                pass  #  TODO 结算
-            elif isinstance(content, ColorWrapper):
-                p_text_state["color"] = content.color
                 if not temp_text.is_empty():
-                    pass  #  TODO 结算
+                    p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
+                    self.content.append(p_text_instance)  # 添加表情
+                    temp_x += temp_text.len
+                    temp_text = TextWrapper()
+                emoji_instance = emoji_factory([content.wdf, content.hash], temp_x, temp_y)  # 生成表情
+                self.content.append(emoji_instance)  # 添加表情
+                temp_x += emoji_instance.state.res.w  # 根据表情宽度更改位置
+                # temp_line_height = emoji_instance.state.res.h  # 表情高度
+            elif isinstance(content, ColorWrapper):
+                if not temp_text.is_empty():
+                    p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
+                    self.content.append(p_text_instance)  # 添加表情
+                    temp_x += temp_text.len
+                    temp_text = TextWrapper()
+                p_text_state["color"] = content.color
             else:
                 temp_text.append(content)
             if temp_text.len + temp_x >= self.w:
-                pass  # TODO 结算
+                p_text_instance = PTextWrapper(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
+                self.content.append(p_text_instance)  # 添加表情
+                temp_x = 0
+                temp_y += self.font_size + self.line_height
+                temp_text = TextWrapper()
+        print(self.content)
+        print(self.x, self.y)
 
 
     def generate_p_text(self, text, x, y):
