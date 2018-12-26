@@ -69,6 +69,10 @@ class TextField(UI):
         self.init_state(TextFieldState())
 
     def translate_and_split(self):
+        """
+        将text中的表情等元素解析出来，并打散成列表
+        :return:
+        """
         contents = []
         i = 0
         pattern_matching = False
@@ -113,6 +117,11 @@ class TextField(UI):
         return contents
 
     def rebuild(self, contents):
+        """
+        将translate_and_split生成的列表中元素，组成成Emoji、Text，并且断行断句
+        :param contents:
+        :return:
+        """
         temp_text = TextWrapper(self.font_size)
         p_text_state = self.generate_text_state()
         temp_x = 0
@@ -151,7 +160,7 @@ class TextField(UI):
                     self.add_child(text_instance)  # 添加表情
                     i += 1
                 temp_x = 0
-                temp_y += self.font_size + self.line_height if emoji_flag else self.font_size + 5
+                temp_y += self.font_size + self.line_height if emoji_flag else self.font_size + 5  # 下一行的距离
                 temp_text = TextWrapper(self.font_size)
                 line_height_correcter[line_num] = emoji_flag, i
                 line_num += 1
@@ -161,16 +170,14 @@ class TextField(UI):
             self.add_child(text_instance)  # 添加表情
             i += 1
             line_height_correcter[line_num] = emoji_flag, i
-        print(line_height_correcter, line_num)
         i = 0
-        for line_number in range(1, line_num+1):
+        for line_number in range(1, line_num+1):  # 根据每一行是否有表情，重新定位每一行的行距
             correcter = line_height_correcter[line_number]
             if correcter[0]:
                 for ii in range(i, correcter[1]):
                     if isinstance(self.children[ii], Text):
                         self.children[ii].add_y(12)
             i = correcter[1]
-        print([x.y for x in self.children])
 
     def generate_text_state(self):
         text_state = {
