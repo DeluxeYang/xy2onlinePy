@@ -16,17 +16,17 @@ class Layer:
                 if event.handled:  # 如果被handle则退出
                     break
 
-    def early_update(self, data):
+    def early_update(self, context):
         for child in self.children:
-            child.early_update(data)
+            child.early_update(context)
 
-    def update(self, data):
+    def update(self, context):
         for child in self.children:
-            child.update(data)
+            child.update(context)
 
-    def late_update(self, data):
+    def late_update(self, context):
         for child in self.children:
-            child.late_update(data)
+            child.late_update(context)
 
     def draw(self, screen):
         pass

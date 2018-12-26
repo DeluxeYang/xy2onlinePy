@@ -52,7 +52,7 @@ class Director:
 
         fps = pygame.time.Clock()
 
-        running_data = {
+        context = {
             "delta_time": 0.0,
             "current_time": 0.0,
             "portals": [],
@@ -72,10 +72,10 @@ class Director:
             # handle_event
             self.handle_events(event_queue)
             # running_data setting
-            running_data["delta_time"] = fps.tick(self.fps)
-            running_data["current_time"] = pygame.time.get_ticks()
+            context["delta_time"] = fps.tick(self.fps)
+            context["current_time"] = pygame.time.get_ticks()
             # update
-            self.update(running_data)
+            self.update(context)
             # fill with black
             self._screen.fill((0, 0, 0))
             # draw
@@ -98,8 +98,8 @@ class Director:
             if not event.handled:  # 如果该事件没有被handle
                 self._scene.handle_event(event)  # 则继续向下级传递
 
-    def update(self, data):
-        self._scene.update(data)
+    def update(self, context):
+        self._scene.update(context)
 
     def draw(self, screen):
         self._scene.draw(screen)

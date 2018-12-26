@@ -73,13 +73,13 @@ class Scene:
     shape  \      \       /       \      /
     map     \      \     /         \    / 
     """
-    def update(self, data):
+    def update(self, context):
         for layer in self.layers:  # 遍历每个layer  early_update
-            layer.early_update(data)
+            layer.early_update(context)
         for layer in self.layers[::-1]:  # 遍历每个layer  update
-            layer.update(data)
+            layer.update(context)
         for layer in self.layers:  # 遍历每个layer  late_update
-            layer.late_update(data)
+            layer.late_update(context)
 
     def draw(self, screen):
         for layer in self.layers[::-1]:  # 逆序遍历每个layer
