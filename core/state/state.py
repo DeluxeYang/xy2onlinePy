@@ -31,17 +31,17 @@ class State:
         for component in self.event_components:
             component.handle_event(event)
 
-    def early_update(self, data):
+    def early_update(self, context):
         for component in self.early_update_components:
-            component.early_update(data)
+            component.early_update(context)
 
-    def update(self, data):  # update 处理
+    def update(self, context):  # update 处理
         for component in self.update_components:
-            component.update(data)
+            component.update(context)
 
-    def late_update(self, data):
+    def late_update(self, context):
         for component in self.late_update_components:
-            component.late_update(data)
+            component.late_update(context)
 
     def draw(self, screen):  # draw 处理
         for component in self.draw_components:

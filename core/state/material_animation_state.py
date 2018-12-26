@@ -14,8 +14,8 @@ class MaterialAnimationState(AnimationState):
         address = self.game_object.res_info[self.res_index]
         self.res_init(address)  # 初始化res
 
-    def update(self, data):
-        one_loop = super().update(data)
+    def update(self, context):
+        one_loop = super().update(context)
         self.set_surface(self.game_object.direction)  # 通常direction为0
         return one_loop
 

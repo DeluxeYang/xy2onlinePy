@@ -30,11 +30,11 @@ class AnimationState(State):
         self.last_frame = self.res.frame_num
         self.game_object.inited = True  # 初始化完成
 
-    def update(self, data):
-        one_loop = self.calc_next_frame(data["current_time"], rate=100)  # 计算下一帧的帧数
-        self.game_object.screen_rect = self.get_screen_rect(data["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
+    def update(self, context):
+        one_loop = self.calc_next_frame(context["current_time"], rate=100)  # 计算下一帧的帧数
+        self.game_object.screen_rect = self.get_screen_rect(context["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
         self.game_object.ready = True  # ready
-        super().update(data)
+        super().update(context)
         return one_loop
 
     def get_mask(self, direction):

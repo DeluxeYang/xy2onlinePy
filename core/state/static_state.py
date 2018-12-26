@@ -22,10 +22,10 @@ class StaticState(State):
         self.game_object.surface = self.res.image_group[0][0].copy()
         self.game_object.inited = True
 
-    def update(self, data):
-        self.game_object.screen_rect = self.get_screen_rect(data["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
+    def update(self, context):
+        self.game_object.screen_rect = self.get_screen_rect(context["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
         self.game_object.ready = True  # ready
-        super().update(data)
+        super().update(context)
 
     def draw(self, screen):
         super().draw(screen)  # State的draw 即调用组件draw

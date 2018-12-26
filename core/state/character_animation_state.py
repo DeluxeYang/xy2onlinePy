@@ -26,10 +26,10 @@ class CharacterAnimationState(AnimationState):
             address = self.game_object.res_info[self.res_index]
         self.res_init(address)  # 初始化res
 
-    def update(self, data):
-        one_loop = super().update(data)
+    def update(self, context):
+        one_loop = super().update(context)
         self.game_object.mask = self.get_mask(self.game_object.direction)  # 设定shape对应的mask
-        self.set_surface(self.game_object.direction, data["other_masks"], self.game_object.get_xy())
+        self.set_surface(self.game_object.direction, context["other_masks"], self.game_object.get_xy())
         return one_loop
 
     def draw(self, screen):

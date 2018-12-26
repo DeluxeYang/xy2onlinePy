@@ -28,17 +28,17 @@ class GameObject:
     def handle_event(self, event):
         self.state.handle_event(event)
 
-    def early_update(self, data):
+    def early_update(self, context):
         if self.inited:
-            self.state.early_update(data)
+            self.state.early_update(context)
 
-    def update(self, data):
+    def update(self, context):
         if self.inited:
-            self.state.update(data)
+            self.state.update(context)
 
-    def late_update(self, data):
+    def late_update(self, context):
         if self.inited:
-            self.state.late_update(data)
+            self.state.late_update(context)
 
     def draw(self, screen):
         if self.ready:
@@ -57,12 +57,12 @@ class GameObject:
             self.state.register(self)
             self.state.enter()
 
-    def changing_state(self, next_state, data=None):
+    def changing_state(self, next_state, context=None):
         if not isinstance(self.state, type(next_state)):
             self.state.exit()
             self.init_state(next_state)
-            if data:
-                self.state.update(data)
+            if context:
+                self.state.update(context)
 
     def add_child(self, child):
         child.parent = self
