@@ -39,15 +39,15 @@ class UI(GameObject):
                 for component in self.event_components:
                     component.handle_event(event)
 
-    def update(self, data):
+    def update(self, context):
         if self.inited:
             if self.parent:
                 self.screen_rect = Rect((self.x + self.parent.screen_rect.x,
                                          self.y + self.parent.screen_rect.y), (self.w, self.h))
             # 先更新位置，再更新其他
-            self.state.update(data)
+            self.state.update(context)
             for child in self.children:
-                child.update(data)
+                child.update(context)
 
     def draw(self, screen):
         if self.ready:

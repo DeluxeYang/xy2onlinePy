@@ -50,13 +50,13 @@ class UIComponent:
         if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法
             getattr(self, "on_" + event.name)(event)  # 则处理
 
-    def early_update(self, data=None):
+    def early_update(self, context=None):
         raise NotImplementedError
 
-    def update(self, data=None):
+    def update(self, context=None):
         raise NotImplementedError
 
-    def late_update(self, data=None):
+    def late_update(self, context=None):
         raise NotImplementedError
 
     def draw(self, screen=None):

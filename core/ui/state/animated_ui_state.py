@@ -9,8 +9,8 @@ class AnimatedUIState(UIState):
         self.last_frame = 0
         self.last_time = 0
 
-    def update(self, data):
-        one_loop = self.calc_next_frame(data["current_time"], rate=100)  # 计算下一帧的帧数
+    def update(self, context):
+        one_loop = self.calc_next_frame(context["current_time"], rate=100)  # 计算下一帧的帧数
         self.game_object.surface = self.res.image_group[0][self.frame]
         self.game_object.ready = True
         return one_loop

@@ -20,7 +20,7 @@ class UIState:
         self.game_object.inited = True  # 初始化完成
         self.game_object.ready = True
 
-    def update(self, data):
+    def update(self, context):
         pass
 
     def draw(self, screen):
