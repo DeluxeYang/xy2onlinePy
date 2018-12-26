@@ -22,7 +22,7 @@ templates = {
     "#purple": ["color", "purple"],
     "#orange": ["color", "orange"],
 
-    "#24": ["gires.wdf", "0x1A7FADBF"]
+    "#24": ["gires.wdf", "0x03F2D006"]
 }
 
 prefix = {
