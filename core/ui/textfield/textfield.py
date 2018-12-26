@@ -8,13 +8,36 @@ from core.ui.emoji.emoji import emoji_factory
 
 templates = {
     "#red": ["color", "red"],
+    "#tan": ["color", "tan"],
+    "#sky": ["color", "deepskyblue"],
+    "#blue": ["color", "blue"],
+    "#pink": ["color", "pink"],
+    "#gold": ["color", "goldenrod2"],
+    "#grey": ["color", "grey"],
+    "#white": ["color", "white"],
+    "#green": ["color", "green"],
+    "#brown": ["color", "brown"],
+    "#black": ["color", "black"],
+    "#yellow": ["color", "yellow"],
+    "#purple": ["color", "purple"],
+    "#orange": ["color", "orange"],
+
     "#24": ["gires.wdf", "0x1A7FADBF"]
 }
 
 prefix = {
     "#": 1,
     "#r": 1, "#re": 1,
-    "#2": 1
+    "#s": 1, "#sk": 1,
+    "#t": 1, "#ta": 1,
+    "#w": 1, "#wh": 1, "#whi": 1, "#whit": 1,
+    "#y": 1, "#ye": 1, "#yel": 1, "#yell": 1, "#yello": 1,
+    "#o": 1, "#or": 1, "#ora": 1, "#oran": 1, "#orang": 1,
+    "#g": 1, "#gr": 1, "#gre": 1, "#gree": 1, "#go": 1, "#gol": 1,
+    "#p": 1, "#pi": 1, "#pin": 1, "#pu": 1, "#pur": 1, "#purp": 1, "#purpl": 1,
+    "#b": 1, "#bl": 1, "#blu": 1, "#blue": 1, "#br": 1, "#bro": 1, "#brow": 1, "#bla": 1, "#blac": 1,
+    "#1": 1, "#2": 1, "#3": 1, "#4": 1, "#5": 1,
+    "#6": 1, "#7": 1, "#8": 1, "#9": 1, "#10": 1,
 }
 
 
@@ -81,7 +104,7 @@ class TextField(UI):
         while i < len(self.text):
             if self.text[i] == "#":  # 如果是#
                 pattern_matching = True
-            elif self.text[i].isalnum():  # 如果是数字或者字母
+            elif self.text[i].encode('UTF-8').isalnum():  # 如果是数字或者字母
                 if pattern_matching:  # 如果此时正在匹配
                     pattern_text_cache += self.text[i]  # 则暂存该字符
                     if pattern_text_cache in templates:  # 如果有该模式
@@ -154,7 +177,7 @@ class TextField(UI):
                 p_text_state["color"] = content.color
             else:
                 temp_text.append(content)
-            if temp_text.len + temp_x >= self.w:
+            if temp_text.len + temp_x + self.font_size >= self.w:
                 if not temp_text.is_empty():
                     text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
                     self.add_child(text_instance)  # 添加表情
