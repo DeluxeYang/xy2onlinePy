@@ -42,7 +42,7 @@ prefix = {
 
 
 class TextField(UI):
-    def __init__(self, text, res_info, x, y, w, h,
+    def __init__(self, text, x, y, w, h,
                  font_name="HYF2GJM", font_size=16, sys_font=None,
                  bold=False, italic=False, underline=False,
                  color=ptext.DEFAULT_COLOR, background=ptext.DEFAULT_BACKGROUND,
@@ -51,7 +51,7 @@ class TextField(UI):
                  shadow=None, s_color=ptext.DEFAULT_SHADOW_COLOR,
                  g_color=None, shade=ptext.DEFAULT_SHADE,
                  alpha=1.0, anchor=(0.0, 0.0), angle=0, strip=True):
-        super().__init__(res_info, x, y, w, h)
+        super().__init__(None, x, y, w, h)
         self.text = text
 
         self.font_name = font_name
