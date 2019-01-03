@@ -6,6 +6,7 @@ from core.entity.material_animation_object import material_animation_object_fact
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
 from core.ui.textfield.textfield import TextField
+from core.ui.text_input.text_input import TextInput
 
 
 class Scene:
@@ -40,14 +41,17 @@ class Scene:
                                             w=frame["w"], h=frame["h"])
                 for factor in frame["factor"]:
                     if factor["type"] == "button":
-                        button_instance = Button(res_info=factor["res_info"],
-                                                 x=factor["relative_position"][0], y=factor["relative_position"][1],
-                                                 w=factor["w"], h=factor["h"])
+                        button_instance = Button(**factor["attributes"])
                         for c in factor["components"]:
                             button_instance.add_component(c)
                         frame_instance.add_child(button_instance)
-                    elif factor["type"] == "textfield":
+                    elif factor["type"] == "text_field":
                         text_field_instance = TextField(**factor["attributes"])
+                        for c in factor["components"]:
+                            text_field_instance.add_component(c)
+                        frame_instance.add_child(text_field_instance)
+                    elif factor["type"] == "text_input":
+                        text_field_instance = TextInput(**factor["attributes"])
                         for c in factor["components"]:
                             text_field_instance.add_component(c)
                         frame_instance.add_child(text_field_instance)
