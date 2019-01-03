@@ -18,11 +18,14 @@ notice_scene_json = {
                 "factor": [
                     {
                         "type": "button",
-                        "relative_position": (5, 10),
-                        "w": 91,
-                        "h": 37,
+                        "attributes": {
+                            "x": 5,
+                            "y": 10,
+                            "w": 91,
+                            "h": 37,
+                            "res_info": {"normal": ["gires2.wdf", "0x703FA361"]}
+                        },
                         "components": [NoticeEnterButtonMouseComponent()],
-                        "res_info": {"normal": ["gires2.wdf", "0x703FA361"]}
                     },
                 ]
             },
@@ -34,7 +37,7 @@ notice_scene_json = {
                 "res_info": None,
                 "factor": [
                     {
-                        "type": "textfield",
+                        "type": "text_field",
                         "attributes": {
                             "text": "公告#24#red大话西游#blue大话西游#green大话西游"
                                     "#pink大话西游#yellow大话西游#orange大话西游#brown大话西游#purple大话西游大话西游"
@@ -49,6 +52,25 @@ notice_scene_json = {
                             "font_name": None,
                             "font_size": 16,
                             "sys_font": "simsunnsimsun"
+                        },
+                        "components": []
+                    },
+                ]
+            },
+            {
+                "type": "fixed",
+                "screen_position": (100, 400),
+                "w": 100,
+                "h": 50,
+                "res_info": None,
+                "factor": [
+                    {
+                        "type": "text_input",
+                        "attributes": {
+                            "x": 0,
+                            "y": 0,
+                            "w": 80,
+                            "h": 40,
                         },
                         "components": []
                     },
