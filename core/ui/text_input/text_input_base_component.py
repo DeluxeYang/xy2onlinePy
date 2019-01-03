@@ -1,11 +1,10 @@
-from core.ui.ui_component import UIComponent
+from core.ui.ui_mouse_component import UIMouseComponent
 from pygame.locals import *
 
 
-class TextInputBaseComponent(UIComponent):
+class TextInputBaseComponent(UIMouseComponent):
     def on_key_down(self, event):
-        self.game_object.cursor_visible = True  # So the user sees where he writes
-
+        self.game_object.cursor_visible = True
         if event.key not in self.game_object.key_repeat_counter:
             self.game_object.key_repeat_counter[event.key] = [0, event.unicode]
 
@@ -42,7 +41,15 @@ class TextInputBaseComponent(UIComponent):
                     + self.game_object.input_string[self.game_object.cursor_position:]
             )
             self.game_object.cursor_position += len(event.unicode)  # Some are empty, e.g. K_UP
+        event.handled = True
+        print(self.game_object.input_string)
 
     def on_key_up(self, event):
-        if event.key in self.game_object.keyrepeat_counters:
-            del self.game_object.keyrepeat_counters[event.key]
+        if event.key in self.game_object.key_repeat_counter:
+            del self.game_object.key_repeat_counter[event.key]
+        event.handled = True
+
+    def on_mouse_left_down(self, event):
+        if self.is_mouse_in_rect(event):
+            self.game_object.set_focus()
+            event.handled = True
