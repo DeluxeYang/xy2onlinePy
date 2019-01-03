@@ -72,3 +72,8 @@ class UI(GameObject):
         for component in self.event_components:
             component.destroy()
         super().destroy()
+
+    def set_focus(self):
+        self.focus = True
+        if self.parent:
+            self.parent.focus = True
