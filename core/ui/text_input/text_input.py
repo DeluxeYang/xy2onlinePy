@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import Rect
 from core.ui.ui import UI
 from core.ui.text_input.text_input_base_component import TextInputBaseComponent
 from core.ui.text_input.text_input_state import TextInputState
@@ -6,14 +7,16 @@ from core.ui.text_input.text_input_state import TextInputState
 
 class TextInput(UI):
     def __init__(self, x, y, w, h,
-                 initial_string="", initial_interval_ms=400, interval_ms=35, font_size=20):
+                 initial_string="", initial_interval_ms=400, interval_ms=35, font_size=24):
         super().__init__(None, x, y, w, h)
         self.input_string = ""
         self.font_size = font_size
 
-        self.font_object = pygame.font.SysFont("simsunnsimsun", font_size)
+        self.font_object = pygame.font.SysFont("calibri", font_size)
         self.surface = pygame.Surface((1, 1))
         self.surface.set_alpha(0)
+
+        self.slide_window = (0, w)
 
         self.text_color = (255, 255, 255)
 
