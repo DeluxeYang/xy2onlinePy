@@ -16,7 +16,7 @@ class TextInput(UI):
         self.surface = pygame.Surface((1, 1))
         self.surface.set_alpha(0)
 
-        self.slide_window = (0, w)
+        self.slide_window = [0, w]
 
         self.text_color = (255, 255, 255)
 
