@@ -1,9 +1,9 @@
 from core.ui.ui import UI
 from utils import ptext
 
-from core.ui.textfield.textfield_state import TextFieldState
+from core.ui.text_field.text_field_state import TextFieldState
 from core.ui.text.text import Text
-from core.ui.textfield.wrappers import ColorWrapper, EmojiWrapper, TextWrapper
+from core.ui.text_field.wrappers import ColorWrapper, EmojiWrapper, TextWrapper
 from core.ui.emoji.emoji import emoji_factory
 
 templates = {

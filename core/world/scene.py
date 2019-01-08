@@ -5,7 +5,7 @@ from core.entity.material_animation_object import material_animation_object_fact
 
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
-from core.ui.textfield.textfield import TextField
+from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
 
 
