@@ -26,7 +26,7 @@ class TextInputState(UIState):
             self.game_object.cursor_ms_counter %= self.game_object.cursor_switch_ms
             self.game_object.cursor_visible = not self.game_object.cursor_visible
 
-        if self.game_object.cursor_visible:
+        if self.game_object.cursor_visible and self.game_object.focus:
             cursor_y_pos = self.game_object.font_object.size(
                 self.game_object.input_string[:self.game_object.cursor_position])[0]
             # Without this, the cursor is invisible when self.cursor_position > 0:
