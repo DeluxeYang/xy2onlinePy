@@ -77,3 +77,8 @@ class UI(GameObject):
         self.focus = True
         if self.parent:
             self.parent.focus = True
+
+    def lose_focus(self):
+        self.focus = False
+        for child in self.children:
+            child.lose_focus()
