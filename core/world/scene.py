@@ -1,5 +1,5 @@
 from core.world.director import director
-from core.world.layer import MapLayer, UILayer
+from core.world.layer import MapLayer, UILayer, ShapeLayer
 from core.entity.static_object import static_object_factory
 from core.entity.material_animation_object import material_animation_object_factory
 
@@ -14,26 +14,33 @@ class Scene:
 
     def __init__(self):
         self.director = director
+        self.ui_layer = None
+        self.shape_layer = None
+        self.map_layer = None
+
         self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
 
         self.title = self.scene_init_data["title"]
         self.resolution = self.scene_init_data["resolution"]
 
         # MapLayer
-        welcome_map_layer = MapLayer()
+        self.map_layer = MapLayer()
         for game_object in self.scene_init_data["layers"]["map"]:
             if game_object["type"] == "static":
                 obj = static_object_factory(game_object["res_info"],
                                             game_object["world_position"][0], game_object["world_position"][1])
-                welcome_map_layer.add_game_object(obj)
+                self.map_layer.add_game_object(obj)
             elif game_object["type"] == "material_animation":
                 obj = material_animation_object_factory(game_object["res_info"],
                                                         game_object["world_position"][0],
                                                         game_object["world_position"][1])
-                welcome_map_layer.add_game_object(obj)
+                self.map_layer.add_game_object(obj)
+
+        # ShapeLayer
+        self.shape_layer = ShapeLayer()
 
         # UILayer
-        ui_layer = UILayer()
+        self.ui_layer = UILayer()
         for frame in self.scene_init_data["layers"]["ui"]:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
@@ -55,20 +62,20 @@ class Scene:
                         for c in factor["components"]:
                             text_field_instance.add_component(c)
                         frame_instance.add_child(text_field_instance)
-                ui_layer.add_game_object(frame_instance)
-
-        # Layer Adding
-        self.add_layer(ui_layer)
-        self.add_layer(welcome_map_layer)
+                self.ui_layer.add_game_object(frame_instance)
 
     def handle_event(self, event):
         if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法
             getattr(self, "on_" + event.name)(event)  # 则处理
         if not event.handled:  # 如果该事件没有被handle & obj对象有Children属性
-            for layer in self.layers:  # 则循环遍历每个layer
-                layer.handle_event(event)  # 调用其handle_event方法
-                if event.handled:  # 如果被handle则退出
-                    break
+            self.ui_layer.handle_event(event)
+        if event.name == "mouse_left_down" and not event.handled:
+            self.ui_layer.lose_focus()
+        if not event.handled:
+            self.shape_layer.handle_event(event)
+        if not event.handled:
+            self.map_layer.handle_event(event)
+
     """
     layer 更新流
         event   early   update  late    draw
@@ -78,19 +85,22 @@ class Scene:
     map     \      \     /         \    / 
     """
     def update(self, context):
-        for layer in self.layers:  # 遍历每个layer  early_update
-            layer.early_update(context)
-        for layer in self.layers[::-1]:  # 遍历每个layer  update
-            layer.update(context)
-        for layer in self.layers:  # 遍历每个layer  late_update
-            layer.late_update(context)
+        self.ui_layer.early_update(context)
+        self.shape_layer.early_update(context)
+        self.map_layer.early_update(context)
+
+        self.map_layer.update(context)
+        self.shape_layer.update(context)
+        self.ui_layer.update(context)
+
+        self.ui_layer.late_update(context)
+        self.shape_layer.late_update(context)
+        self.map_layer.late_update(context)
 
     def draw(self, screen):
-        for layer in self.layers[::-1]:  # 逆序遍历每个layer
-            layer.draw(screen)
-
-    def add_layer(self, layer):
-        self.layers.append(layer)
+        self.map_layer.draw(screen)
+        self.shape_layer.draw(screen)
+        self.ui_layer.draw(screen)
 
     def enter(self):
         director.title = self.title
@@ -103,3 +113,9 @@ class Scene:
         for layer in self.layers:
             layer.destroy()
         del self
+
+    def on_reset_ui_focus(self, event):
+        self.ui_layer.lose_focus()
+        if hasattr(event, "set_focus_obj"):
+            event.set_focus_obj.set_focus()
+        event.handled = True
