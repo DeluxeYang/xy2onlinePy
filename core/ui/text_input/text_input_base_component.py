@@ -79,5 +79,4 @@ class TextInputBaseComponent(UIMouseComponent):
 
     def on_mouse_left_down(self, event):
         if self.is_mouse_in_rect(event):
-            self.game_object.set_focus()
             event.handled = True
