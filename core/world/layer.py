@@ -62,3 +62,7 @@ class UILayer(Layer):
         self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:
             child.draw(screen)
+
+    def lose_focus(self):
+        for child in self.children:
+            child.lose_focus()
