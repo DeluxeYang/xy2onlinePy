@@ -20,27 +20,36 @@ welcome_scene_json = {
                 "factor": [
                     {
                         "type": "button",
-                        "relative_position": (5, 10),
-                        "w": 143,
-                        "h": 37,
+                        "attributes": {
+                            "x": 5,
+                            "y": 10,
+                            "w": 143,
+                            "h": 37,
+                            "res_info": {"normal": ["gires2.wdf", "0x0A247197"]}
+                        },
                         "components": [WelcomeEnterButtonMouseComponent()],
-                        "res_info": {"normal": ["gires2.wdf", "0x0A247197"]}
                     },
                     {
                         "type": "button",
-                        "relative_position": (5, 70),
-                        "w": 143,
-                        "h": 37,
+                        "attributes": {
+                            "x": 5,
+                            "y": 70,
+                            "w": 143,
+                            "h": 37,
+                            "res_info": {"normal": ["gires2.wdf", "0x072DD907"]}
+                        },
                         "components": [WelcomeLinkedButtonMouseComponent()],
-                        "res_info": {"normal": ["gires2.wdf", "0x072DD907"]}
                     },
                     {
                         "type": "button",
-                        "relative_position": (5, 130),
-                        "w": 143,
-                        "h": 37,
+                        "attributes": {
+                            "x": 5,
+                            "y": 130,
+                            "w": 143,
+                            "h": 37,
+                            "res_info": {"normal": ["gires2.wdf", "0xD139A8FE"]}
+                        },
                         "components": [WelcomeExitButtonMouseComponent()],
-                        "res_info": {"normal": ["gires2.wdf", "0xD139A8FE"]}
                     }
                 ]
             },
