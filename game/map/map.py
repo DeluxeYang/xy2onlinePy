@@ -11,7 +11,7 @@ from settings import WindowSize
 
 class Map(GameObject):
     def __init__(self, map_id, map_client, network_client):
-        super().__init__()
+        super().__init__(0, 0)
         self.map_client = map_client
         self.network_client = network_client
 
