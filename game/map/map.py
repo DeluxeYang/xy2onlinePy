@@ -99,6 +99,6 @@ class Map(GameObject):
 
 def map_factory(map_id, map_client, network_client):
     _map = Map(map_id, map_client, network_client)
-    _state = state_factory(MapState, [MapMouseComponent, MapReceiveComponent, MapPortalComponent])
+    _state = state_factory(MapState, [MapMouseComponent, MapReceiveComponent])
     _map.init_state(_state)
     return _map

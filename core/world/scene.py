@@ -1,5 +1,6 @@
 from core.world.director import director
 from core.world.layer import MapLayer, UILayer, ShapeLayer
+
 from core.entity.static_object import static_object_factory
 from core.entity.material_animation_object import material_animation_object_factory
 
@@ -7,6 +8,8 @@ from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
 from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
+
+from game.map.map import map_factory
 
 
 class Scene:
@@ -29,12 +32,13 @@ class Scene:
             if game_object["type"] == "static":
                 obj = static_object_factory(game_object["res_info"],
                                             game_object["world_position"][0], game_object["world_position"][1])
-                self.map_layer.add_game_object(obj)
-            elif game_object["type"] == "material_animation":
+            elif game_object["type"] == "animation":
                 obj = material_animation_object_factory(game_object["res_info"],
                                                         game_object["world_position"][0],
                                                         game_object["world_position"][1])
-                self.map_layer.add_game_object(obj)
+            else:
+                obj = map_factory(game_object["map_id"], self.director.map_client, self.director.network_client)
+            self.map_layer.add_game_object(obj)
 
         # ShapeLayer
         self.shape_layer = ShapeLayer()
