@@ -9,7 +9,7 @@ from core.ui.button.button import Button
 from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
 
-from game.map.map import map_factory
+from game.map.map import Map
 
 
 class Scene:
@@ -37,7 +37,7 @@ class Scene:
                                                         game_object["world_position"][0],
                                                         game_object["world_position"][1])
             else:
-                obj = map_factory(game_object["map_id"], self.director.map_client, self.director.network_client)
+                obj = Map(game_object["map_id"], self.director.map_client, self.director.network_client)
             self.map_layer.add_game_object(obj)
 
         # ShapeLayer

@@ -1,6 +1,4 @@
 from core.entity.game_object import GameObject
-from game.map.map import map_factory
-from game.character.character import character_factory
 
 
 class Layer:
