@@ -6,6 +6,6 @@ from game.scene.welcome.welcome_scene import WelcomeScene
 
 from game.scene.notice.notice_scene import NoticeScene
 
-scene = WelcomeScene()
+from game.scene.world.world_scene import WorldScene
 
-director.run(scene)
+director.run(WelcomeScene)

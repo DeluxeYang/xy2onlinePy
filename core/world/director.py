@@ -107,7 +107,8 @@ class Director:
     def get_new_scene(self, character_id, map_id):
         pass
 
-    def change_scene(self, scene):
+    def change_scene(self, the_scene_class):
+        scene = the_scene_class()
         scene.enter()
         self.old_scene = self._scene
         self._scene = scene
