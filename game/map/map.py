@@ -26,7 +26,7 @@ class Map(GameObject):
         self.ready = False
         self.mask = {}
         self.masks_of_unit = []
-        self.portals_of_unit = []
+        # self.portals_of_unit = []
 
         self.left_top = (0, 0)
         self.me_world_pc = (0, 0)
@@ -43,9 +43,10 @@ class Map(GameObject):
 
         self.target = (0, 0)
 
-        self.load()
+        self.init_state(MapState())
+        for c in [MapMouseComponent(), MapReceiveComponent()]:
+            self.state.add_component(c)
 
-    def load(self):
         self.map_client.request_map_info(self.map_id)
 
     def get_world_pc(self, screen_pos):
@@ -95,10 +96,3 @@ class Map(GameObject):
             window_top = self.map_height - WindowSize[1]
         del self.window
         self.window = Rect((window_left, window_top), (WindowSize[0], WindowSize[1]))
-
-
-def map_factory(map_id, map_client, network_client):
-    _map = Map(map_id, map_client, network_client)
-    _state = state_factory(MapState, [MapMouseComponent, MapReceiveComponent])
-    _map.init_state(_state)
-    return _map

@@ -29,6 +29,8 @@ class MapMouseComponent(Component):
 
 class MapReceiveComponent(Component):
     def on_receive_map_info(self, event):
+
+        print("on_receive_map_info")
         if self.state.game_object.map_id == event.map_id:
             self.state.game_object.map_type = event.map_type
             self.state.game_object.map_width = event.map_width
@@ -45,7 +47,7 @@ class MapReceiveComponent(Component):
             self.state.game_object.portals_of_unit = [[] for _ in range(event.n)]
             self.state.game_object.quest_timer = [0 for _ in range(event.n)]
             self.state.game_object.inited = True
-            self.state.send_message("_map_inited")
+            self.state.game_object.ready = True
             event.handled = True
 
     def on_receive_map_unit(self, event):
