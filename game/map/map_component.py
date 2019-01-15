@@ -29,8 +29,6 @@ class MapMouseComponent(Component):
 
 class MapReceiveComponent(Component):
     def on_receive_map_info(self, event):
-
-        print("on_receive_map_info")
         if self.state.game_object.map_id == event.map_id:
             self.state.game_object.map_type = event.map_type
             self.state.game_object.map_width = event.map_width
@@ -103,19 +101,10 @@ class MapReceiveComponent(Component):
 
 
 class MapPortalComponent(Component):
-    def _map_inited(self, data):
-        """
-        一次性事件:由MapReceiveComponent当地图初始化完成后发送
-        """
-        # TODO  network_client发送请求portals 然后network_client收到回复后，会发送以下事件
-        event = pygame.event.Event(24, {"name": "receive_map_portals", "map_id": self.state.game_object.map_id})
-        pygame.event.post(event)
-        return True  # 截断
-
     def on_receive_map_portals(self, event):
         if self.state.game_object.map_id == event.map_id:
-            portals = self.state.game_object.network_client.get_map_portals(self.state.game_object.map_id)  # 获取所有portals
-
+            portals = self.state.game_object.network_client.get_map_portals(
+                self.state.game_object.map_id)  # 获取所有portals
             for portal in portals:
                 portal_instance = portal_factory(**portal)  # Portal实例
 
