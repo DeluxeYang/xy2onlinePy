@@ -23,14 +23,14 @@ class UI(GameObject):
 
     def handle_event(self, event):
         if event.name.startswith("mouse"):  # 如果是鼠标事件
-            if self.screen_rect.collidepoint(event.pos[0], event.pos[1])\
-                    or event.name.endswith("up"):  # 如果鼠标在ui的范围内，或是鼠标抬起事件
-                for child in self.children:  # 则处理该事件
-                    if not event.handled:
-                        child.handle_event(event)
+            # if self.screen_rect.collidepoint(event.pos[0], event.pos[1])\
+            #         or event.name.endswith("up"):  # 如果鼠标在ui的范围内，或是鼠标抬起事件
+            for child in self.children:  # 则处理该事件
                 if not event.handled:
-                    for component in self.event_components:
-                        component.handle_event(event)
+                    child.handle_event(event)
+            if not event.handled:
+                for component in self.event_components:
+                    component.handle_event(event)
         elif self.focus:  # 如果是焦点
             for child in self.children:  # 则处理该事件
                 if not event.handled:
@@ -72,6 +72,11 @@ class UI(GameObject):
         for component in self.event_components:
             component.destroy()
         super().destroy()
+
+    def empty_children(self):
+        for child in self.children:
+            child.destroy()
+        self.children = []
 
     def set_focus(self):
         self.focus = True
