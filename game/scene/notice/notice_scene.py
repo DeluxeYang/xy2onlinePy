@@ -60,7 +60,7 @@ notice_scene_json = {
             {
                 "type": "fixed",
                 "screen_position": (100, 400),
-                "w": 100,
+                "w": 200,
                 "h": 50,
                 "res_info": None,
                 "factor": [
@@ -68,6 +68,17 @@ notice_scene_json = {
                         "type": "text_input",
                         "attributes": {
                             "x": 0,
+                            "y": 0,
+                            "w": 80,
+                            "h": 40,
+                        },
+                        "components": []
+                    },
+                    {
+                        "type": "text_button",
+                        "attributes": {
+                            "text": "公告#24#red大话西游",
+                            "x": 100,
                             "y": 0,
                             "w": 80,
                             "h": 40,
