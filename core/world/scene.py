@@ -8,6 +8,7 @@ from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
 from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
+from core.ui.text_button.text_button import TextButton
 
 from game.map.map import Map
 
@@ -63,6 +64,11 @@ class Scene:
                         frame_instance.add_child(text_field_instance)
                     elif factor["type"] == "text_input":
                         text_field_instance = TextInput(**factor["attributes"])
+                        for c in factor["components"]:
+                            text_field_instance.add_component(c)
+                        frame_instance.add_child(text_field_instance)
+                    elif factor["type"] == "text_button":
+                        text_field_instance = TextButton(**factor["attributes"])
                         for c in factor["components"]:
                             text_field_instance.add_component(c)
                         frame_instance.add_child(text_field_instance)
