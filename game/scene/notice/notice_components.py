@@ -1,7 +1,7 @@
 from core.ui.ui_mouse_component import UIMouseComponent
 from core.event.event import post_event
 
-from game.scene.world.world_scene import WorldScene
+from game.scene.account_select.account_select_scene import AccountSelectScene
 
 
 class NoticeEnterButtonMouseComponent(UIMouseComponent):
@@ -13,7 +13,7 @@ class NoticeEnterButtonMouseComponent(UIMouseComponent):
         if self.is_mouse_in_rect(event):
             self.game_object.callback = post_event
             self.game_object.param = {"name": "change_scene",
-                                      "scene": WorldScene}
+                                      "scene": AccountSelectScene}
             event.handled = True
             self.game_object.focus = True  # 如果鼠标仍在范围之内
         self.game_object.is_mouse_up = True
