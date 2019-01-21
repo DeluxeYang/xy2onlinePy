@@ -13,16 +13,27 @@ class AccountSelectScene(Scene):
             "ui": [
                 {
                     "type": "fixed",
-                    "screen_position": (305, 250),
-                    "w": 220,
-                    "h": 50,
+                    "screen_position": (270, 180),
+                    "w": 250,
+                    "h": 110,
                     "res_info": None,
                     "factor": [
                         {
+                            "type": "text_input",
+                            "attributes": {
+                                "x": 0,
+                                "y": 5,
+                                "w": 240,
+                                "h": 20,
+
+                            },
+                            "components": []
+                        },
+                        {
                             "type": "button",
                             "attributes": {
-                                "x": 5,
-                                "y": 5,
+                                "x": 40,
+                                "y": 70,
                                 "w": 91,
                                 "h": 37,
                                 "res_info": {"normal": ["gires2.wdf", "0xC3E7E556"]}
@@ -32,8 +43,8 @@ class AccountSelectScene(Scene):
                         {
                             "type": "button",
                             "attributes": {
-                                "x": 125,
-                                "y": 5,
+                                "x": 160,
+                                "y": 70,
                                 "w": 91,
                                 "h": 37,
                                 "res_info": {"normal": ["gires2.wdf", "0xCB250B45"]}

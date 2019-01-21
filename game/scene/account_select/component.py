@@ -1,7 +1,6 @@
 from core.ui.ui_mouse_component import UIMouseComponent
 from core.event.event import post_event
-
-
+from core.world.director import network_client
 
 
 class EnterButtonMouseComponent(UIMouseComponent):

@@ -7,7 +7,8 @@ from core.ui.text_input.text_input_state import TextInputState
 
 class TextInput(UI):
     def __init__(self, x, y, w, h,
-                 initial_string="", initial_interval_ms=400, interval_ms=35, font_size=24):
+                 initial_string="", initial_interval_ms=400, interval_ms=35, font_size=18,
+                 text_color=(255, 255, 255)):
         super().__init__(None, x, y, w, h)
         self.input_string = ""
         self.font_size = font_size
@@ -18,14 +19,14 @@ class TextInput(UI):
 
         self.slide_window = [0, w]
 
-        self.text_color = (255, 255, 255)
+        self.text_color = text_color
 
         self.key_repeat_counter = {}
         self.key_repeat_initial_interval_ms = initial_interval_ms
         self.key_repeat_interval_ms = interval_ms
 
         self.cursor_surface = pygame.Surface((int(self.font_size/20+1), self.font_size))
-        self.cursor_surface.fill((255, 255, 255))
+        self.cursor_surface.fill(text_color)
         self.cursor_position = len(initial_string)  # Inside text
         self.cursor_visible = False  # Switches every self.cursor_switch_ms ms
         self.cursor_switch_ms = 500  #
