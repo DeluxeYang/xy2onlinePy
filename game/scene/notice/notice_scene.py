@@ -65,16 +65,6 @@ notice_scene_json = {
                 "res_info": None,
                 "factor": [
                     {
-                        "type": "text_input",
-                        "attributes": {
-                            "x": 0,
-                            "y": 0,
-                            "w": 80,
-                            "h": 40,
-                        },
-                        "components": []
-                    },
-                    {
                         "type": "text_button",
                         "attributes": {
                             "text": "公告#24#red大话西游",
