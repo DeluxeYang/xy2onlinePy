@@ -25,7 +25,7 @@ class AccountSelectScene(Scene):
                                 "y": 5,
                                 "w": 240,
                                 "h": 20,
-
+                                "input_id": "username_input"
                             },
                             "components": []
                         },
