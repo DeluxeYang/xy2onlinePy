@@ -6,10 +6,11 @@ from core.ui.text_input.text_input_state import TextInputState
 
 
 class TextInput(UI):
-    def __init__(self, x, y, w, h,
+    def __init__(self, x, y, w, h, input_id,
                  initial_string="", initial_interval_ms=400, interval_ms=35, font_size=18,
                  text_color=(255, 255, 255)):
         super().__init__(None, x, y, w, h)
+        self.input_id = input_id
         self.input_string = ""
         self.font_size = font_size
 
