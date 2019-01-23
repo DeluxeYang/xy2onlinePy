@@ -16,20 +16,32 @@ from game.map.map import Map
 class Scene:
     scene_init_data = None
 
+    def receive_network_data(self):
+        pass
+
     def __init__(self):
         self.director = director
         self.ui_layer = None
         self.shape_layer = None
         self.map_layer = None
+        self.receive_network_data()
 
         self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
 
         self.title = self.scene_init_data["title"]
         self.resolution = self.scene_init_data["resolution"]
-
         # MapLayer
         self.map_layer = MapLayer()
-        for game_object in self.scene_init_data["layers"]["map"]:
+        self.add_map(self.scene_init_data["layers"]["map"])
+        # ShapeLayer
+        self.shape_layer = ShapeLayer()
+        self.add_shape(self.scene_init_data["layers"]["shape"])
+        # UILayer
+        self.ui_layer = UILayer()
+        self.add_ui(self.scene_init_data["layers"]["ui"])
+
+    def add_map(self, map_object_list):
+        for game_object in map_object_list:
             if game_object["type"] == "static":
                 obj = static_object_factory(game_object["res_info"],
                                             game_object["world_position"][0], game_object["world_position"][1])
@@ -41,12 +53,11 @@ class Scene:
                 obj = Map(game_object["map_id"], self.director.map_client, self.director.network_client)
             self.map_layer.add_game_object(obj)
 
-        # ShapeLayer
-        self.shape_layer = ShapeLayer()
+    def add_shape(self, shape_object_list):
+        pass
 
-        # UILayer
-        self.ui_layer = UILayer()
-        for frame in self.scene_init_data["layers"]["ui"]:
+    def add_ui(self, ui_object_list):
+        for frame in ui_object_list:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
                                             x=frame["screen_position"][0], y=frame["screen_position"][1],
@@ -63,15 +74,15 @@ class Scene:
                             text_field_instance.add_component(c)
                         frame_instance.add_child(text_field_instance)
                     elif factor["type"] == "text_input":
-                        text_field_instance = TextInput(**factor["attributes"])
+                        text_input_instance = TextInput(**factor["attributes"])
                         for c in factor["components"]:
-                            text_field_instance.add_component(c)
-                        frame_instance.add_child(text_field_instance)
+                            text_input_instance.add_component(c)
+                        frame_instance.add_child(text_input_instance)
                     elif factor["type"] == "text_button":
-                        text_field_instance = TextButton(**factor["attributes"])
+                        text_button_instance = TextButton(**factor["attributes"])
                         for c in factor["components"]:
-                            text_field_instance.add_component(c)
-                        frame_instance.add_child(text_field_instance)
+                            text_button_instance.add_component(c)
+                        frame_instance.add_child(text_button_instance)
                 self.ui_layer.add_game_object(frame_instance)
 
     def handle_event(self, event):
