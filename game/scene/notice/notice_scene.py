@@ -31,34 +31,6 @@ notice_scene_json = {
             },
             {
                 "type": "fixed",
-                "screen_position": (100, 100),
-                "w": 350,
-                "h": 300,
-                "res_info": None,
-                "factor": [
-                    {
-                        "type": "text_field",
-                        "attributes": {
-                            "text": "公告#24#red大话西游#blue大话西游#green大话西游"
-                                    "#pink大话西游#yellow大话西游#orange大话西游#brown大话西游#purple大话西游大话西游"
-                                    "#sky大话西游大话西游大话西游大话西游大话西游大话西游"
-                                    "大话西游大话西游#gold大话西游大话西游大话西游大话西游大话西游#24"
-                                    "#tan大话西游大话西游大话西游大话西游大话西游大话西游"
-                                    "#grey大话西游大话西游#white大话西游大话西游大话西游大话西游",
-                            "x": 0,
-                            "y": 0,
-                            "w": 350,
-                            "h": 300,
-                            "font_name": None,
-                            "font_size": 16,
-                            "sys_font": "simsunnsimsun"
-                        },
-                        "components": []
-                    },
-                ]
-            },
-            {
-                "type": "fixed",
                 "screen_position": (100, 400),
                 "w": 200,
                 "h": 50,
@@ -97,3 +69,34 @@ notice_scene_json = {
 
 class NoticeScene(Scene):
     scene_init_data = notice_scene_json
+
+    def receive_network_data(self):
+        self.director.network_client.request(send_data={
+            "action": "get_announcement"
+        })
+
+    def on_receive_announcement(self, event):
+        self.add_ui([{
+                "type": "fixed",
+                "screen_position": (100, 100),
+                "w": 350,
+                "h": 300,
+                "res_info": None,
+                "factor": [
+                    {
+                        "type": "text_field",
+                        "attributes": {
+                            "text": event.text,
+                            "x": 0,
+                            "y": 0,
+                            "w": 350,
+                            "h": 300,
+                            "font_name": None,
+                            "font_size": 16,
+                            "sys_font": "simsunnsimsun"
+                        },
+                        "components": []
+                    },
+                ]
+            }])
+        event.handled = True
