@@ -1,14 +1,10 @@
 from core.ui.ui_mouse_component import UIMouseComponent
 from core.event.event import post_event
 
-from game.scene.account_select.account_select_scene import AccountSelectScene
+from game.scene.login.login_scene import AccountSelectScene
 
 
 class NoticeEnterButtonMouseComponent(UIMouseComponent):
-    def on_mouse_over(self, event):
-        if self.is_mouse_in_rect(event):
-            pass
-
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.callback = post_event
