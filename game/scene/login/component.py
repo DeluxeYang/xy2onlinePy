@@ -6,7 +6,10 @@ from core.world.director import network_client
 class EnterButtonMouseComponent(UIMouseComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
-            print(self.game_object.parent.username_input.input_string)
+            network_client.request(send_data={
+                "action": "get_account",
+                "account": self.game_object.parent.username_input.input_string
+            })
             event.handled = True
             self.game_object.focus = True  # 如果鼠标仍在范围之内
         self.game_object.is_mouse_up = True
