@@ -66,3 +66,6 @@ class AccountSelectScene(Scene):
             ]
         }
     }
+
+    def on_receive_account(self, event):
+        print(event.account)
