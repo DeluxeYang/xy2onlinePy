@@ -100,3 +100,5 @@ class NoticeScene(Scene):
                 ]
             }])
         event.handled = True
+        from core.event.event import post_event
+        post_event({"name": "notify", "text": "大话西游#24"})
