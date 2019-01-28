@@ -22,6 +22,17 @@ class WAS:
         self.h = h
 
 
+class TGAorJPEG:
+    def __init__(self, direction_num, frame_num, x, y, w, h):
+        self.image_group = []
+        self.direction_num = direction_num
+        self.frame_num = frame_num
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+
+
 class ResManager:
     """
     WDF资源管理类，单例，WDF缓存
@@ -74,11 +85,17 @@ class ResManager:
                     res.mask_group.append(_mask)
         elif _instance.type == "JPG":
             jpg_file = BytesIO(_instance.data)
-            res = pygame.image.load(jpg_file).convert()
+            surface = pygame.image.load(jpg_file).convert()
+            rect = surface.get_rect()
+            res = TGAorJPEG(1, 1, 0, 0, rect.w, rect.h)
+            res.image_group.append([surface])
         elif _instance.type == "TGA":
             tga_file = BytesIO(_instance.data)
             temp = Image.open(tga_file)
-            res = pygame.image.frombuffer(temp.tobytes(encoder_name='raw'), temp.size, "RGBA")
+            surface = pygame.image.frombuffer(temp.tobytes(encoder_name='raw'), temp.size, "RGBA")
+            rect = surface.get_rect()
+            res = TGAorJPEG(1, 1, 0, 0, rect.w, rect.h)
+            res.image_group.append([surface])
         elif _instance.type == "Chat":
             print(_instance.chats)
         return res

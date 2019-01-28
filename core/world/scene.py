@@ -9,6 +9,7 @@ from core.ui.button.button import Button
 from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
 from core.ui.text_button.text_button import TextButton
+from core.ui.notify.notify import Notify
 
 from game.map.map import Map
 
@@ -39,6 +40,10 @@ class Scene:
         # UILayer
         self.ui_layer = UILayer()
         self.add_ui(self.scene_init_data["layers"]["ui"])
+
+        self.notify_frame = FixedFrame(res_info=None,
+                                       x=100, y=100, w=350, h=350)
+        self.ui_layer.add_game_object(self.notify_frame)
 
     def add_map(self, map_object_list):
         for game_object in map_object_list:
@@ -83,6 +88,12 @@ class Scene:
                         for c in factor["components"]:
                             text_button_instance.add_component(c)
                         frame_instance.add_child(text_button_instance)
+                    elif factor["type"] == "notify":
+                        notify_instance = Notify(**factor["attributes"])
+                        for c in factor["components"]:
+                            notify_instance.add_component(c)
+                        frame_instance.add_child(notify_instance)
+
                 self.ui_layer.add_game_object(frame_instance)
 
     def handle_event(self, event):
@@ -139,4 +150,13 @@ class Scene:
         self.ui_layer.lose_focus()
         if hasattr(event, "set_focus_obj"):
             event.set_focus_obj.set_focus()
+        event.handled = True
+
+    def on_notify(self, event):
+        notify_instance = Notify(
+            res_info={"normal": ["gires.wdf", "0x8D580095"]},
+            x=100, y=100, w=150, h=100,
+            text=event.text
+        )
+        self.notify_frame.add_child(notify_instance)
         event.handled = True
