@@ -87,15 +87,21 @@ class ResManager:
             jpg_file = BytesIO(_instance.data)
             surface = pygame.image.load(jpg_file).convert()
             rect = surface.get_rect()
-            res = TGAorJPEG(1, 1, 0, 0, rect.w, rect.h)
-            res.image_group.append([surface])
+            image = pygame.Surface((rect.w + ResMargin * 2, rect.h + ResMargin * 2), pygame.SRCALPHA)
+            position = (ResMargin, ResMargin)  # was关键点 - 帧图片关键点
+            res = TGAorJPEG(1, 1, rect.w//2, rect.h//2, rect.w, rect.h)
+            image.blit(surface, position)
+            res.image_group.append([image])
         elif _instance.type == "TGA":
             tga_file = BytesIO(_instance.data)
             temp = Image.open(tga_file)
             surface = pygame.image.frombuffer(temp.tobytes(encoder_name='raw'), temp.size, "RGBA")
             rect = surface.get_rect()
-            res = TGAorJPEG(1, 1, 0, 0, rect.w, rect.h)
-            res.image_group.append([surface])
+            image = pygame.Surface((rect.w + ResMargin * 2, rect.h + ResMargin * 2), pygame.SRCALPHA)
+            position = (ResMargin, ResMargin)  # was关键点 - 帧图片关键点
+            res = TGAorJPEG(1, 1, rect.w // 2, rect.h // 2, rect.w, rect.h)
+            image.blit(surface, position)
+            res.image_group.append([image])
         elif _instance.type == "Chat":
             print(_instance.chats)
         return res
