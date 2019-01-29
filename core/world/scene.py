@@ -155,7 +155,7 @@ class Scene:
     def on_notify(self, event):
         notify_instance = Notify(
             res_info={"normal": ["gires.wdf", "0x8D580095"]},
-            x=100, y=100, w=150, h=100,
+            x=0, y=0, w=150, h=100,
             text=event.text
         )
         self.notify_frame.add_child(notify_instance)

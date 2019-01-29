@@ -74,6 +74,8 @@ class NoticeScene(Scene):
         self.director.network_client.request(send_data={
             "action": "get_announcement"
         })
+        from core.event.event import post_event
+        post_event({"name": "notify", "text": "大话西游#24"})
 
     def on_receive_announcement(self, event):
         self.add_ui([{
@@ -100,5 +102,3 @@ class NoticeScene(Scene):
                 ]
             }])
         event.handled = True
-        from core.event.event import post_event
-        post_event({"name": "notify", "text": "大话西游#24"})
