@@ -1,4 +1,6 @@
 import pygame
+import random
+import string
 
 from core.state.state import State
 from core.ui.state.ui_state import UIState
@@ -10,6 +12,7 @@ class GameObject:
     """
     def __init__(self, x, y, z=0):
         self.surface = pygame.Surface((0, 0))
+        self.id = ''.join(random.sample(string.ascii_letters, 10))
 
         self.parent = None
         self.children = []
@@ -66,10 +69,20 @@ class GameObject:
 
     def add_child(self, child):
         child.parent = self
+        while hasattr(self, child.id):  # 如果child id已经在self这里重复，则重新随机child id
+            child.id = ''.join(random.sample(string.ascii_letters, 10))
+        self.__setattr__(child.id, child)
         self.children.append(child)
 
     def destroy(self):
         for child in self.children:
             child.destroy()
         self.state.destroy()
-        del self
+        i = 0
+        for me_or_brothers in self.parent.children:
+            if me_or_brothers.id == self.id:
+                break
+            i += 1
+        del self.parent.children[i]
+        self.parent.__delattr__(self.id)
+
