@@ -75,7 +75,7 @@ class NoticeScene(Scene):
             "action": "get_announcement"
         })
         from core.event.event import post_event
-        post_event({"name": "notify", "text": "大话西游#24"})
+        post_event({"name": "notify", "text": "大话西游#24大游大话西游大话大话西游大话西游大话西游"})
 
     def on_receive_announcement(self, event):
         self.add_ui([{
