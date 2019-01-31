@@ -86,6 +86,9 @@ class TextField(UI):
         self.anchor = anchor
         self.angle = angle
 
+        self.total_height = 0
+        self.total_width = 0
+
         contents = self.translate_and_split()
         self.rebuild(contents)
 
@@ -153,6 +156,7 @@ class TextField(UI):
         i = 0
         line_num = 1
         emoji_flag = False
+        max_width = 0
         for content in contents:
             if isinstance(content, EmojiWrapper):
                 if not temp_text.is_empty():
@@ -177,6 +181,7 @@ class TextField(UI):
                 p_text_state["color"] = content.color
             else:
                 temp_text.append(content)
+            max_width = max(temp_text.len + temp_x, max_width)
             if temp_text.len + temp_x + self.font_size >= self.w:
                 if not temp_text.is_empty():
                     text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
@@ -188,19 +193,24 @@ class TextField(UI):
                 line_height_correcter[line_num] = emoji_flag, i
                 line_num += 1
                 emoji_flag = False
+
         if not temp_text.is_empty():
             text_instance = Text(text=temp_text.text, x=temp_x, y=temp_y, **p_text_state)
             self.add_child(text_instance)  # 添加表情
             i += 1
             line_height_correcter[line_num] = emoji_flag, i
         i = 0
+        height = 0
         for line_number in range(1, line_num+1):  # 根据每一行是否有表情，重新定位每一行的行距
+            height += self.font_size
             correcter = line_height_correcter[line_number]
             if correcter[0]:
                 for ii in range(i, correcter[1]):
                     if isinstance(self.children[ii], Text):
                         self.children[ii].add_y(12)
             i = correcter[1]
+        self.total_height = height
+        self.total_width = max_width
 
     def generate_text_state(self):
         text_state = {
