@@ -159,6 +159,7 @@ class Scene:
         event.handled = True
 
     def on_notify(self, event):
+        self.notify_count = min(len(self.notify_frame.children), 10)
         self.notify_count = self.notify_count % self.notify_max
         notify_instance = Notify(
             res_info={"normal": ["gires.wdf", "0x8D580095"]},
