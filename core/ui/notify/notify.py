@@ -4,6 +4,7 @@ from settings import ResMargin
 from core.ui.ui import UI
 from core.ui.text_field.text_field import TextField
 from core.ui.notify.notify_state import NotifyState
+from core.ui.notify.notify_base_component import NotifyMouseComponent
 
 
 class Notify(UI):
@@ -27,6 +28,7 @@ class Notify(UI):
         self.add_child(text_field)
 
         self.init_state(NotifyState())
+        self.add_component(NotifyMouseComponent())
 
         horizon_mul = 12
         vertical_mul = 1 if text_field.total_height <= self.font_size + 12 else text_field.total_height // 20 + 1
