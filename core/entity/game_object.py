@@ -22,6 +22,7 @@ class GameObject:
         self.x = x  # GameObject关键点 X
         self.y = y  # GameObject关键点 Y
         self.z = z  # GameObject Z序
+        self.z_index = 0
 
         self.state = None
 
@@ -72,6 +73,8 @@ class GameObject:
         while hasattr(self, child.id):  # 如果child id已经在self这里重复，则重新随机child id
             child.id = ''.join(random.sample(string.ascii_letters, 10))
         self.__setattr__(child.id, child)
+        child.z = self.z_index
+        self.z_index += 1
         self.children.append(child)
 
     def destroy(self):
