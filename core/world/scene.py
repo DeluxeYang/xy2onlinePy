@@ -41,8 +41,14 @@ class Scene:
         self.ui_layer = UILayer()
         self.add_ui(self.scene_init_data["layers"]["ui"])
 
+        self.notify_x = 260 if self.resolution[0] == 800 else 180
+        self.notify_y = 220 if self.resolution[1] == 600 else 170
+
+        self.notify_count = 0
+        self.notify_max = 15
         self.notify_frame = FixedFrame(res_info=None,
-                                       x=100, y=100, w=350, h=350)
+                                       x=self.notify_x, y=self.notify_y,
+                                       w=400, h=300)
         self.ui_layer.add_game_object(self.notify_frame)
 
     def add_map(self, map_object_list):
@@ -153,10 +159,12 @@ class Scene:
         event.handled = True
 
     def on_notify(self, event):
+        self.notify_count = self.notify_count % self.notify_max
         notify_instance = Notify(
             res_info={"normal": ["gires.wdf", "0x8D580095"]},
-            x=0, y=0,
+            x=10*self.notify_count, y=10*self.notify_count,
             text=event.text
         )
         self.notify_frame.add_child(notify_instance)
+        self.notify_count += 1
         event.handled = True
