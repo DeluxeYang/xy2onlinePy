@@ -88,6 +88,7 @@ class TextField(UI):
 
         self.total_height = 0
         self.total_width = 0
+        self.line_has_emoji = False
 
         contents = self.translate_and_split()
         self.rebuild(contents)
@@ -204,6 +205,8 @@ class TextField(UI):
         for line_number in range(1, line_num+1):  # 根据每一行是否有表情，重新定位每一行的行距
             height += self.font_size
             correcter = line_height_correcter[line_number]
+            if line_number == 1 and correcter[0]:
+                self.line_has_emoji = True
             if correcter[0]:
                 for ii in range(i, correcter[1]):
                     if isinstance(self.children[ii], Text):

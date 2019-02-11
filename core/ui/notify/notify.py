@@ -36,7 +36,7 @@ class Notify(UI):
         self.modify_surface(horizon_mul, vertical_mul)
 
         text_field.x = (40+20*horizon_mul)//2 - text_field.total_width//2
-        text_field.y = 8
+        text_field.y = 8 if text_field.line_has_emoji else 20
 
     def modify_surface(self, horizon_mul, vertical_mul):
         left_top = self.surface.subsurface(Rect((ResMargin, ResMargin), (20, 20)))
