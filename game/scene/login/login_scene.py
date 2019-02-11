@@ -68,4 +68,6 @@ class AccountSelectScene(Scene):
     }
 
     def on_receive_account(self, event):
-        print(event.account)
+        from core.event.event import post_event
+        post_event({"name": "notify", "text": "登录成功！欢迎来到大话西游II，"+event.account})
+        event.handled = True
