@@ -61,7 +61,7 @@ class UILayer(Layer):
         self.z_index = 0
 
     def draw(self, screen):
-        self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
+        self.children.sort(key=lambda obj: obj.z)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
         for child in self.children:
             child.draw(screen)
 
