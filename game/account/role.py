@@ -1,9 +1,14 @@
 class Role:
-    def __init__(self, _id, name, race, character_id, level, reborn):
-        self.id = _id
-        self.name = name
+    def __init__(self, *args, **kwargs):
+        self.account = kwargs['account']
+        self.res = kwargs['res']
 
-        self.race = race
-        self.character_id = character_id
-        self.level = level
-        self.reborn = reborn
+        self.id = kwargs['id']
+        self.name = kwargs['name']
+
+        self.level = kwargs['level']
+        self.reborn = kwargs['reborn']
+
+        self.map = kwargs['map']
+        self.x = kwargs['x']
+        self.y = kwargs['y']
