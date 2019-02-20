@@ -10,4 +10,6 @@ from game.scene.world.world_scene import WorldScene
 
 from game.scene.login.login_scene import AccountSelectScene
 
-director.run(WelcomeScene)
+from game.scene.role_select.role_select_scene import RoleSelectScene
+
+director.run(RoleSelectScene)

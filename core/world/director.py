@@ -10,7 +10,7 @@ from network_client import network_client, network_connection
 
 
 class Director:
-    def __init__(self, title="Director", resolution=(800, 600), fps=60):
+    def __init__(self, title="Director", resolution=(640, 480), fps=60):
         pygame.init()
         self.title = title
         self.resolution = resolution
