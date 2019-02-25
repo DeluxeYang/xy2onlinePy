@@ -1,4 +1,4 @@
-from res.Characters import characters
+from res.characters import characters
 from res.MapInfo import map_info
 
 class NetworkClient:

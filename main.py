@@ -12,4 +12,6 @@ from game.scene.login.login_scene import AccountSelectScene
 
 from game.scene.role_select.role_select_scene import RoleSelectScene
 
-director.run(RoleSelectScene)
+from game.scene.role_create.role_create_scene import RoleCreateScene
+
+director.run(RoleCreateScene)
