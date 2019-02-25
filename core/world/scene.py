@@ -6,6 +6,7 @@ from core.entity.material_animation_object import material_animation_object_fact
 
 from core.ui.frame.frame import FixedFrame
 from core.ui.button.button import Button
+from core.ui.one_pic_button.button import OnePicButton
 from core.ui.text_field.text_field import TextField
 from core.ui.text_input.text_input import TextInput
 from core.ui.text_button.text_button import TextButton
@@ -76,6 +77,11 @@ class Scene:
                 for factor in frame["factor"]:
                     if factor["type"] == "button":
                         button_instance = Button(**factor["attributes"])
+                        for c in factor["components"]:
+                            button_instance.add_component(c)
+                        frame_instance.add_child(button_instance)
+                    if factor["type"] == "one_pic_button":
+                        button_instance = OnePicButton(**factor["attributes"])
                         for c in factor["components"]:
                             button_instance.add_component(c)
                         frame_instance.add_child(button_instance)
