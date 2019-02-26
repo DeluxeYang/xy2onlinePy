@@ -8,10 +8,10 @@ from core.ui.notify.notify_base_component import NotifyMouseComponent
 
 
 class Notify(UI):
-    def __init__(self, res_info, text, x, y, w=280, h=60,
+    def __init__(self, res_info, text, x, y, w=280, h=60, ui_id="",
                  font_name=None, font_size=12, sys_font="simsunnsimsun",
                  default_color="#FFFF00", focus_color="#008800"):
-        super().__init__(res_info, x, y, w, h)
+        super().__init__(res_info, x, y, w, h, ui_id)
         self.text = text
 
         self.font_name = font_name

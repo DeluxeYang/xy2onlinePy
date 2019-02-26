@@ -4,7 +4,7 @@ from core.ui.emoji.emoji_state import EmojiState
 
 class Emoji(UI):
     def __init__(self, res_info, x=0, y=0, w=0, h=0):
-        super().__init__(res_info, x, y, w, h)
+        super().__init__(res_info, x, y, w, h, ui_id="")
         self.init_state(EmojiState())
 
 

@@ -5,8 +5,9 @@ from core.entity.game_object import GameObject
 
 
 class UI(GameObject):
-    def __init__(self, res_info, x, y, w, h):
+    def __init__(self, res_info, x, y, w, h, ui_id):
         super().__init__(x, y)
+        self.ui_id = ui_id
         self.res_info = res_info
 
         self.focus = False

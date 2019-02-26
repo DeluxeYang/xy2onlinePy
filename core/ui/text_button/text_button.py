@@ -6,10 +6,10 @@ from core.ui.text_button.text_button_base_component import TextButtonBaseCompone
 
 class TextButton(UI):
     def __init__(
-            self, text, parent=None, x=0, y=0, w=0, h=0,
+            self, text, parent=None, x=0, y=0, w=0, h=0, ui_id="",
             font_name=None, font_size=16, sys_font="simsunnsimsun",
             default_color="#00FF00", focus_color="#008800"):
-        super().__init__(None, x, y, w, h)
+        super().__init__(None, x, y, w, h, ui_id)
         self.text = text
         self.parent = parent
 

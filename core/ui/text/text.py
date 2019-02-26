@@ -5,7 +5,7 @@ from utils import ptext
 
 
 class Text(UI):
-    def __init__(self, text, x=0, y=0, w=0, h=0,
+    def __init__(self, text, x=0, y=0, w=0, h=0, ui_id="",
                  font_name="HYC1GJM", font_size=16, sys_font=None,
                  bold=False, italic=False, underline=False,
                  color=ptext.DEFAULT_COLOR, background=ptext.DEFAULT_BACKGROUND,
@@ -15,7 +15,7 @@ class Text(UI):
                  shadow=None, s_color=ptext.DEFAULT_SHADOW_COLOR,
                  g_color=None, shade=ptext.DEFAULT_SHADE,
                  alpha=1.0, anchor=(0.0, 0.0), angle=0):
-        super().__init__(None, x, y, w, h)
+        super().__init__(None, x, y, w, h, ui_id)
         self.text = text
 
         self.x = x
