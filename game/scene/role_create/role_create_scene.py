@@ -1,5 +1,5 @@
 from core.world.scene import Scene
-from game.scene.role_create.component import CharacterButtonComponent
+from game.scene.role_create.component import CharacterButtonComponent, LeaveButtonComponent
 
 
 class RoleCreateScene(Scene):
@@ -29,7 +29,7 @@ class RoleCreateScene(Scene):
                             "components": [],
                         },
                         {
-                            "type": "button",
+                            "type": "button",  # 离开
                             "attributes": {
                                 "x": 528,
                                 "y": 410,
@@ -37,7 +37,7 @@ class RoleCreateScene(Scene):
                                 "h": 37,
                                 "res_info": {"normal": ["gires2.wdf", "0xEBD05656"]}
                             },
-                            "components": [],
+                            "components": [LeaveButtonComponent()],
                         },
                         {
                             "type": "one_pic_button",  # 俏千金
