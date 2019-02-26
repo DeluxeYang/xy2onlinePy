@@ -239,6 +239,30 @@ class RoleCreateScene(Scene):
                                 "res_info": {"normal": ["photo.wdf", "0xB301105E"]}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old_0", name="xuanjiane")],
+                        },
+                        {
+                            "type": "animated_frame",
+                            "attributes": {
+                                "ui_id": "first_weapon",
+                                "x": 27,
+                                "y": 330,
+                                "w": 100,
+                                "h": 130,
+                                "res_info": None
+                            },
+                            "components": [],
+                        },
+                        {
+                            "type": "animated_frame",
+                            "attributes": {
+                                "ui_id": "second_weapon",
+                                "x": 140,
+                                "y": 330,
+                                "w": 100,
+                                "h": 130,
+                                "res_info": None
+                            },
+                            "components": [],
                         }
                     ]
                 },

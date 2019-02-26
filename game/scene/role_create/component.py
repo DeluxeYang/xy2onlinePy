@@ -15,6 +15,11 @@ class CharacterButtonComponent(UIMouseComponent):
         if self.is_mouse_in_rect(event):
             event.handled = True
             self.game_object.focus = True  # 如果鼠标仍在范围之内
+            frames = [self.game_object.parent.first_weapon, self.game_object.parent.second_weapon]
+            i = 0
+            for weapon, res_info in self.res_info["weapon"].items():
+                frames[i].set_res(res_info, "hit")
+                i += 1
         self.game_object.is_mouse_up = True
 
     def on_mouse_left_down(self, event):
