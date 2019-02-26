@@ -90,3 +90,9 @@ class UI(GameObject):
         self.focus = False
         for child in self.children:
             child.lose_focus()
+
+    def set_res(self, res_info, res_index="normal"):
+        self.res_info = res_info
+        if self.state:
+            self.state.res_index = res_index
+            self.state.binding_res()

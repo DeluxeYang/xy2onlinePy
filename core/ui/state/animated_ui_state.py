@@ -1,4 +1,5 @@
 from core.ui.state.ui_state import UIState
+from settings import AnimationRate
 
 
 class AnimatedUIState(UIState):
@@ -10,10 +11,14 @@ class AnimatedUIState(UIState):
         self.last_time = 0
 
     def update(self, context):
-        one_loop = self.calc_next_frame(context["current_time"], rate=100)  # 计算下一帧的帧数
+        one_loop = self.calc_next_frame(context["current_time"], rate=AnimationRate)  # 计算下一帧的帧数
         self.game_object.surface = self.res.image_group[0][self.frame]
         self.game_object.ready = True
         return one_loop
+
+    def binding_res(self):
+        super().binding_res()
+        self.frame = 0
 
     def calc_next_frame(self, current_time, rate):
         """

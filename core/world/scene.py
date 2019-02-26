@@ -4,7 +4,7 @@ from core.world.layer import MapLayer, UILayer, ShapeLayer
 from core.entity.static_object import static_object_factory
 from core.entity.material_animation_object import material_animation_object_factory
 
-from core.ui.frame.frame import FixedFrame
+from core.ui.frame.frame import FixedFrame, AnimatedFrame
 from core.ui.button.button import Button
 from core.ui.one_pic_button.button import OnePicButton
 from core.ui.text_field.text_field import TextField
@@ -105,6 +105,11 @@ class Scene:
                         for c in factor["components"]:
                             notify_instance.add_component(c)
                         frame_instance.add_child(notify_instance)
+                    elif factor["type"] == "animated_frame":
+                        _instance = AnimatedFrame(**factor["attributes"])
+                        for c in factor["components"]:
+                            _instance.add_component(c)
+                        frame_instance.add_child(_instance)
 
                 self.ui_layer.add_game_object(frame_instance)
 
