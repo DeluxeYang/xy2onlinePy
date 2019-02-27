@@ -60,8 +60,7 @@ class RoleCreateScene(Scene):
                                 "res_info": {"normal": ["photo.wdf", "0xE230B836"]}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old_0", name="feiyannv")],
-                        }
-                        ,
+                        },
                         {
                             "type": "one_pic_button",  # 英女侠
                             "attributes": {
@@ -127,8 +126,7 @@ class RoleCreateScene(Scene):
                                 "res_info": {"normal": ["photo.wdf", "0xF446FF01"]}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old_0", name="duomingyao")],
-                        }
-                        ,
+                        },
                         {
                             "type": "one_pic_button",  # 虎头怪
                             "attributes": {
@@ -194,8 +192,7 @@ class RoleCreateScene(Scene):
                                 "res_info": {"normal": ["photo.wdf", "0x7B27BA25"]}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old_0", name="zhishengxian")],
-                        }
-                        ,
+                        },
                         {
                             "type": "one_pic_button",  # 龙战将
                             "attributes": {
@@ -205,7 +202,8 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x09193986"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="longzhanjiang")],
+                            "components": [
+                                CharacterButtonComponent(race="xian", version="old_0", name="longzhanjiang")],
                         },
                         {
                             "type": "one_pic_button",  # 舞天姬
@@ -263,7 +261,21 @@ class RoleCreateScene(Scene):
                                 "res_info": None
                             },
                             "components": [],
-                        }
+                        },
+                        {
+                            "type": "text_field",
+                            "attributes": {
+                                "ui_id": "character_introduction",
+                                "text": "123#24#24#24",
+                                "x": 270,
+                                "y": 335,
+                                "w": 210,
+                                "h": 95,
+                                "font_name": "HYC1GJM",
+                                "font_size": 15
+                            },
+                            "components": []
+                        },
                     ]
                 },
             ],
