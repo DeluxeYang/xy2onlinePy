@@ -24,7 +24,7 @@ class TextWrapper:
 
     def append(self, char):
         self.text += char
-        self.len += self.font_size if self.is_chinese(char) else self.font_size // 2
+        self.len += self.font_size if self.is_chinese(char) else self.font_size / 2
 
     def is_empty(self):
         return True if self.text == "" else False

@@ -90,12 +90,12 @@ class TextField(UI):
         self.total_width = 0
         self.line_has_emoji = False
 
-        contents = self.translate_and_split()
-        self.rebuild(contents)
+        # contents = self.translate_and_split()
+        # self.rebuild(contents)
 
-        self.init_state(TextFieldState())
+        self.init_state(TextFieldState(self.text))
 
-    def translate_and_split(self):
+    def translate_and_split(self, text):
         """
         将text中的表情等元素解析出来，并打散成列表
         :return:
@@ -105,12 +105,12 @@ class TextField(UI):
         pattern_matching = False
         last_pattern = None  # color, bold, italic
         pattern_text_cache = "#"
-        while i < len(self.text):
-            if self.text[i] == "#":  # 如果是#
+        while i < len(text):
+            if text[i] == "#":  # 如果是#
                 pattern_matching = True
-            elif self.text[i].encode('UTF-8').isalnum():  # 如果是数字或者字母
+            elif text[i].encode('UTF-8').isalnum():  # 如果是数字或者字母
                 if pattern_matching:  # 如果此时正在匹配
-                    pattern_text_cache += self.text[i]  # 则暂存该字符
+                    pattern_text_cache += text[i]  # 则暂存该字符
                     if pattern_text_cache in templates:  # 如果有该模式
                         last_pattern = templates[pattern_text_cache]  # 记录
                     if pattern_text_cache not in prefix:  # 如果前缀不匹配
@@ -123,7 +123,7 @@ class TextField(UI):
                         last_pattern = None
                         pattern_text_cache = "#"
                 else:
-                    contents.append(self.text[i])
+                    contents.append(text[i])
             else:
                 if pattern_matching:
                     pattern_matching = False  # 退出匹配模式
@@ -134,7 +134,7 @@ class TextField(UI):
                             contents.append(x)
                     last_pattern = None
                     pattern_text_cache = "#"
-                contents.append(self.text[i])
+                contents.append(text[i])
             i += 1
         if last_pattern:
             contents.append(self.pattern_transform(last_pattern))
@@ -155,7 +155,7 @@ class TextField(UI):
         temp_y = 0
         line_height_correcter = {}
         i = 0
-        line_num = 1
+        line_num = 0
         emoji_flag = False
         max_width = 0
         for content in contents:
@@ -202,7 +202,7 @@ class TextField(UI):
             line_height_correcter[line_num] = emoji_flag, i
         i = 0
         height = 0
-        for line_number in range(1, line_num+1):  # 根据每一行是否有表情，重新定位每一行的行距
+        for line_number in range(0, line_num):  # 根据每一行是否有表情，重新定位每一行的行距
             height += self.font_size
             correcter = line_height_correcter[line_number]
             if line_number == 1 and correcter[0]:
