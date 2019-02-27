@@ -88,3 +88,5 @@ class GameObject:
         del self.parent.children[i]
         self.parent.__delattr__(self.id)
 
+    def empty_children(self):
+        self.children.clear()
