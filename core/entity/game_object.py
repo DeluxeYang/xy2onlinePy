@@ -62,11 +62,10 @@ class GameObject:
             self.state.enter()
 
     def changing_state(self, next_state, context=None):
-        if not isinstance(self.state, type(next_state)):
-            self.state.exit()
-            self.init_state(next_state)
-            if context:
-                self.state.update(context)
+        self.state.exit()
+        self.init_state(next_state)
+        if context:
+            self.state.update(context)
 
     def add_child(self, child):
         child.parent = self

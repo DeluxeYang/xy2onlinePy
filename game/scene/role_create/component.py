@@ -1,6 +1,7 @@
 from core.ui.ui_mouse_component import UIMouseComponent
 from core.event.event import post_event
 from res.characters import characters
+from core.ui.frame.frame_state import AnimatedFrameState
 
 
 class CharacterButtonComponent(UIMouseComponent):
@@ -18,7 +19,7 @@ class CharacterButtonComponent(UIMouseComponent):
             frames = [self.game_object.parent.first_weapon, self.game_object.parent.second_weapon]
             i = 0
             for weapon, res_info in self.res_info["weapon"].items():
-                frames[i].set_res(res_info, "hit")
+                frames[i].changing_state(AnimatedFrameState(res_info, "hit"))
                 i += 1
         self.game_object.is_mouse_up = True
 
