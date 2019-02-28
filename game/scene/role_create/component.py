@@ -47,3 +47,17 @@ class LeaveButtonComponent(UIMouseComponent):
         if self.is_mouse_in_rect(event):
             self.game_object.is_mouse_down = True
             event.handled = True
+
+
+class CreateButtonComponent(UIMouseComponent):
+    def on_mouse_left_up(self, event):
+        if self.is_mouse_in_rect(event):
+            event.handled = True
+            self.game_object.focus = True  # 如果鼠标仍在范围之内
+            print(self.game_object.parent.role_name_input.input_string)
+        self.game_object.is_mouse_up = True
+
+    def on_mouse_left_down(self, event):
+        if self.is_mouse_in_rect(event):
+            self.game_object.is_mouse_down = True
+            event.handled = True
