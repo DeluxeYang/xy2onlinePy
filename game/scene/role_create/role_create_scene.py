@@ -1,5 +1,5 @@
 from core.world.scene import Scene
-from game.scene.role_create.component import CharacterButtonComponent, LeaveButtonComponent
+from game.scene.role_create.component import CharacterButtonComponent, LeaveButtonComponent, CreateButtonComponent
 
 
 class RoleCreateScene(Scene):
@@ -26,7 +26,7 @@ class RoleCreateScene(Scene):
                                 "h": 37,
                                 "res_info": {"normal": ["gires2.wdf", "0xEA963782"]}
                             },
-                            "components": [],
+                            "components": [CreateButtonComponent()],
                         },
                         {
                             "type": "button",  # 离开
@@ -266,13 +266,24 @@ class RoleCreateScene(Scene):
                             "type": "text_field",
                             "attributes": {
                                 "ui_id": "character_introduction",
-                                "text": "123#24#24#24",
+                                "text": "",
                                 "x": 270,
                                 "y": 335,
                                 "w": 210,
                                 "h": 95,
                                 "font_name": "HYC1GJM",
                                 "font_size": 15
+                            },
+                            "components": []
+                        },
+                        {
+                            "type": "text_input",
+                            "attributes": {
+                                "x": 343,
+                                "y": 435,
+                                "w": 115,
+                                "h": 20,
+                                "ui_id": "role_name_input"
                             },
                             "components": []
                         },
