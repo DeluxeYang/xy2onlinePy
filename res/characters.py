@@ -1,6 +1,6 @@
 characters = {
     "ren": {
-        "old_0": {
+        "old": {
             "qiaoqianjin": {
                 "name": "俏千金",
                 "gender": 0,
@@ -59,7 +59,7 @@ characters = {
                 "faction": ["datangguanfu", "nvercun", "fangcunshan"],
                 "describe": "从小被异人带进深山修炼武艺，爱用钩和鞭子，喜欢大自然，身轻如燕，生性自然跳脱，活泼可爱，是个天生的乐观派。",
             },
-           	"yingnvxia": {
+            "yingnvxia": {
                 "name": "英女侠",
                 "gender": 0,
                 "run": ["shape.wdf", "0xAECD3328"],  # 0xD1518AFF
@@ -176,11 +176,6 @@ characters = {
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "潇洒倜傥，风度不凡。或手执长剑，或手握双锤，锄强扶弱，直指世间一切不平事。儿女情，英雄意，都付笑谈中。",
             },
-        },
-        "new_0": {
-
-        },
-        "old_1": {
             "yanshanxue": {
                 "name": "燕山雪",
                 "gender": 0,
@@ -222,15 +217,10 @@ characters = {
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "行走江湖多年，现退隐江湖，已经不再过问江湖之事，一身绝世武功，能剑随意走，人剑合一。真是御剑游神州，世外逍遥侠。",
             },
-
         },
-        "3": {
-
-        }
-
     },
     "mo": {
-        "old_0": {
+        "old": {
             "jumowang": {
                 "name": "巨魔王",
                 "gender": 1,
@@ -405,11 +395,6 @@ characters = {
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "天生对动物有着特别的感情，爱与动物为伴；驯有一妖狐，使得一手好鞭法，好胜心强，喜欢追求各种刺激和挑战。",
             },
-        },
-        "new_0": {
-
-        },
-        "old_1": {
             "nitianmo": {
                 "name": "逆天魔",
                 "gender": 1,
@@ -451,14 +436,11 @@ characters = {
                 },
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "乃是千年灵狐，吸天地灵气，修得正果，已是妖中之仙。手中一把半月刀更是灵气逼人，能在无形间取人性命。",
-            },
-        },
-        "3": {
-        
+            }
         }
     },
     "xian": {
-        "old_0": {
+        "old": {
             "zhishengxian": {
                 "name": "智圣仙",
                 "gender": 1,
@@ -632,12 +614,7 @@ characters = {
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "本为西海龙族，面容绝世。乃为龙族同辈中之翘楚，倾倒四海水族女子无数。手中一根盘龙杖，一旦舞起——雷霆万钧，龙战将坐骑状态九洲动容！",
             },
-        },
-        "new_0": {
-
-        },
-        "old_1": {
-            "wuzunshen": {
+"wuzunshen": {
                 "name": "武尊神",
                 "gender": 1,
                 "run": ["shape.wd1", "0x1206BEDD"],  #
@@ -675,25 +652,13 @@ characters = {
                     },
                 },
                 "faction": ["longgong", "putuoshan", "tiangong"],
-                "describe": "",
-            },
-        },
-        "3": {
-        
+                "describe": ""
+            }
         }
     },
     "gui": {
         "old": {
 
-        },
-        "new": {
-
-        },
-        "12": {
-
-        },
-        "3": {
-        
         }
     },
     "other": {

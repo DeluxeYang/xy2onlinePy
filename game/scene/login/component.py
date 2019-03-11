@@ -7,7 +7,7 @@ class EnterButtonMouseComponent(UIMouseComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             network_client.request(send_data={
-                "action": "get_account",
+                "action": "login",
                 "account": self.game_object.parent.username_input.input_string
             })
             event.handled = True
