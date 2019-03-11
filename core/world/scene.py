@@ -73,7 +73,7 @@ class Scene:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
                                             x=frame["screen_position"][0], y=frame["screen_position"][1],
-                                            w=frame["w"], h=frame["h"])
+                                            w=frame["w"], h=frame["h"], **frame["store"])
                 for factor in frame["factor"]:
                     if factor["type"] == "button":
                         button_instance = Button(**factor["attributes"])

@@ -15,6 +15,7 @@ notice_scene_json = {
                 "w": 100,
                 "h": 50,
                 "res_info": None,
+                "store": {},
                 "factor": [
                     {
                         "type": "button",
@@ -80,26 +81,27 @@ class NoticeScene(Scene):
 
     def on_receive_announcement(self, event):
         self.add_ui([{
-                "type": "fixed",
-                "screen_position": (100, 100),
-                "w": 350,
-                "h": 300,
-                "res_info": None,
-                "factor": [
-                    {
-                        "type": "text_field",
-                        "attributes": {
-                            "text": event.text,
-                            "x": 0,
-                            "y": 0,
-                            "w": 350,
-                            "h": 300,
-                            "font_name": None,
-                            "font_size": 16,
-                            "sys_font": "simsunnsimsun"
-                        },
-                        "components": []
+            "type": "fixed",
+            "screen_position": (100, 100),
+            "w": 350,
+            "h": 300,
+            "res_info": None,
+            "store": {},
+            "factor": [
+                {
+                    "type": "text_field",
+                    "attributes": {
+                        "text": event.text,
+                        "x": 0,
+                        "y": 0,
+                        "w": 350,
+                        "h": 300,
+                        "font_name": None,
+                        "font_size": 16,
+                        "sys_font": "simsunnsimsun"
                     },
-                ]
-            }])
+                    "components": []
+                },
+            ]
+        }])
         event.handled = True

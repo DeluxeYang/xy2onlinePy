@@ -17,6 +17,7 @@ class RoleSelectScene(Scene):
                     "w": 300,
                     "h": 50,
                     "res_info": None,
+                    "store": {},
                     "factor": [
                         {
                             "type": "button",

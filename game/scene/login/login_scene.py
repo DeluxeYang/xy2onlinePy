@@ -17,6 +17,7 @@ class AccountSelectScene(Scene):
                     "w": 250,
                     "h": 110,
                     "res_info": None,
+                    "store": {},
                     "factor": [
                         {
                             "type": "text_input",

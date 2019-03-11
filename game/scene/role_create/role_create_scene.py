@@ -16,6 +16,11 @@ class RoleCreateScene(Scene):
                     "w": 640,
                     "h": 480,
                     "res_info": {"normal": ["gires2.wdf", "0x4B291E02"]},
+                    "store": {
+                        "character_race": "",
+                        "character_version": "",
+                        "character_name": ""
+                    },
                     "factor": [
                         {
                             "type": "button",
@@ -48,7 +53,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x7C5EC587"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="qiaoqianjin")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="qiaoqianjin")],
                         },
                         {
                             "type": "one_pic_button",  # 飞燕女
@@ -59,7 +64,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xE230B836"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="feiyannv")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="feiyannv")],
                         },
                         {
                             "type": "one_pic_button",  # 英女侠
@@ -70,7 +75,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xDDB93FB2"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="yingnvxia")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="yingnvxia")],
                         },
                         {
                             "type": "one_pic_button",  # 逍遥生
@@ -81,7 +86,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xA171FA71"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="xiaoyaosheng")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="xiaoyaosheng")],
                         },
                         {
                             "type": "one_pic_button",  # 剑侠客
@@ -92,7 +97,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x23F50F01"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="jianxiake")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="jianxiake")],
                         },
                         {
                             "type": "one_pic_button",  # 猛壮士
@@ -103,7 +108,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x397FDA0C"]}
                             },
-                            "components": [CharacterButtonComponent(race="ren", version="old_0", name="mengzhuangshi")],
+                            "components": [CharacterButtonComponent(race="ren", version="old", name="mengzhuangshi")],
                         },
                         {
                             "type": "one_pic_button",  # 巨魔王
@@ -114,7 +119,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x6C5D9B16"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="jumowang")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="jumowang")],
                         },
                         {
                             "type": "one_pic_button",  # 夺命妖
@@ -125,7 +130,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xF446FF01"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="duomingyao")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="duomingyao")],
                         },
                         {
                             "type": "one_pic_button",  # 虎头怪
@@ -136,7 +141,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x5C6DCFF7"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="hutouguai")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="hutouguai")],
                         },
                         {
                             "type": "one_pic_button",  # 狐美人
@@ -147,7 +152,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x4C6D73C9"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="humeiren")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="humeiren")],
                         },
                         {
                             "type": "one_pic_button",  # 小蛮妖
@@ -158,7 +163,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x5AE145E5"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="xiaomanyao")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="xiaomanyao")],
                         },
                         {
                             "type": "one_pic_button",  # 骨精灵
@@ -169,7 +174,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x5763727F"]}
                             },
-                            "components": [CharacterButtonComponent(race="mo", version="old_0", name="gujingling")],
+                            "components": [CharacterButtonComponent(race="mo", version="old", name="gujingling")],
                         },
                         {
                             "type": "one_pic_button",  # 神天兵
@@ -180,7 +185,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xC842C91B"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="shentianbing")],
+                            "components": [CharacterButtonComponent(race="xian", version="old", name="shentianbing")],
                         },
                         {
                             "type": "one_pic_button",  # 智圣仙
@@ -191,7 +196,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x7B27BA25"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="zhishengxian")],
+                            "components": [CharacterButtonComponent(race="xian", version="old", name="zhishengxian")],
                         },
                         {
                             "type": "one_pic_button",  # 龙战将
@@ -203,7 +208,7 @@ class RoleCreateScene(Scene):
                                 "res_info": {"normal": ["photo.wdf", "0x09193986"]}
                             },
                             "components": [
-                                CharacterButtonComponent(race="xian", version="old_0", name="longzhanjiang")],
+                                CharacterButtonComponent(race="xian", version="old", name="longzhanjiang")],
                         },
                         {
                             "type": "one_pic_button",  # 舞天姬
@@ -214,7 +219,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xEE9E4601"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="wutianji")],
+                            "components": [CharacterButtonComponent(race="xian", version="old", name="wutianji")],
                         },
                         {
                             "type": "one_pic_button",  # 精灵仙
@@ -225,7 +230,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0x2381820C"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="jinglingxian")],
+                            "components": [CharacterButtonComponent(race="xian", version="old", name="jinglingxian")],
                         },
                         {
                             "type": "one_pic_button",  # 玄剑娥
@@ -236,7 +241,7 @@ class RoleCreateScene(Scene):
                                 "h": 85,
                                 "res_info": {"normal": ["photo.wdf", "0xB301105E"]}
                             },
-                            "components": [CharacterButtonComponent(race="xian", version="old_0", name="xuanjiane")],
+                            "components": [CharacterButtonComponent(race="xian", version="old", name="xuanjiane")],
                         },
                         {
                             "type": "animated_frame",
