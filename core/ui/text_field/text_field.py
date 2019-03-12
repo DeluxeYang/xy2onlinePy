@@ -205,7 +205,7 @@ class TextField(UI):
         for line_number in range(0, line_num):  # 根据每一行是否有表情，重新定位每一行的行距
             height += self.font_size
             correcter = line_height_correcter[line_number]
-            if line_number == 1 and correcter[0]:
+            if line_number == 0 and correcter[0]:
                 self.line_has_emoji = True
             if correcter[0]:
                 for ii in range(i, correcter[1]):

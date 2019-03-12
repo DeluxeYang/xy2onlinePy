@@ -72,5 +72,6 @@ class AccountSelectScene(Scene):
         from core.event.event import post_event
         from game.scene.role_select.role_select_scene import RoleSelectScene
         post_event({"name": "notify", "text": "登录成功！欢迎来到大话西游II，"+event.account})
+        print(event.__dict__)
         post_event({"name": "change_scene", "scene": RoleSelectScene})
         event.handled = True

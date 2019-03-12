@@ -36,6 +36,7 @@ notice_scene_json = {
                 "w": 200,
                 "h": 50,
                 "res_info": None,
+                "store": {},
                 "factor": [
                     {
                         "type": "text_button",
@@ -71,7 +72,7 @@ notice_scene_json = {
 class NoticeScene(Scene):
     scene_init_data = notice_scene_json
 
-    def receive_network_data(self):
+    def network_request(self):
         self.director.network_client.request(send_data={
             "action": "get_announcement"
         })

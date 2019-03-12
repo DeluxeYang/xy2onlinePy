@@ -18,7 +18,7 @@ from game.map.map import Map
 class Scene:
     scene_init_data = None
 
-    def receive_network_data(self):
+    def network_request(self):
         pass
 
     def __init__(self):
@@ -26,7 +26,7 @@ class Scene:
         self.ui_layer = None
         self.shape_layer = None
         self.map_layer = None
-        self.receive_network_data()
+        self.network_request()
 
         self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
 

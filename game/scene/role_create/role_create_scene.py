@@ -300,5 +300,8 @@ class RoleCreateScene(Scene):
         }
     }
 
-    def on_mouse_left_down(self, event):
-        print(event.pos)
+    def on_receive_new_role(self, event):
+        from core.event.event import post_event
+        from game.scene.role_select.role_select_scene import RoleSelectScene
+        post_event({"name": "change_scene", "scene": RoleSelectScene})
+        event.handled = True
