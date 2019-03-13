@@ -17,6 +17,7 @@ welcome_scene_json = {
                 "w": 150,
                 "h": 300,
                 "res_info": None,
+                "ui_id": "",
                 "store": {},
                 "factor": [
                     {

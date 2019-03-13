@@ -1,4 +1,5 @@
 from core.world.scene import Scene
+from core.ui.frame.frame import FixedFrame
 from game.scene.role_select.component import \
     CreateButtonComponent, EnterButtonComponent, ExitButtonComponent
 
@@ -17,6 +18,7 @@ class RoleSelectScene(Scene):
                     "w": 300,
                     "h": 50,
                     "res_info": None,
+                    "ui_id": "",
                     "store": {},
                     "factor": [
                         {
@@ -54,6 +56,17 @@ class RoleSelectScene(Scene):
                         }
                     ]
                 },
+                {
+                    "type": "fixed",
+                    "screen_position": (90, 70),
+                    "w": 200,
+                    "h": 280,
+                    "res_info": None,
+                    "ui_id": "roles_list_frame",
+                    "store": {},
+                    "factor": [
+                    ]
+                }
             ],
             "shape": [],
             "map": [
@@ -65,3 +78,16 @@ class RoleSelectScene(Scene):
             ]
         }
     }
+
+    def __init__(self):
+        super().__init__()
+        print(self.roles_list_frame)
+
+    # def network_request(self):
+    #     self.director.network_client.request(send_data={
+    #         "action": "get_roles",
+    #         "account": self.director.account.account
+    #     })
+
+    def on_receive_roles(self, event):
+        print(event.__dict__)

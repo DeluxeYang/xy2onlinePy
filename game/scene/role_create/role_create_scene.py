@@ -16,6 +16,7 @@ class RoleCreateScene(Scene):
                     "w": 640,
                     "h": 480,
                     "res_info": {"normal": ["gires2.wdf", "0x4B291E02"]},
+                    "ui_id": "",
                     "store": {
                         "character_race": "",
                         "character_version": "",

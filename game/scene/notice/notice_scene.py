@@ -15,6 +15,7 @@ notice_scene_json = {
                 "w": 100,
                 "h": 50,
                 "res_info": None,
+                "ui_id": "",
                 "store": {},
                 "factor": [
                     {
@@ -36,6 +37,7 @@ notice_scene_json = {
                 "w": 200,
                 "h": 50,
                 "res_info": None,
+                "ui_id": "",
                 "store": {},
                 "factor": [
                     {

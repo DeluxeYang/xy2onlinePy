@@ -1,4 +1,5 @@
 from core.world.scene import Scene
+from game.account.account import Account
 from game.scene.login.component import \
     EnterButtonMouseComponent, CancelButtonMouseComponent
 
@@ -17,6 +18,7 @@ class AccountSelectScene(Scene):
                     "w": 250,
                     "h": 110,
                     "res_info": None,
+                    "ui_id": "",
                     "store": {},
                     "factor": [
                         {
@@ -71,7 +73,6 @@ class AccountSelectScene(Scene):
     def on_receive_account(self, event):
         from core.event.event import post_event
         from game.scene.role_select.role_select_scene import RoleSelectScene
-        post_event({"name": "notify", "text": "登录成功！欢迎来到大话西游II，"+event.account})
-        print(event.__dict__)
+        self.director.account = Account(event.account, event.roles_num)
         post_event({"name": "change_scene", "scene": RoleSelectScene})
         event.handled = True
