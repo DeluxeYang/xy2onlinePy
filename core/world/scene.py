@@ -73,7 +73,7 @@ class Scene:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
                                             x=frame["screen_position"][0], y=frame["screen_position"][1],
-                                            w=frame["w"], h=frame["h"], ui_id=frame["ui_id"], **frame["store"])
+                                            w=frame["w"], h=frame["h"], ui_id=frame["ui_id"], store=frame["store"])
                 if frame_instance.ui_id != "":
                     self.__setattr__(frame_instance.ui_id, frame_instance)
                 for factor in frame["factor"]:
@@ -109,6 +109,11 @@ class Scene:
                         frame_instance.add_child(notify_instance)
                     elif factor["type"] == "animated_frame":
                         _instance = AnimatedFrame(**factor["attributes"])
+                        for c in factor["components"]:
+                            _instance.add_component(c)
+                        frame_instance.add_child(_instance)
+                    elif factor["type"] == "fixed":
+                        _instance = FixedFrame(**factor["attributes"])
                         for c in factor["components"]:
                             _instance.add_component(c)
                         frame_instance.add_child(_instance)

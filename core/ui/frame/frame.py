@@ -3,10 +3,9 @@ from core.ui.frame.frame_state import FrameState, AnimatedFrameState
 
 
 class FixedFrame(UI):
-    def __init__(self, res_info, x=0, y=0, w=0, h=0, ui_id="", **kwargs):
+    def __init__(self, res_info, x=0, y=0, w=0, h=0, ui_id="", store=None):
         super().__init__(res_info, x, y, w, h, ui_id)
-        for k, v in kwargs.items():
-            self.__setattr__(k, v)
+        self.store = store
         self.init_state(FrameState())
 
     def add_child(self, child):

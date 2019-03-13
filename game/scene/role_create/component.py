@@ -26,9 +26,9 @@ class CharacterButtonComponent(UIMouseComponent):
             for weapon, res_info in self.res_info["weapon"].items():
                 frames[i].changing_state(AnimatedFrameState(res_info, "hit"))
                 i += 1
-            self.game_object.parent.character_race = self.race
-            self.game_object.parent.character_version = self.version
-            self.game_object.parent.character_name = self.name
+            self.game_object.parent.store["character_race"] = self.race
+            self.game_object.parent.store["character_version"] = self.version
+            self.game_object.parent.store["character_name"] = self.name
             self.game_object.parent.character_introduction.\
                 changing_state(TextFieldState(self.res_info["describe"]))
         self.game_object.is_mouse_up = True
