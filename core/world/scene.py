@@ -73,7 +73,9 @@ class Scene:
             if frame["type"] == "fixed":
                 frame_instance = FixedFrame(res_info=frame["res_info"],
                                             x=frame["screen_position"][0], y=frame["screen_position"][1],
-                                            w=frame["w"], h=frame["h"], **frame["store"])
+                                            w=frame["w"], h=frame["h"], ui_id=frame["ui_id"], **frame["store"])
+                if frame_instance.ui_id != "":
+                    self.__setattr__(frame_instance.ui_id, frame_instance)
                 for factor in frame["factor"]:
                     if factor["type"] == "button":
                         button_instance = Button(**factor["attributes"])
@@ -110,7 +112,8 @@ class Scene:
                         for c in factor["components"]:
                             _instance.add_component(c)
                         frame_instance.add_child(_instance)
-
+                if frame_instance.ui_id != "":
+                    self.__setattr__(frame_instance.ui_id, frame_instance)
                 self.ui_layer.add_game_object(frame_instance)
 
     def handle_event(self, event):
