@@ -14,4 +14,4 @@ from game.scene.role_select.role_select_scene import RoleSelectScene
 
 from game.scene.role_create.role_create_scene import RoleCreateScene
 
-director.run(WelcomeScene)
+director.run(RoleSelectScene)
