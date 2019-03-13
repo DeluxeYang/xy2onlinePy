@@ -1,11 +1,8 @@
 class Account:
-    def __init__(self, account):
+    def __init__(self, account, roles_num):
         self.account = account
-        self.role_num = 0
-        self.roles = []
+        self.roles_num = roles_num
+        self.roles = {}
 
-    def accept_roles(self, roles):
-        self.roles += roles
-
-    def add_role(self):
-        pass
+    def add_role(self, role):
+        self.roles[role.name] = role

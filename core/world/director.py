@@ -21,6 +21,8 @@ class Director:
         self._scene = None
         self.old_scene = None
 
+        self.account = None
+
         self.map_connection = map_connection
         self.map_client = map_client
 
