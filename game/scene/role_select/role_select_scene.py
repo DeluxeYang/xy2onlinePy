@@ -1,7 +1,8 @@
 from core.world.scene import Scene
-from core.ui.frame.frame import FixedFrame
+from core.ui.text_button.text_button import TextButton
 from game.scene.role_select.component import \
-    CreateButtonComponent, EnterButtonComponent, ExitButtonComponent
+    CreateButtonComponent, EnterButtonComponent, \
+    ExitButtonComponent, RoleNameComponent
 
 
 class RoleSelectScene(Scene):
@@ -65,6 +66,63 @@ class RoleSelectScene(Scene):
                     "ui_id": "roles_list_frame",
                     "store": {},
                     "factor": [
+                        {
+                            "type": "fixed",
+                            "attributes": {
+                                "x": 116,
+                                "y": 9,
+                                "w": 75,
+                                "h": 100,
+                                "res_info": None,
+                                "ui_id": "photo"
+                            },
+                            "components": [],
+                        },
+                        {
+                            "type": "text_field",
+                            "attributes": {
+                                "text": "",
+                                "x": 53,
+                                "y": 24,
+                                "w": 46,
+                                "h": 18,
+                                "font_name": "HYC1GJM",
+                                "font_size": 16,
+                                "sys_font": None,
+                                "ui_id": "level"
+                            },
+                            "components": []
+                        },
+                        {
+                            "type": "text_field",
+                            "attributes": {
+                                "text": "",
+                                "x": 53,
+                                "y": 50,
+                                "w": 46,
+                                "h": 18,
+                                "font_name": "HYC1GJM",
+                                "font_size": 16,
+                                "sys_font": None,
+                                "ui_id": "gender"
+                            },
+                            "components": []
+                        },
+                        {
+                            "type": "text_field",
+                            "attributes": {
+                                "text": "",
+                                "x": 53,
+                                "y": 76,
+                                "w": 46,
+                                "h": 18,
+                                "font_name": "HYC1GJM",
+                                "font_size": 16,
+                                "sys_font": None,
+                                "ui_id": "race"
+                            },
+                            "components": []
+                        }
                     ]
                 }
             ],
@@ -79,15 +137,22 @@ class RoleSelectScene(Scene):
         }
     }
 
-    def __init__(self):
-        super().__init__()
-        print(self.roles_list_frame)
-
-    # def network_request(self):
-    #     self.director.network_client.request(send_data={
-    #         "action": "get_roles",
-    #         "account": self.director.account.account
-    #     })
+    def network_request(self):
+        self.director.network_client.request(send_data={
+            "action": "get_roles",
+            "account": self.director.account.account
+        })
 
     def on_receive_roles(self, event):
-        print(event.__dict__)
+        roles_list_frame = self.__getattribute__("roles_list_frame")
+        roles_list_frame.store = {}
+        y = 128
+        for role in event.roles_list:
+            roles_list_frame.store[role["role_name"]] = role
+            text_button_instance = TextButton(
+                text=role["role_name"],
+                x=38, y=y,
+                w=140, h=18)
+            text_button_instance.add_component(RoleNameComponent())
+            roles_list_frame.add_child(text_button_instance)
+            y += 25

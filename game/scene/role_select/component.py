@@ -42,3 +42,19 @@ class ExitButtonComponent(UIMouseComponent):
         if self.is_mouse_in_rect(event):
             self.game_object.is_mouse_down = True
             event.handled = True
+
+
+class RoleNameComponent(UIMouseComponent):
+    def on_mouse_left_up(self, event):
+        if self.is_mouse_in_rect(event):
+            self.game_object.focus = True  # 如果鼠标仍在范围之内
+            data = self.game_object.parent.store[self.game_object.text]
+            self.game_object.parent.level.update_text(str(data["role_level"]))
+            self.game_object.parent.gender.update_text(str(data["role_gender"]))
+            self.game_object.parent.race.update_text(str(data["role_race"]))
+        self.game_object.is_mouse_up = True
+
+    def on_mouse_left_down(self, event):
+        if self.is_mouse_in_rect(event):
+            self.game_object.is_mouse_down = True
+            event.handled = True
