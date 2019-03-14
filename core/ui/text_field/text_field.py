@@ -95,6 +95,10 @@ class TextField(UI):
 
         self.init_state(TextFieldState(self.text))
 
+    def update_text(self, text):
+        self.text = text
+        self.init_state(TextFieldState(text))
+
     def translate_and_split(self, text):
         """
         将text中的表情等元素解析出来，并打散成列表
