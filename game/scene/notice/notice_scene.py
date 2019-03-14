@@ -89,6 +89,7 @@ class NoticeScene(Scene):
             "w": 350,
             "h": 300,
             "res_info": None,
+            "ui_id": "",
             "store": {},
             "factor": [
                 {
