@@ -74,7 +74,7 @@ class RoleSelectScene(Scene):
                                 "w": 75,
                                 "h": 100,
                                 "res_info": None,
-                                "ui_id": "photo"
+                                "ui_id": "avatar"
                             },
                             "components": [],
                         },
