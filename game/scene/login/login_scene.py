@@ -1,5 +1,5 @@
 from core.world.scene import Scene
-from game.account.account import Account
+from core.account.account import Account
 from game.scene.login.component import \
     EnterButtonMouseComponent, CancelButtonMouseComponent
 
