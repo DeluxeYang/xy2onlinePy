@@ -22,6 +22,7 @@ class TextButton(UI):
         self.is_mouse_down = False
         self.is_mouse_up = False
         self.is_mouse_over = False
+        self.is_chosen = False
 
         self.init_state(TextButtonNormalState())
         self.add_component(TextButtonBaseComponent())

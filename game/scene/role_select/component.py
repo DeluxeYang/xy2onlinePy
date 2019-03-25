@@ -1,4 +1,5 @@
 from core.ui.ui_mouse_component import UIMouseComponent
+from core.ui.text_button.text_button_base_component import TextButtonBaseComponent
 from core.event.event import post_event
 from core.ui.frame.frame_state import AnimatedFrameState
 from core.world.director import network_client
@@ -45,8 +46,8 @@ class ExitButtonComponent(UIMouseComponent):
             event.handled = True
 
 
-class RoleNameComponent(UIMouseComponent):
-    def on_mouse_left_up(self, event):
+class RoleNameComponent(TextButtonBaseComponent):
+    def on_mouse_left_up(self, event, callback=None, param=None):
         if self.is_mouse_in_rect(event):
             self.game_object.focus = True  # 如果鼠标仍在范围之内
             data = self.game_object.parent.store[self.game_object.text]
@@ -59,4 +60,5 @@ class RoleNameComponent(UIMouseComponent):
     def on_mouse_left_down(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.is_mouse_down = True
+            self.set_chosen()
             event.handled = True
