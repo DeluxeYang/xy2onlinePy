@@ -2,7 +2,7 @@ from core.ui.ui_mouse_component import UIMouseComponent
 from core.ui.text_button.text_button_base_component import TextButtonBaseComponent
 from core.event.event import post_event
 from core.ui.frame.frame_state import AnimatedFrameState
-from core.world.director import network_client
+from core.world.director import director
 
 
 class CreateButtonComponent(UIMouseComponent):
