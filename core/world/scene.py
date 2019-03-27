@@ -65,8 +65,16 @@ class Scene:
                 obj = Map(game_object["map_id"], self.director.map_client, self.director.network_client)
             self.map_layer.add_game_object(obj)
 
+    def reset_map_layer(self):
+        self.map_layer.destroy()
+        self.map_layer = MapLayer()
+
     def add_shape(self, shape_object_list):
         pass
+
+    def reset_shape_layer(self):
+        self.shape_layer.destroy()
+        self.shape_layer = ShapeLayer()
 
     def add_ui(self, ui_object_list):
         for frame in ui_object_list:
@@ -121,6 +129,10 @@ class Scene:
                     self.__setattr__(frame_instance.ui_id, frame_instance)
                 self.ui_layer.add_game_object(frame_instance)
 
+    def reset_ui_layer(self):
+        self.ui_layer.destroy()
+        self.ui_layer = UILayer()
+
     def handle_event(self, event):
         if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法
             getattr(self, "on_" + event.name)(event)  # 则处理
@@ -167,8 +179,13 @@ class Scene:
         self.destroy()
 
     def destroy(self):
-        for layer in self.layers:
-            layer.destroy()
+        self.map_layer.destroy()
+        self.map_layer = None
+        self.shape_layer.destroy()
+        self.shape_layer = None
+        self.ui_layer.destroy()
+        self.ui_layer = None
+        self.layers = []
         del self
 
     def on_reset_ui_focus(self, event):

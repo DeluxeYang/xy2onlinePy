@@ -79,14 +79,23 @@ class GameObject:
     def destroy(self):
         for child in self.children:
             child.destroy()
+        self.children = []
+
         self.state.destroy()
-        i = 0
-        for me_or_brothers in self.parent.children:
-            if me_or_brothers.id == self.id:
-                break
-            i += 1
-        del self.parent.children[i]
-        self.parent.__delattr__(self.id)
+        self.state = None
+
+        if self.parent:
+            i = 0
+            for me_or_brothers in self.parent.children:
+                if me_or_brothers.id == self.id:
+                    break
+                i += 1
+            del self.parent.children[i]
+            self.parent.__delattr__(self.id)
+        self.parent = None
+
+        self.surface = None
+        del self
 
     def empty_children(self):
         self.children.clear()

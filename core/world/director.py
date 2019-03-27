@@ -112,11 +112,10 @@ class Director:
     def change_scene(self, the_scene_class):
         scene = the_scene_class()
         scene.enter()
-        self.old_scene = self._scene
+        if self._scene:
+            self._scene.exit()
+            self._scene = None
         self._scene = scene
-        if self.old_scene:
-            self.old_scene.exit()
-            self.old_scene = None
 
     def on_change_scene(self, event):
         self.change_scene(event.scene)

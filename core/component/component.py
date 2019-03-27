@@ -75,5 +75,6 @@ class Component:
         if hasattr(self, func_name):
             getattr(self, func_name)(param)
 
-    def destroy(self):
+    def _destroy(self):
+        self.state = None
         del self

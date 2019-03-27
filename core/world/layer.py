@@ -36,6 +36,7 @@ class Layer:
     def destroy(self):
         for child in self.children:
             child.destroy()
+        self.children = []
         del self
 
 
