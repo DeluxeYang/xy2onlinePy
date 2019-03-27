@@ -74,9 +74,9 @@ class CreateButtonComponent(UIMouseComponent):
                 network_client.request(send_data={
                     "action": "create_role",
                     "role_name": role_name,
-                    "character_race": self.game_object.parent.character_race,
-                    "character_version": self.game_object.parent.character_version,
-                    "character_name": self.game_object.parent.character_name
+                    "character_race": self.game_object.parent.store["character_race"],
+                    "character_version": self.game_object.parent.store["character_version"],
+                    "character_name": self.game_object.parent.store["character_name"]
                 })
         self.game_object.is_mouse_up = True
 

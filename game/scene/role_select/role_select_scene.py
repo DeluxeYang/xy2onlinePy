@@ -3,6 +3,7 @@ from core.ui.text_button.text_button import TextButton
 from game.scene.role_select.component import \
     CreateButtonComponent, EnterButtonComponent, \
     ExitButtonComponent, RoleNameComponent
+from core.account.role import Role
 
 
 class RoleSelectScene(Scene):
@@ -87,7 +88,7 @@ class RoleSelectScene(Scene):
                                 "w": 46,
                                 "h": 18,
                                 "font_name": "HYC1GJM",
-                                "font_size": 16,
+                                "font_size": 12,
                                 "sys_font": None,
                                 "ui_id": "level"
                             },
@@ -102,7 +103,7 @@ class RoleSelectScene(Scene):
                                 "w": 46,
                                 "h": 18,
                                 "font_name": "HYC1GJM",
-                                "font_size": 16,
+                                "font_size": 14,
                                 "sys_font": None,
                                 "ui_id": "gender"
                             },
@@ -117,7 +118,7 @@ class RoleSelectScene(Scene):
                                 "w": 46,
                                 "h": 18,
                                 "font_name": "HYC1GJM",
-                                "font_size": 16,
+                                "font_size": 14,
                                 "sys_font": None,
                                 "ui_id": "race"
                             },
@@ -147,7 +148,9 @@ class RoleSelectScene(Scene):
         roles_list_frame = self.__getattribute__("roles_list_frame")
         roles_list_frame.store = {}
         y = 128
+        self.director.account.empty_roles()
         for role in event.roles_list:
+            self.director.account.add_role(Role(role["role_name"]))
             roles_list_frame.store[role["role_name"]] = role
             text_button_instance = TextButton(
                 text=role["role_name"],

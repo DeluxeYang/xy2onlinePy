@@ -55,6 +55,8 @@ class RoleNameComponent(TextButtonBaseComponent):
             self.game_object.parent.gender.update_text(str(data["role_gender"]))
             self.game_object.parent.race.update_text(str(data["role_race"]))
             self.game_object.parent.avatar.changing_state(AnimatedFrameState({'normal': data["role_avatar"]}))
+            director.account.set_main_role(self.game_object.text)
+            print(director.account.get_main_role().__dict__)
         self.game_object.is_mouse_up = True
 
     def on_mouse_left_down(self, event):

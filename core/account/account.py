@@ -1,14 +1,15 @@
 class Account:
-    def __init__(self, account, roles_num):
+    def __init__(self, account):
         self.account = account
 
-        self.roles_num = roles_num
+        self.roles_num = 0
         self.roles = {}
 
         self.main_role = None
         self.main_role_name = ''
 
     def add_role(self, role):
+        self.roles_num += 1
         self.roles[role.name] = role
 
     def set_main_role(self, name):
@@ -17,4 +18,11 @@ class Account:
 
     def get_main_role(self):
         return self.main_role
+
+    def empty_roles(self):
+        self.main_role = None
+        self.main_role_name = ''
+        self.roles = {}
+        self.roles_num = 0
+
 
