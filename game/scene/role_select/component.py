@@ -25,6 +25,11 @@ class CreateButtonComponent(UIMouseComponent):
 class EnterButtonComponent(UIMouseComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
+            from game.scene.world.world_scene import WorldScene
+            self.game_object.callback = post_event
+            self.game_object.param = {"name": "change_scene",
+                                      "scene": WorldScene}
+            event.handled = True
             self.game_object.focus = True  # 如果鼠标仍在范围之内
         self.game_object.is_mouse_up = True
 
@@ -38,6 +43,10 @@ class ExitButtonComponent(UIMouseComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.focus = True  # 如果鼠标仍在范围之内
+            from game.scene.welcome.welcome_scene import WelcomeScene
+            self.game_object.callback = post_event
+            self.game_object.param = {"name": "change_scene",
+                                      "scene": WelcomeScene}
         self.game_object.is_mouse_up = True
 
     def on_mouse_left_down(self, event):

@@ -8,18 +8,11 @@ class WorldScene(Scene):
         "title": "大话西游II",
         "resolution": (800, 600),
         "layers": {
-            "ui": [
-
-            ],
-            "shape": [
-
-            ],
-            "map": [
-                {
-                    "type": "map",
-                    "map_id": "newscene/1410.map",
-                    "portals": []
-                }
-            ],
+            "ui": [],
+            "shape": [],
+            "map": [],
         }
     }
+
+    def network_request(self):
+        print(self.director.account.__dict__)

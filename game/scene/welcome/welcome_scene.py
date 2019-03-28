@@ -59,6 +59,11 @@ welcome_scene_json = {
         "shape": None,
         "map": [
             {
+                "type": "animation",
+                "world_position": (338, 201),
+                "res_info": {"normal": ["gires2.wdf", "0xB6C80446"]}
+            },
+            {
                 "type": "static",
                 "world_position": (0, 0),
                 "res_info": {"normal": ["gires2.wdf", "0x5A6AB1AF"]}
@@ -67,11 +72,6 @@ welcome_scene_json = {
                 "type": "animation",
                 "world_position": (425, 480-193+113),
                 "res_info": {"normal": ["gires2.wdf", "0x23C8D064"]}
-            },
-            {
-                "type": "animation",
-                "world_position": (338, 201),
-                "res_info": {"normal": ["gires2.wdf", "0xB6C80446"]}
             },
             {
                 "type": "static",
