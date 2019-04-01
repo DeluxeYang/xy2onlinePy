@@ -119,6 +119,11 @@ class WAS:
                             for _ in range(self.direction_num * self.direction_pic_num)]  # WAS内图片的偏移地址4bytes
         self._get_frames()
 
+    def destroy(self):
+        for pic in self.pic:
+            pic.destroy()
+        self.pic = []
+
     def _open(self):
         """
         读取WAS文件头
@@ -196,6 +201,9 @@ class Frame:
 
     def read_bytes_to_int(self, size):
         return int.from_bytes(self.hand.read(size), byteorder="little", signed=True)
+
+    def destroy(self):
+        self.data = None
 
 
 class JPG:
