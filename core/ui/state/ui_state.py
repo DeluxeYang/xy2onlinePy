@@ -38,5 +38,7 @@ class UIState:
 
     def destroy(self):
         self.game_object = None
-        self.res = None
+        if self.res:
+            self.res.destroy()
+            self.res = None
         del self

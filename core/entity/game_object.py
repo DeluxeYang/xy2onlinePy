@@ -79,6 +79,7 @@ class GameObject:
     def destroy(self):
         for child in self.children:
             child.destroy()
+            del child
         self.children = []
 
         self.state.destroy()

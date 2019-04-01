@@ -22,11 +22,7 @@ class WAS:
         self.h = h
 
     def destroy(self):
-        for item in self.image_group:
-            item.destroy()
         self.image_group = []
-        for item in self.mask_group:
-            item.destroy()
         self.mask_group = []
 
 
@@ -39,6 +35,9 @@ class TGAorJPEG:
         self.y = y
         self.w = w
         self.h = h
+
+    def destroy(self):
+        self.image_group = []
 
 
 class ResManager:
@@ -72,7 +71,7 @@ class ResManager:
         if _instance.type == "WAS":
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
-            # self.was_pool[(wdf_name, _hash)] = res
+            self.was_pool[(wdf_name, _hash)] = res
             for i in range(_instance.direction_num):
                 _surface = []
                 _mask = []

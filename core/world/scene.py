@@ -185,7 +185,10 @@ class Scene:
         self.shape_layer = None
         self.ui_layer.destroy()
         self.ui_layer = None
+        for item in self.layers:
+            del item
         self.layers = []
+        self.director = None
         del self
 
     def on_reset_ui_focus(self, event):

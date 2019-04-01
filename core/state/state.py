@@ -62,6 +62,7 @@ class State:
 
         self.game_object = None
         if hasattr(self, 'res'):
+            self.res.destroy()
             self.res = None
 
         self.components = []
