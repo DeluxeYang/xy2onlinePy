@@ -28,8 +28,6 @@ class Scene:
         self.map_layer = None
         self.network_request()
 
-        self.layers = []  # layer层，其z序固定，由近及远，z越大则越远
-
         self.title = self.scene_init_data["title"]
         self.resolution = self.scene_init_data["resolution"]
         # MapLayer
@@ -185,9 +183,6 @@ class Scene:
         self.shape_layer = None
         self.ui_layer.destroy()
         self.ui_layer = None
-        for item in self.layers:
-            del item
-        self.layers = []
         self.director = None
         del self
 

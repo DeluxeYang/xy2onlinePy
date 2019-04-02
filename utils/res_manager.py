@@ -22,8 +22,9 @@ class WAS:
         self.h = h
 
     def destroy(self):
-        self.image_group = []
-        self.mask_group = []
+        pass
+        # self.image_group = []
+        # self.mask_group = []
 
 
 class TGAorJPEG:
@@ -37,7 +38,8 @@ class TGAorJPEG:
         self.h = h
 
     def destroy(self):
-        self.image_group = []
+        pass
+        # self.image_group = []
 
 
 class ResManager:

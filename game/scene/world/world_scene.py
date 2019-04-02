@@ -15,4 +15,11 @@ class WorldScene(Scene):
     }
 
     def network_request(self):
-        print(self.director.account.__dict__)
+        self.director.network_client.request(send_data={
+            "action": "get_role",
+            "account": self.director.account.account,
+            "main_role": self.director.account.main_role.name
+        })
+
+    def on_receive_role(self, event):
+        print(event.__dict__)
