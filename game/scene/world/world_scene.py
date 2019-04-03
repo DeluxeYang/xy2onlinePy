@@ -23,3 +23,7 @@ class WorldScene(Scene):
 
     def on_receive_role(self, event):
         print(event.__dict__)
+        self.add_map([{
+            "type": 'map',
+            "map_id": event.map_id
+        }])
