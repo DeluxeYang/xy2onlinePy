@@ -12,10 +12,10 @@ from settings import WindowSize
 class Map(GameObject):
     def __init__(self, map_id, map_client, network_client):
         super().__init__(0, 0)
-        self.map_client = map_client
-        self.network_client = network_client
+        self.map_client = map_client  # Map客户端
+        self.network_client = network_client  # 网络客户端
 
-        self.map_id = map_id
+        self.map_id = map_id  # scene/1001.map
 
         self.quest_timer = []
         self.unit_has_blitted = []
@@ -26,7 +26,6 @@ class Map(GameObject):
         self.ready = False
         self.mask = {}
         self.masks_of_unit = []
-        # self.portals_of_unit = []
 
         self.left_top = (0, 0)
         self.me_world_pc = (0, 0)
@@ -44,14 +43,15 @@ class Map(GameObject):
         self.target = (0, 0)
 
         self.init_state(MapState())
-        for c in [MapMouseComponent(), MapReceiveComponent()]:
-            self.state.add_component(c)
 
-        self.map_client.request_map_info(self.map_id)
+        self.state.add_component(MapMouseComponent())  # 地图操作组件
+        self.state.add_component(MapReceiveComponent())  # 地图图片接收组件
+
+        self.map_client.request_map_info(self.map_id)  # 获取地图基本信息
 
     def get_world_pc(self, screen_pos):
         """
-        获得地图像素坐标
+        由屏幕坐标转换为地图世界坐标
         :param screen_pos:
         :return:
         """
@@ -69,17 +69,29 @@ class Map(GameObject):
         return x, y
 
     def get_center(self):
+        """
+        获取屏幕中心点坐标
+        :return:
+        """
         return self.window.centerx, self.window.centery
 
     def get_left_top(self):
+        """
+        获取屏幕左上角坐标
+        :return:
+        """
         return self.window.left, self.window.top
 
     def get_collision_window(self):
+        """
+        获取碰撞窗口
+        :return:
+        """
         return self.window.inflate(100, 100)  # 放大100像素
 
     def set_window(self, world_pc):
         """
-        根据中心像素位置，获取显示窗口
+        根据中心像素位置，获取显示窗口范围
         :return:
         """
         window_left = world_pc[0] - WindowSize[0] // 2
