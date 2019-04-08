@@ -7,6 +7,11 @@ log = logging.getLogger('')
 
 class MapState(State):
     def early_update(self, context):
+        """
+        预先请求地图数据
+        :param context:
+        :return:
+        """
         units_needed = quest_25(self.game_object.window, self.game_object.row, self.game_object.col)
         for i in units_needed:
             if not self.game_object.unit_has_blitted[i]:  # 如果该单元还没有数据
@@ -17,6 +22,11 @@ class MapState(State):
                     self.game_object.quest_timer[i] = 0
 
     def update(self, context):
+        """
+        地图更新，主要作用为获取地图mask、left_top、碰撞窗口，为shape层使用
+        :param context:
+        :return:
+        """
         super().update(context)
         no_repeat = {}
         masks = []
@@ -36,6 +46,11 @@ class MapState(State):
         context["collision_window"] = self.game_object.get_collision_window()
 
     def late_update(self, context=None):
+        """
+        shape层更新后，map视图更新
+        :param context:
+        :return:
+        """
         self.game_object.set_window(context["me_world_pc"])
         self.game_object.me_world_pc = context["me_world_pc"]
 
