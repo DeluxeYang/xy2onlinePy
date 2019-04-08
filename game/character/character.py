@@ -5,13 +5,16 @@ from utils.mask import Mask
 from core.entity.game_object import GameObject
 from core.state.state import state_factory
 from game.character.character_state import CharacterStandNormalState
-from game.character.character_component import  MainCharacterComponent, CharacterMouseComponent
+from game.character.character_component import MainCharacterComponent, CharacterMouseComponent
 
 
 class Character(GameObject):
-    def __init__(self, character_id, network_client, is_main_character=False):
-        super().__init__()
-        self.character_id = character_id
+    def __init__(self, role_name, role_id, x, y, network_client):
+        super().__init__(x, y)
+
+        self.role_id = role_id
+        self.role_name = role_name
+
         self.network_client = network_client
 
         self.screen_rect = Rect((0, 0), (0, 0))
@@ -28,12 +31,11 @@ class Character(GameObject):
         self.weapon = None
 
         self.is_mouse_over = False
-        self.is_main_character = is_main_character
 
         self.load()
 
     def load(self):
-        player_info = self.network_client.get_player(self.character_id)
+        player_info = self.network_client.get_player(self.role_id)
         self.res_info = self.network_client.get_character(player_info["character"])
         self.x = player_info["position"][0]
         self.y = player_info["position"][1]
