@@ -71,7 +71,8 @@ class WDF:
             return TGA(wdf_unit, self.hand)
         elif flag == ['50', '20']:
             return Chat(wdf_unit, self.hand)
-        print(flag)
+        else:
+            return Unknown()
 
     def read_bytes_to_hex_list(self, size):
         hex_bit = binascii.hexlify(self.hand.read(size)).decode("utf-8")
@@ -93,6 +94,11 @@ class WDFUnit:
         self.offset = offset
         self.size = size
         self.spaces = spaces
+
+
+class Unknown:
+    def __init__(self):
+        self.type = 'unknown'
 
 
 class WAS:

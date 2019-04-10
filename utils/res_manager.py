@@ -55,6 +55,11 @@ class ResManager:
         self.wdf_pool = {}
         self.was_pool = {}
 
+    def get_wdf(self, wdf_name):
+        if wdf_name not in self.wdf_pool:  # 该实例为单例模式，并且将所有已读取的wdf资源缓存
+            self.wdf_pool[wdf_name] = WDF(wdf_name)
+        return self.wdf_pool[wdf_name]  # wdf
+
     def get_res(self, wdf_name, _hash, with_mask=True):
         """
         获得WDF资源
@@ -73,7 +78,7 @@ class ResManager:
         if _instance.type == "WAS":
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
-            self.was_pool[(wdf_name, _hash)] = res
+            # self.was_pool[(wdf_name, _hash)] = res
             for i in range(_instance.direction_num):
                 _surface = []
                 _mask = []
