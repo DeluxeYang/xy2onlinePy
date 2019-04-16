@@ -5,6 +5,7 @@ from io import BytesIO
 from settings import ResMargin
 from utils.wdf import WDF
 from utils.mask import Mask
+from ctypes import *
 
 
 class WAS:
@@ -22,9 +23,8 @@ class WAS:
         self.h = h
 
     def destroy(self):
-        pass
-        # self.image_group = []
-        # self.mask_group = []
+        self.image_group = []
+        self.mask_group = []
 
 
 class TGAorJPEG:
@@ -38,8 +38,7 @@ class TGAorJPEG:
         self.h = h
 
     def destroy(self):
-        pass
-        # self.image_group = []
+        self.image_group = []
 
 
 class ResManager:
@@ -53,7 +52,6 @@ class ResManager:
 
     def __init__(self):
         self.wdf_pool = {}
-        self.was_pool = {}
 
     def get_wdf(self, wdf_name):
         if wdf_name not in self.wdf_pool:  # 该实例为单例模式，并且将所有已读取的wdf资源缓存
@@ -68,8 +66,6 @@ class ResManager:
         :param with_mask:  是否生成对应的mask
         :return:
         """
-        if (wdf_name, _hash) in self.was_pool:
-            return self.was_pool[(wdf_name, _hash)]
         if wdf_name not in self.wdf_pool:  # 该实例为单例模式，并且将所有已读取的wdf资源缓存
             self.wdf_pool[wdf_name] = WDF(wdf_name)
         _wdf = self.wdf_pool[wdf_name]  # wdf
@@ -78,7 +74,6 @@ class ResManager:
         if _instance.type == "WAS":
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
-            # self.was_pool[(wdf_name, _hash)] = res
             for i in range(_instance.direction_num):
                 _surface = []
                 _mask = []
@@ -87,8 +82,8 @@ class ResManager:
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
                     image = pygame.Surface((_instance.width+ResMargin*2,
                                             _instance.height+ResMargin*2), pygame.SRCALPHA)
-                    im = pygame.image.frombuffer(pic.data, (pic.width, pic.height), "RGBA").convert_alpha()
-                    position = (_instance.x+ResMargin - pic.x, _instance.y+ResMargin - pic.y)  # was关键点 - 帧图片关键点
+                    im = pygame.image.fromstring(pic.data.contents.raw, (pic.width, pic.height), "RGBA").convert_alpha()
+                    position = (_instance.x + ResMargin - pic.x, _instance.y + ResMargin - pic.y)  # was关键点 - 帧图片关键点
                     image.blit(im, position)
                     _surface.append(image)
                     if with_mask:
@@ -118,6 +113,7 @@ class ResManager:
             res.image_group.append([image])
         elif _instance.type == "Chat":
             print(_instance.chats)
+        _instance.destroy()
         return res
 
 

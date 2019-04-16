@@ -17,9 +17,15 @@ def read_pic(data, pic, color_board_origin, color_board):
     jpeg_dll.read_pic.argtype = [c_void_p, c_void_p, c_void_p]
     _size = pic.width * pic.height * 4
     jpeg_dll.read_pic.restype = POINTER(c_char * _size)
-    res = jpeg_dll.read_pic(data, color_board_origin, color_board)
-    _bytes = res.contents.raw
-    return _bytes
+    return jpeg_dll.read_pic(data, color_board_origin, color_board)
+    # _bytes = res.contents.raw
+    # return _bytes
+
+
+def delete_me(data):
+    jpeg_dll.delete_me.argtype = c_void_p
+    jpeg_dll.delete_me(data)
+
 
 def read_new_map_to_rgb(data):
     res = jpeg_dll.jpeg_to_rgb(data, len(data))
@@ -27,11 +33,13 @@ def read_new_map_to_rgb(data):
     jpeg_dll.free_rgb_data()
     return _bytes
 
+
 def read_old_map_to_rgb(data):
     res = jpeg_dll.mapx_to_rgb(data, len(data))
     _bytes = res.contents.raw
     jpeg_dll.free_rgb_data()
     return _bytes
+
 
 def decompress_mask(data, out_size):
     jpeg_dll.decompress_mask.argtype = [c_void_p, c_int]

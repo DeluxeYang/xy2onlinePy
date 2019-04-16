@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import binascii
 
-from utils.xy2_res import read_color_palette, read_pic
+from utils.xy2_res import read_color_palette, read_pic, delete_me
 from settings import XY2PATH
 
 """
@@ -176,6 +176,7 @@ class WAS:
             self.hand.seek(self.pic_offsets[i])
             data = self.hand.read(temp_size)  # 先获取pic data
             _pic.data = read_pic(data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
+            # free_me(_pic.data)
             # _pic = PicPy(self.pic_offsets[i], self.hand, self.color_board, self.color_board_origin)
             self.pic.append(_pic)
 
@@ -209,7 +210,7 @@ class Frame:
         return int.from_bytes(self.hand.read(size), byteorder="little", signed=True)
 
     def destroy(self):
-        self.data = None
+        delete_me(self.data)
 
 
 class JPG:
@@ -222,6 +223,9 @@ class JPG:
         self.hand.seek(self.offset)
         self.data = self.hand.read(self.size)
 
+    def destroy(self):
+        self.data = None
+
 
 class TGA:
     def __init__(self, wdf_unit, hand):
@@ -232,6 +236,9 @@ class TGA:
         self.hand = hand
         self.hand.seek(self.offset)
         self.data = self.hand.read(self.size)
+
+    def destroy(self):
+        self.data = None
 
 
 class Chat:
@@ -279,7 +286,7 @@ class PicPy:    # 用Python去解析帧图片，该方法过慢，已经弃用�
         return [hex_bit[i:i + 2] for i in range(0, len(hex_bit), 2)]
 
     def read_bytes_to_int(self, size):
-        return int("".join(self.read_bytes_to_hex_list(size)[::-1]), 16)
+        return int.from_bytes(self.hand.read(size), byteorder="little", signed=True)
 
     def _read_row(self):
         data = bytes()
