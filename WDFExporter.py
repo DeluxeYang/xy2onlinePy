@@ -7,11 +7,11 @@ pygame.init()
 
 pygame.display.set_mode((800, 600))
 
-directory = 'shape.wdf'
+directory = 'shape.wd3'
 
 wdf = res_manager.get_wdf(directory)
 
-for _hash in list(wdf.file_dict.keys())[696:]:
+for _hash in list(wdf.file_dict.keys()):
     was = res_manager.get_res(directory, _hash)
     if not was:
         continue
