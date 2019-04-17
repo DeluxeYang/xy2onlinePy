@@ -28,7 +28,6 @@ class Map(GameObject):
         self.masks_of_unit = []
 
         self.left_top = (0, 0)
-        self.me_world_pc = (0, 0)
 
         self.map_type = 0
         self.map_width = 0

@@ -8,13 +8,15 @@ from game.map.portal import portal_factory
 
 from utils.mask import Mask
 
+from core.world.director import director
+
 
 class MapMouseComponent(Component):
     def on_mouse_right_down(self, event):
         left_top = self.state.game_object.get_left_top()
         self.state.game_object.map_client.request_find_path(
             self.state.game_object.map_id,
-            self.state.game_object.me_world_pc,
+            director.account.get_main_role().get_xy(),
             (event.pos[0] + left_top[0], event.pos[1] + left_top[1]),
             is_running=True)
 
@@ -22,7 +24,7 @@ class MapMouseComponent(Component):
         left_top = self.state.game_object.get_left_top()
         self.state.game_object.map_client.request_find_path(
             self.state.game_object.map_id,
-            self.state.game_object.me_world_pc,
+            director.account.get_main_role().get_xy(),
             (event.pos[0]+left_top[0], event.pos[1]+left_top[1]),
             is_running=False)
 

@@ -1,3 +1,5 @@
+from core.world.director import director
+
 from core.state.state import State
 from utils.math import quest_25, quest_16
 
@@ -51,8 +53,8 @@ class MapState(State):
         :param context:
         :return:
         """
-        self.game_object.set_window(context["me_world_pc"])
-        self.game_object.me_world_pc = context["me_world_pc"]
+        main_role = director.account.get_main_role()  # main_role
+        self.game_object.set_window(main_role.get_xy())  # 根据主要角色设置地图范围
 
     def draw(self, screen):
         super().draw(screen)
