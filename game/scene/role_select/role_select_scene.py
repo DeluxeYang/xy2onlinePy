@@ -150,7 +150,7 @@ class RoleSelectScene(Scene):
         y = 128
         self.director.account.empty_roles()
         for role in event.roles_list:
-            self.director.account.add_role(Role(role["role_name"]))
+            self.director.account.add_role(Role(role["role_name"]))  # 获取并初始化角色
             roles_list_frame.store[role["role_name"]] = role
             text_button_instance = TextButton(
                 text=role["role_name"],
