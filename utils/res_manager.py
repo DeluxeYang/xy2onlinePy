@@ -82,7 +82,7 @@ class ResManager:
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
                     image = pygame.Surface((_instance.width+ResMargin*2,
                                             _instance.height+ResMargin*2), pygame.SRCALPHA)
-                    im = pygame.image.fromstring(pic.data.contents.raw, (pic.width, pic.height), "RGBA").convert_alpha()
+                    im = pygame.image.fromstring(pic.data, (pic.width, pic.height), "RGBA").convert_alpha()
                     position = (_instance.x + ResMargin - pic.x, _instance.y + ResMargin - pic.y)  # was关键点 - 帧图片关键点
                     image.blit(im, position)
                     _surface.append(image)

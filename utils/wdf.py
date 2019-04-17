@@ -174,9 +174,9 @@ class WAS:
             else:
                 temp_size = _pic.width * _pic.height * 4
             self.hand.seek(self.pic_offsets[i])
-            data = self.hand.read(temp_size)  # 先获取pic data
-            _pic.data = read_pic(data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
-            # free_me(_pic.data)
+            origin_data = self.hand.read(temp_size)  # 先获取pic data
+            _pic.ptr = read_pic(origin_data, _pic, self.color_board_origin, self.color_board)  # 利用dll解析每一帧图片
+            _pic.data = _pic.ptr.contents.raw
             # _pic = PicPy(self.pic_offsets[i], self.hand, self.color_board, self.color_board_origin)
             self.pic.append(_pic)
 
@@ -197,6 +197,7 @@ class Frame:
         self.width = 0  # 图片宽度
         self.height = 0  # 图片高度
         self.data = None
+        self.ptr = None
         self._open()
 
     def _open(self):
@@ -210,7 +211,8 @@ class Frame:
         return int.from_bytes(self.hand.read(size), byteorder="little", signed=True)
 
     def destroy(self):
-        delete_me(self.data)
+        self.data = None
+        delete_me(self.ptr)
 
 
 class JPG:
