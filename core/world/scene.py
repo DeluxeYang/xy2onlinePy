@@ -67,8 +67,8 @@ class Scene:
         self.map_layer.destroy()
         self.map_layer = MapLayer()
 
-    def add_shape(self, shape_object_list):
-        pass
+    def add_shape(self, shape):
+        self.shape_layer.add_game_object(shape)
 
     def reset_shape_layer(self):
         self.shape_layer.destroy()

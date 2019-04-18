@@ -1,5 +1,4 @@
 from core.world.scene import Scene
-from core.account.role import Role
 
 
 class WorldScene(Scene):
@@ -53,4 +52,8 @@ class WorldScene(Scene):
         self.add_role_to_shape(role, is_main_role)  # 加入到shape层
 
     def add_role_to_shape(self, role, is_main_role):
-        pass
+        if is_main_role:
+            self.add_shape(role)
+        else:
+            if role.map_id == self.director.account.get_main_role().map_id:
+                self.add_shape(role)

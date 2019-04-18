@@ -15,6 +15,9 @@ class Account:
     def set_main_role(self, name):
         self.main_role_name = name
         self.main_role = self.roles[name]
+        for role_name, role in self.roles.items():
+            role.is_main_role = False
+        self.main_role.is_main_role = True
 
     def get_main_role(self):
         return self.main_role

@@ -61,7 +61,7 @@ class State:
             component._destroy()
 
         self.game_object = None
-        if hasattr(self, 'res'):
+        if hasattr(self, 'res') and self.res:
             self.res.destroy()
             self.res = None
 

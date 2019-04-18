@@ -3,7 +3,7 @@ from core.ui.text_button.text_button import TextButton
 from game.scene.role_select.component import \
     CreateButtonComponent, EnterButtonComponent, \
     ExitButtonComponent, RoleNameComponent
-from core.account.role import Role
+from game.character.role import Role
 
 
 class RoleSelectScene(Scene):
