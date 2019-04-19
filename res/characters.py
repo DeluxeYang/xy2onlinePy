@@ -5,7 +5,8 @@ characters = {
                 "name": "俏千金",
                 "gender": 0,
                 "run": ["shape.wdf", "0x3C6A821B"],  # 0x3C6A821B  0x0080D70E
-                "stand": [["shape.wdf", "0xE9AD975F"], ["shape.wdf", "0x9A6AB9DD"]],  # 站立0xE9AD975F，0xACC99D2C动作0x8ED623A7 0x9A6AB9DD
+                "stand_normal": ["shape.wdf", "0xE9AD975F"],
+                "stand_tease": ["shape.wdf", "0x9A6AB9DD"],  # 站立
                 "walk": ["shape.wdf", "0x2C86448D"],  # 0xDD0B0D7A
                 "weapon": {
                     "knife": {
@@ -34,7 +35,8 @@ characters = {
                 "name": "飞燕女",
                 "gender": 0,
                 "run": ["shape.wdf", "0x47986D10"],  # 0xB4B1D8D4
-                "stand": [["shape.wdf", "0x326C8C14"], ["shape.wdf", "0x81BA007E"]],  # 站立， 叉腰0x81BA007E  0x68D4D592
+                "stand_normal": ["shape.wdf", "0x326C8C14"],
+                "stand_tease": ["shape.wdf", "0x81BA007E"],  # 站立
                 "walk": ["shape.wdf", "0x3EAE6B97"],  # 0x122CC513
                 "weapon": {
                     "hook": {
@@ -63,7 +65,8 @@ characters = {
                 "name": "英女侠",
                 "gender": 0,
                 "run": ["shape.wdf", "0xAECD3328"],  # 0xD1518AFF
-                "stand": [["shape.wdf", "0x220AEF93"], ["shape.wdf", "0x93FF2E5A"]],  # 站立，动作0x78B0354C  0xB8445FC1
+                "stand_normal": ["shape.wdf", "0x220AEF93"],
+                "stand_tease": ["shape.wdf", "0x93FF2E5A"],  # 站立
                 "walk": ["shape.wdf", "0x199A10ED"],  # 0x2FE08CEB
                 "weapon": {
                     "knife": {
@@ -92,7 +95,8 @@ characters = {
                 "name": "逍遥生",
                 "gender": 1,
                 "run": ["shape.wdf", "0x0617EA3F"],  # 0x233A7831
-                "stand": [["shape.wdf", "0x58FB5047"], ["shape.wdf", "0xA764F8D8"]],  # 站立0x58FB5047, 0x3DDFE09C  背手0xA764F8D8  0x3BC2C64B
+                "stand_normal": ["shape.wdf", "0x58FB5047"],
+                "stand_tease": ["shape.wdf", "0xA764F8D8"],  # 站立
                 "walk": ["shape.wdf", "0x122D197F"],  # 0x85B84AFB
                 "weapon": {
                     "sword": {
@@ -121,7 +125,8 @@ characters = {
                 "name": "猛壮士",
                 "gender": 1,
                 "run": ["shape.wdf", "0x07EA21A4"],  # 0x097EC006
-                "stand": [["shape.wdf", "0xA16106FF"], ["shape.wdf", "0x1A293FB1"]],  # 站立0xB718CD0D，动作0x24AD2F2D
+                "stand_normal": ["shape.wdf", "0xA16106FF"],
+                "stand_tease": ["shape.wdf", "0x1A293FB1"],  # 站立
                 "walk": ["shape.wdf", "0x19430A27"],  # 0x4FBA48B8
                 "weapon": {
                     "ax": {
@@ -151,7 +156,8 @@ characters = {
                 "name": "剑侠客",
                 "gender": 1,
                 "run": ["shape.wdf", "0xECB28752"],  # 0xF113D230
-                "stand": [["shape.wdf", "0x2F75F815"], ["shape.wdf", "3017A7D7"]],  # 站立0x49386FCE，挠头0x56299C5F
+                "stand_normal": ["shape.wdf", "0x2F75F815"],
+                "stand_tease": ["shape.wdf", "0x3017A7D7"],  # 站立
                 "walk": ["shape.wdf", "0x3570D49B"],  # 0x54F3FC94
                 "weapon": {
                     "sword": {
@@ -180,7 +186,8 @@ characters = {
                 "name": "燕山雪",
                 "gender": 0,
                 "run": ["shape.wd1", "0x0717DFD0"],  #
-                "stand": [["shape.wd1", "0x297A1A88"], ["shape.wd1", "0xDD0961D4"]],  #
+                "stand_normal": ["shape.wd1", "0x297A1A88"],
+                "stand_tease": ["shape.wd1", "0xDD0961D4"],  # 站立
                 "walk": ["shape.wd1", "0x19B6F23F"],  #
                 "weapon": {
                     "sword": {
@@ -225,7 +232,8 @@ characters = {
                 "name": "巨魔王",
                 "gender": 1,
                 "run": ["shape.wdf", "0x1BB2690A"],  # 0xE1BFCF0D
-                "stand": [["shape.wdf", "0x66A41A5E"], ["shape.wdf", "0x48A764B2"]],  # 站立0xDFB3D729， 挠头0x59D3CE3C
+                "stand_normal": ["shape.wdf", "0x66A41A5E"],
+                "stand_tease": ["shape.wdf", "0x48A764B2"],  # 站立
                 "walk": ["shape.wdf", "0xC92F7E24"],  #  0xEDBC3127
                 "weapon": {
                     "knife": {
@@ -254,7 +262,8 @@ characters = {
                 "name": "骨精灵",
                 "gender": 0,
                 "run": ["shape.wdf", "0x7C36827B"],  # 0x7C36827B 0xCF8E36F8
-                "stand": [["shape.wdf", "0x3EA35ADD"], ["shape.wdf", "0x7A459F00"]],  # 站立0xFBB719F3， 动作0xC988FB25
+                "stand_normal": ["shape.wdf", "0x3EA35ADD"],
+                "stand_tease": ["shape.wdf", "0x7A459F00"],  # 站立
                 "walk": ["shape.wdf", "0x661ECD43"],  # 0xE1380841
                 "weapon": {
                     "stick": {
@@ -283,7 +292,8 @@ characters = {
                 "name": "虎头怪",
                 "gender": 1,
                 "run": ["shape.wdf", "0x61D1903E"],  # 0xC742FDEF
-                "stand": [["shape.wdf", "0x7E18DB15"], ["shape.wdf", "0x2BFE414F"]],  # 站立0x7E18DB15 0x69618CE9, 挠头0x57E9AB68, 
+                "stand_normal": ["shape.wdf", "0x7E18DB15"],
+                "stand_tease": ["shape.wdf", "0x2BFE414F"],  # 站立
                 "walk": ["shape.wdf", "0x556C6551"],  # 0xE382FDA7
                 "weapon": {
                     "stick": {
@@ -312,7 +322,8 @@ characters = {
                 "name": "夺命妖",
                 "gender": 1,
                 "run": ["shape.wdf", "0xA544A1C1"],  # 0xB2A89BDB
-                "stand": [["shape.wdf", "0x3072AAB6"], ["shape.wdf", "0x91C94846"]],  # 站立0x593B7D6F  摸头0xB4E9F9E0
+                "stand_normal": ["shape.wdf", "0x3072AAB6"],
+                "stand_tease": ["shape.wdf", "0x91C94846"],  # 站立
                 "walk": ["shape.wdf", "0x10DDAB2A"],  #  0x1D6C9873
                 "weapon": {
                     "knife": {
@@ -341,7 +352,8 @@ characters = {
                 "name": "小蛮妖",
                 "gender": 0,
                 "run": ["shape.wdf", "0x729DD644"],  # 0xB698F98C
-                "stand": [["shape.wdf", "0x51327E35"], ["shape.wdf", "0x0680B83D"]],  # 站立0xC0BBB1AB  叉腰0x2DED68DA， 
+                "stand_normal": ["shape.wdf", "0x51327E35"],
+                "stand_tease": ["shape.wdf", "0x0680B83D"],  # 站立
                 "walk": ["shape.wdf", "0x49533ADF"],  # 0xDD757619
                 "weapon": {
                     "knife": {
@@ -370,7 +382,8 @@ characters = {
                 "name": "狐美人",
                 "gender": 0,
                 "run": ["shape.wdf", "0x47D6C057"],  #  0xF4588069
-                "stand": [["shape.wdf", "0xAF8399B0"], ["shape.wdf", "0x8E52F207"]],  # 站立0xDC606593, 掠头发0xB6BF6332
+                "stand_normal": ["shape.wdf", "0xAF8399B0"],
+                "stand_tease": ["shape.wdf", "0x8E52F207"],  # 站立
                 "walk": ["shape.wdf", "0xE6E5F66E"],  # 0xF44C3FDE
                 "weapon": {
                     "claw": {
@@ -445,7 +458,8 @@ characters = {
                 "name": "智圣仙",
                 "gender": 1,
                 "run": ["shape.wdf", "0x2A9450E8"],  # 0x83E4F6AE
-                "stand": [["shape.wdf", "0x6B7E2A6C"], ["shape.wdf", "0xCA5F4A5F"]],  # 站立0x83F05A9A 0xD5332E6D  动作0xE05ACDC6
+                "stand_normal": ["shape.wdf", "0x6B7E2A6C"],
+                "stand_tease": ["shape.wdf", "0xCA5F4A5F"],  # 站立
                 "walk": ["shape.wdf", "0x4DF37E54"],  # 0x6C25C594
                 "weapon": {
                     "sword": {
@@ -474,7 +488,8 @@ characters = {
                 "name": "玄剑娥",
                 "gender": 0,
                 "run": ["shape.wdf", "0x60E6A16B"],  # 0xC4B8903E
-                "stand": [["shape.wdf", "0x468BDD94"], ["shape.wdf", "0xBBD13C84"]],  # 站立0x6A36D687，交手0xC1B738F2
+                "stand_normal": ["shape.wdf", "0x468BDD94"],
+                "stand_tease": ["shape.wdf", "0xBBD13C84"],  # 站立
                 "walk": ["shape.wdf", "0x2E7685EF"],  # 0x9A886A5B
                 "weapon": {
                     "spear": {
@@ -504,7 +519,8 @@ characters = {
                 "gender": 0,
                 "run": ["shape.wdf", "0xD4F344C4"],
                 "jag": ["shape.wdf", "0x6E5FE367"],  # 0xD4265BBB
-                "stand": [["shape.wdf", "0x180B0E61"], ["shape.wdf", "0x42135B0E"]],  # 站立0x993F4115, 动作0x4FF09198
+                "stand_normal": ["shape.wdf", "0x180B0E61"],
+                "stand_tease": ["shape.wdf", "0x42135B0E"],  # 站立
                 "walk": ["shape.wdf", "0x068F2E9B"],  # 0x6A3E0AA5
                 "weapon": {
                     "knife": {
@@ -532,8 +548,9 @@ characters = {
             "wutianji": {
                 "name": "舞天姬",
                 "gender": 0,
-                "run": ["shape.wdf", "0x91D54BB3"],  #  0xF57D6266 
-                "stand": [["shape.wdf", "0x12062C0C"], ["shape.wdf", "0x309A249F"]],  # 站立 0x89049B96， 动作0xD25E9FF0
+                "run": ["shape.wdf", "0x91D54BB3"],  #  0xF57D6266
+                "stand_normal": ["shape.wdf", "0x12062C0C"],
+                "stand_tease": ["shape.wdf", "0x309A249F"],  # 站立
                 "walk": ["shape.wdf", "0xBE127A35"],  # 0xF3FD7A0F
                 "weapon": {
                     "stick": {
@@ -561,7 +578,8 @@ characters = {
             "shentianbing": {
                 "name": "神天兵",
                 "run": ["shape.wdf", "0x41EC377D"],  # 0x4585112A
-                "stand": [["shape.wdf", "0x22CED97B"], ["shape.wdf", "0x25A0852F"]],  # 站立0xCA26616D 0x893C247B
+                "stand_normal": ["shape.wdf", "0x22CED97B"],
+                "stand_tease": ["shape.wdf", "0x25A0852F"],  # 站立
                 "walk": ["shape.wdf", "0x9D72B39A"],  # 0xD9A42849
                 "weapon": {
                     "spear": {
@@ -589,7 +607,8 @@ characters = {
             "longzhanjiang": {
                 "name": "龙战将",
                 "run": ["shape.wdf", "0xB9917F2B"],  # 0xD1939D57
-                "stand": [["shape.wdf", "0x41D5085D"], ["shape.wdf", "0x730404F5"]],  # 站立 动作0x8EEF1809 0xA79A4859
+                "stand_normal": ["shape.wdf", "0x730404F5"],
+                "stand_tease": ["shape.wdf", "0x41D5085D"],  # 站立
                 "walk": ["shape.wdf", "0x455DAF4F"],  # 0xF70BAA25
                 "weapon": {
                     "claw": {
@@ -614,11 +633,12 @@ characters = {
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "本为西海龙族，面容绝世。乃为龙族同辈中之翘楚，倾倒四海水族女子无数。手中一根盘龙杖，一旦舞起——雷霆万钧，龙战将坐骑状态九洲动容！",
             },
-"wuzunshen": {
+            "wuzunshen": {
                 "name": "武尊神",
                 "gender": 1,
                 "run": ["shape.wd1", "0x1206BEDD"],  #
-                "stand": [["shape.wd1", "0x4B8B5CA9"], ["shape.wd1", "0xD8189589"]],  #
+                "stand_normal": ["shape.wd1", "0x4B8B5CA9"],
+                "stand_tease": ["shape.wd1", "0xD8189589"],  # 站立
                 "walk": ["shape.wd1", "0xFF80700B"],  #
                 "weapon": {
                     "spear": {
@@ -638,7 +658,8 @@ characters = {
                 "name": "玄天姬",
                 "gender": 0,
                 "run": ["shape.wd1", "0x3B096E79"],  #
-                "stand": [["shape.wd1", "0x16C9AD1A"], ["shape.wd1", "0xCCC8DD74"]],  # 站立，
+                "stand_normal": ["shape.wd1", "0x16C9AD1A"],
+                "stand_tease": ["shape.wd1", "0xCCC8DD74"],  # 站立，
                 "walk": ["shape.wd1", "0x5FE8BA81"],  #
                 "weapon": {
                     "ribbon": {

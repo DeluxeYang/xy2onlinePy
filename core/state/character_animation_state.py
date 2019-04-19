@@ -18,12 +18,7 @@ class CharacterAnimationState(AnimationState):
         :return:
         """
         super().register(obj)
-        if isinstance(self.res_index, list):  # ["weapon", "knife", "run"]
-            address = self.game_object.res_info
-            for x in self.res_index:
-                address = address[x]
-        else:
-            address = self.game_object.res_info[self.res_index]
+        address = self.game_object.res_info[self.res_index]
         self.res_init(address)  # 初始化res
 
     def update(self, context):

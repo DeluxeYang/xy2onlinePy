@@ -30,7 +30,8 @@ class Component:
 
         self.state.components.append(self)
 
-        method_list = [func for func in dir(self) if callable(getattr(self, func)) and func[:1] != "_"]
+        method_list = [func for func in dir(self) if callable(getattr(self, func))
+                       and func[:1] != "_" and func != 'destroy']
         event_flag = False
         do_not_register = False
         for method_name in method_list:
@@ -75,6 +76,6 @@ class Component:
         if hasattr(self, func_name):
             getattr(self, func_name)(param)
 
-    def _destroy(self):
+    def destroy(self):
         self.state = None
         del self

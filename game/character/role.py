@@ -10,29 +10,33 @@ from game.character.character_component import MainCharacterComponent, Character
 
 
 class Role(GameObject):
-    def __init__(self, role_name):
+    race_names = {'ren': '人', 'mo': '魔', 'xian': '仙', 'gui': '鬼'}
+    gender_choices = ['女', '男']
+
+    def __init__(self, name, level, reborn, race, version, character, gender):
         super().__init__(0, 0)
 
         self.is_main = False
 
-        self.name = role_name
+        self.name = name
 
-        self.level = None
-        self.reborn = None
+        self.level = level
+        self.reborn = reborn
+        self.gender = gender
 
-        self.race = None
-        self.version = None
-        self.character = None
+        self.race = race
+        self.version = version
+        self.character = character
+        self.res_info = characters[self.race][self.version][self.character]
 
         self.map_id = None
         self.x = None
         self.y = None
 
         self.state = state_factory(CharacterStandNormalState, [CharacterMouseComponent])
+        self.init_state(self.state)
 
         self.screen_rect = Rect((0, 0), (0, 0))
-
-        self.res_info = None
 
         self.target = (0, 0)
         self.target_list = []
@@ -51,7 +55,7 @@ class Role(GameObject):
 
     @is_main_role.setter
     def is_main_role(self, value):
-        if self.is_main_role == value:
+        if self.is_main == value:
             return
         self.is_main = value
         if self.is_main_role:
@@ -60,24 +64,23 @@ class Role(GameObject):
             _state = state_factory(CharacterStandNormalState, [CharacterMouseComponent])
         self.changing_state(_state)
 
-    def specify(self, level, reborn,
-                race, version, character,
-                map_id, x, y):
-        self.res_info = characters[race][version][character]
-
-        self.level = level
-        self.reborn = reborn
-
-        self.race = race
-        self.version = version
-        self.character = character
-
+    def specify(self, map_id, x, y):
         self.map_id = map_id
         self.x = x
         self.y = y
 
+        self.inited = False
+        self.ready = False
+
+    def init(self):
+        self.inited = True
+        self.ready = True
+
     def get_xy(self):
         return self.x, self.y
+    
+    def get_pc(self):
+        return self.x * 20, self.y * 20
 
     def set_xy(self, x, y):
         self.x = x

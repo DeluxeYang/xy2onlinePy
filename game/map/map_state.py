@@ -14,7 +14,7 @@ class MapState(State):
         :param context:
         :return:
         """
-        units_needed = quest_25(self.game_object.window, self.game_object.row, self.game_object.col)
+        units_needed = quest_16(self.game_object.window, self.game_object.row, self.game_object.col)
         for i in units_needed:
             if not self.game_object.unit_has_blitted[i]:  # 如果该单元还没有数据
                 if self.game_object.quest_timer[i] == 0:  # 且该单元还没有发送过请求
@@ -36,8 +36,8 @@ class MapState(State):
                          width_margin=60, height_margin=40)
         flag = True
         for i in units:
-            if not self.game_object.unit_has_blitted[i]:
-                flag = False
+            # if not self.game_object.unit_has_blitted[i]:
+            #     flag = False
             for mask in self.game_object.masks_of_unit[i]:
                 if (mask.rect.x, mask.rect.y) not in no_repeat:
                     no_repeat[(mask.rect.x, mask.rect.y)] = True
@@ -54,7 +54,7 @@ class MapState(State):
         :return:
         """
         main_role = director.account.get_main_role()  # main_role
-        self.game_object.set_window(main_role.get_xy())  # 根据主要角色设置地图范围
+        self.game_object.set_window(main_role.get_pc())  # 根据主要角色设置地图范围
 
     def draw(self, screen):
         super().draw(screen)

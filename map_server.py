@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, time
 from weakref import WeakKeyDictionary
 from queue import Queue
 
@@ -118,3 +118,4 @@ while True:
     if not queue.empty():  # 检测有没有地图单元读取任务
         task = queue.get(block=False)
         task.run()
+    sleep(0.001)

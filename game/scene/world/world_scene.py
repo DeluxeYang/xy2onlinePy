@@ -44,16 +44,14 @@ class WorldScene(Scene):
 
     def specify_role(self, data, is_main_role):
         role = self.director.account.roles[data.role_name]
-        role.specify(
-            level=data.role_level, reborn=data.role_reborn,
-            race=data.race, version=data.version, character=data.character,
-            map_id=data.map_id, x=data.x, y=data.y
-        )
+        role.specify(map_id=data.map_id, x=data.x, y=data.y)
         self.add_role_to_shape(role, is_main_role)  # 加入到shape层
 
     def add_role_to_shape(self, role, is_main_role):
         if is_main_role:
             self.add_shape(role)
+            role.init()
         else:
             if role.map_id == self.director.account.get_main_role().map_id:
                 self.add_shape(role)
+                role.init()

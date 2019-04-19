@@ -5,6 +5,7 @@ from core.component.component import Component
 
 class MainCharacterComponent(Component):
     def on_receive_path_list(self, event):
+        print(event.__dict__)
         self.state.game_object.target_list = event.path_list
         self.state.game_object.is_new_target = True
         self.state.game_object.is_running = event.is_running

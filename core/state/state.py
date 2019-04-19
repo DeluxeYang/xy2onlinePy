@@ -58,12 +58,11 @@ class State:
 
     def destroy(self):
         for component in self.components:
-            component._destroy()
+            component.destroy()
 
         self.game_object = None
         if hasattr(self, 'res') and self.res:
             self.res.destroy()
-            self.res = None
 
         self.components = []
         self.event_components = []

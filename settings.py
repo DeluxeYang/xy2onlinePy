@@ -23,7 +23,7 @@ def logger_factory(file_log_level, console_log_level):
 logger = logger_factory(file_log_level=logging.INFO, console_log_level=logging.DEBUG)
 
 
-XY2PATH = "E:/游戏/大话西游2/"
+XY2PATH = "D:/game/大话西游2/"
 WindowSize = (800, 600)
 ResMargin = 0
 RunningSpeed = 4

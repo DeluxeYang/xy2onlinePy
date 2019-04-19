@@ -10,6 +10,8 @@ from utils.mask import Mask
 
 from core.world.director import director
 
+from time import time
+
 
 class MapMouseComponent(Component):
     def on_mouse_right_down(self, event):
@@ -48,6 +50,7 @@ class MapReceiveComponent(Component):
             self.state.game_object.quest_timer = [0 for _ in range(event.n)]
             self.state.game_object.inited = True
             self.state.game_object.ready = True
+            self.state.late_update()
             event.handled = True
 
     def on_receive_map_unit(self, event):
