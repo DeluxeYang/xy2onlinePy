@@ -1,5 +1,5 @@
 import pygame
-
+from core.world.director import director
 from core.component.component import Component
 
 
@@ -20,7 +20,7 @@ class CharacterMouseComponent(Component):
 
     def on_mouse_left_down(self, event):
         if self.is_mouse_focus_on(event):
-            print(self.state.game_object.character_id)
+            director.account.set_main_role(self.state.game_object.name)
             event.handled = True
 
     def on_mouse_right_down(self, event):

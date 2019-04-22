@@ -59,9 +59,9 @@ class Role(GameObject):
             return
         self.is_main = value
         if self.is_main_role:
-            _state = state_factory(CharacterStandNormalState, [MainCharacterComponent, CharacterMouseComponent])
+            _state = state_factory(type(self.state), [MainCharacterComponent, CharacterMouseComponent])
         else:
-            _state = state_factory(CharacterStandNormalState, [CharacterMouseComponent])
+            _state = state_factory(type(self.state), [CharacterMouseComponent])
         self.changing_state(_state)
 
     def specify(self, map_id, x, y):
@@ -69,18 +69,12 @@ class Role(GameObject):
         self.x = x
         self.y = y
 
-        self.inited = False
-        self.ready = False
-
     def init(self):
         self.inited = True
         self.ready = True
 
     def get_xy(self):
         return self.x, self.y
-    
-    def get_pc(self):
-        return self.x * 20, self.y * 20
 
     def set_xy(self, x, y):
         self.x = x

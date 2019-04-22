@@ -54,7 +54,7 @@ class MapState(State):
         :return:
         """
         main_role = director.account.get_main_role()  # main_role
-        self.game_object.set_window(main_role.get_pc())  # 根据主要角色设置地图范围
+        self.game_object.set_window(main_role.get_xy())  # 根据主要角色设置地图范围
 
     def draw(self, screen):
         super().draw(screen)
