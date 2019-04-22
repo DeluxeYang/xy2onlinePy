@@ -70,8 +70,15 @@ class MapServerChannel(Channel):
         :return:
         """
         map_x = self._get_map_x(data)
-        _task = MapUnitReadTask(self, map_x, data)
-        queue.put(_task)
+        jpeg, masks = map_x.read_unit(data["unit_num"])
+        send_data = {
+            'action': "receive_map_unit",
+            'map_id': map_x.map_id,
+            'unit_num': data["unit_num"],
+            'jpeg': jpeg,
+            'masks': masks
+        }
+        self.transmit(send_data)
 
     def network_request_find_path(self, data):
         """
