@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from pygame.math import Vector2
 
 from core.entity.game_object import GameObject
 from core.state.state import state_factory
@@ -88,7 +89,7 @@ class Map(GameObject):
         """
         return self.window.inflate(100, 100)  # 放大100像素
 
-    def set_window(self, world_pc):
+    def get_new_center(self, world_pc):
         """
         根据中心像素位置，获取显示窗口范围
         :return:
@@ -105,5 +106,15 @@ class Map(GameObject):
             window_top = 0
         elif window_bottom > self.map_height:
             window_top = self.map_height - WindowSize[1]
-        del self.window
-        self.window = Rect((window_left, window_top), (WindowSize[0], WindowSize[1]))
+        return window_left + WindowSize[0]//2, window_top + WindowSize[1]//2
+
+    def set_window(self, world_pc):
+        tx, ty = self.get_new_center(world_pc)
+        target_vector = Vector2()
+        target_vector.x = tx
+        target_vector.y = ty
+        current_vector = Vector2()
+        current_vector.x = self.window.centerx
+        current_vector.y = self.window.centery
+        new_vector = current_vector.slerp(target_vector, 0.05)
+        self.window.move_ip(new_vector.x - self.window.centerx, new_vector.y - self.window.centery)
