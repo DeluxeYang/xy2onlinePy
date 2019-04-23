@@ -62,7 +62,7 @@ class Role(GameObject):
             _state = state_factory(type(self.state), [MainCharacterComponent, CharacterMouseComponent])
         else:
             _state = state_factory(type(self.state), [CharacterMouseComponent])
-        self.changing_state(_state)
+        self.changing_state(_state, force=True)
 
     def specify(self, map_id, x, y):
         self.map_id = map_id

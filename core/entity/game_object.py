@@ -61,7 +61,9 @@ class GameObject:
             self.state.register(self)
             self.state.enter()
 
-    def changing_state(self, next_state, context=None):
+    def changing_state(self, next_state, context=None, force=False):
+        if not force and isinstance(next_state, type(self.state)):
+            return
         self.state.exit()
         self.init_state(next_state)
         if context:
