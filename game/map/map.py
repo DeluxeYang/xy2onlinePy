@@ -117,4 +117,4 @@ class Map(GameObject):
         current_vector.x = self.window.centerx
         current_vector.y = self.window.centery
         new_vector = current_vector.slerp(target_vector, 0.05)
-        self.window.move_ip(new_vector.x - self.window.centerx, new_vector.y - self.window.centery)
+        self.window.move_ip(int(new_vector.x) - self.window.centerx, int(new_vector.y) - self.window.centery)

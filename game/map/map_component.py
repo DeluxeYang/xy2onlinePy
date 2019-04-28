@@ -12,6 +12,8 @@ from core.world.director import director
 
 from time import time
 
+from settings import logger
+
 
 class MapMouseComponent(Component):
     def on_mouse_right_down(self, event):
@@ -54,6 +56,7 @@ class MapReceiveComponent(Component):
             event.handled = True
 
     def on_receive_map_unit(self, event):
+        logger.debug("Map Unit Receive:" + str(event.map_id) + " " + str(event.unit_num))
         if self.state.game_object.map_id == event.map_id:
             if not self.state.game_object.unit_has_blitted[event.unit_num]:
                 self._blit_unit(event.jpeg, event.unit_num)  # 将图片blit

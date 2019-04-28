@@ -78,6 +78,7 @@ class MapServerChannel(Channel):
             'jpeg': jpeg,
             'masks': masks
         }
+        print("map_unit_send")
         self.transmit(send_data)
 
     def network_request_find_path(self, data):
@@ -122,7 +123,4 @@ class MapServer(Server):
 map_server = MapServer(local_address=("localhost", int(ResourcePort)))
 while True:
     map_server.pump()
-    if not queue.empty():  # 检测有没有地图单元读取任务
-        task = queue.get(block=False)
-        task.run()
     sleep(0.001)
