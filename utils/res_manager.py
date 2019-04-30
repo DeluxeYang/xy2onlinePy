@@ -15,6 +15,7 @@ class WAS:
     def __init__(self, direction_num, frame_num, x, y, w, h):
         self.image_group = []
         self.mask_group = []
+        self.time_seq = []
         self.direction_num = direction_num
         self.frame_num = frame_num
         self.x = x
@@ -74,6 +75,7 @@ class ResManager:
         if _instance.type == "WAS":
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
+            res.time_seq = _instance.time_seq
             for i in range(_instance.direction_num):
                 _surface = []
                 _mask = []

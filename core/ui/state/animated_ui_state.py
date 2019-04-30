@@ -27,6 +27,8 @@ class AnimatedUIState(UIState):
         :param rate:
         :return:
         """
+        if self.res.time_seq:
+            rate = self.res.time_seq[self.frame] * rate
         one_loop = False
         if current_time > self.last_time + rate:
             self.frame += 1

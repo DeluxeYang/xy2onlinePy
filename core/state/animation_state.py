@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from core.state.state import State
 from utils.res_manager import res_manager
-from settings import ResMargin
+from settings import ResMargin, AnimationRate
 
 ResMargin_2 = ResMargin * 2
 
@@ -31,7 +31,7 @@ class AnimationState(State):
         self.game_object.inited = True  # 初始化完成
 
     def update(self, context):
-        one_loop = self.calc_next_frame(context["current_time"], rate=100)  # 计算下一帧的帧数
+        one_loop = self.calc_next_frame(context["current_time"], rate=AnimationRate)  # 计算下一帧的帧数
         self.game_object.screen_rect = self.get_screen_rect(context["left_top"])  # 根据shape的World 坐标和left_top，确定相对屏幕坐标
         self.game_object.ready = True  # ready
         super().update(context)

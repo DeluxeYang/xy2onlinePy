@@ -2,7 +2,7 @@
 import binascii
 
 from utils.xy2_res import read_color_palette, read_pic, delete_me
-from settings import XY2PATH
+from settings import XY2PATH, logger
 
 """
 WDF --> WdfFile --> WAS
@@ -119,6 +119,7 @@ class WAS:
         self.color_board = None  # 512bytes 调色板
         self.color_board_origin = None
         self.pic = []
+        self.time_seq = []
         self._open()  # 读取WAS头
         self._read_color_board()  # 读取调色板
         self.pic_offsets = [self.read_bytes_to_int(4) + self.offset + 4 + self.head_size
@@ -149,10 +150,8 @@ class WAS:
         self.y = self.read_bytes_to_int(2)
         # TODO
         if self.head_size > 12:  # 如果不是12，可能包含其他信息，如帧停留时间
-            self.other = self.hand.read(self.head_size - 12)
-            print(self.other)
-            print(self.direction_num)
-            print(self.direction_pic_num)
+            self.time_seq = self.read_bytes_to_int_list(self.head_size - 12)
+            logger.debug("WAS包含其他信息，方向数：" + str(self.direction_num) + "，帧数：" + str(self.direction_pic_num))
 
     def _read_color_board(self):
         """
@@ -183,6 +182,10 @@ class WAS:
     def read_bytes_to_hex_list(self, size):
         hex_bit = binascii.hexlify(self.hand.read(size)).decode("utf-8")
         return [hex_bit[i:i + 2] for i in range(0, len(hex_bit), 2)]
+
+    def read_bytes_to_int_list(self, size):
+        hex_bit = binascii.hexlify(self.hand.read(size)).decode("utf-8")
+        return [int(hex_bit[i:i + 2], 16) for i in range(0, len(hex_bit), 2)]
 
     def read_bytes_to_int(self, size):
         return int.from_bytes(self.hand.read(size), byteorder="little", signed=True)

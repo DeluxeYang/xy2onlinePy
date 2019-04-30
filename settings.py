@@ -29,5 +29,5 @@ ResMargin = 0
 RunningSpeed = 4
 WalkingSpeed = 2
 ResourcePort = 8001
-NetworkPort = 9006
-AnimationRate = 80
+NetworkPort = 9008
+AnimationRate = 100
