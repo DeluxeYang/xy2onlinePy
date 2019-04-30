@@ -21,7 +21,6 @@ class MapState(State):
         units_needed = quest_16(self.game_object.window, self.game_object.map_x.row, self.game_object.map_x.col)
         for i in units_needed:
             if not self.game_object.unit_has_blitted[i]:  # 如果该单元还没有数据
-                a = time.time()
                 jpeg, masks_data = self.game_object.map_x.read_unit(i)
                 self._blit_unit(jpeg, i)
                 self.game_object.masks_of_unit[i] = []
@@ -31,7 +30,6 @@ class MapState(State):
                     except Exception as e:
                         logger.error("Map Mask Error" + str(self.game_object.map_id) + " " + str(i) + str(e))
                 self.game_object.unit_has_blitted[i] = True
-                print(time.time() - a)
                 break
 
     def update(self, context):

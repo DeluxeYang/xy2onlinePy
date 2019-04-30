@@ -14,6 +14,8 @@ from core.ui.notify.notify import Notify
 
 from game.map_ip.map import Map
 
+from core.ui.fps.fps import FPS
+
 
 class Scene:
     scene_init_data = None
@@ -49,6 +51,7 @@ class Scene:
                                        x=self.notify_x, y=self.notify_y,
                                        w=400, h=300)
         self.ui_layer.add_game_object(self.notify_frame)
+        self.ui_layer.add_game_object(FPS())
 
     def add_map(self, map_object_list):
         for game_object in map_object_list:
@@ -130,6 +133,14 @@ class Scene:
     def reset_ui_layer(self):
         self.ui_layer.destroy()
         self.ui_layer = UILayer()
+        self.notify_x = 260 if self.resolution[0] == 800 else 180
+        self.notify_y = 220 if self.resolution[1] == 600 else 170
+        self.notify_count = 0
+        self.notify_max = 15
+        self.notify_frame = FixedFrame(res_info=None,
+                                       x=self.notify_x, y=self.notify_y,
+                                       w=400, h=300)
+        self.ui_layer.add_game_object(self.notify_frame)
 
     def handle_event(self, event):
         if hasattr(self, "on_" + event.name):  # 如果self有该事件的处理方法

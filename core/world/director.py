@@ -5,7 +5,7 @@ from pygame.locals import *
 
 from core.event.event import event_filter
 
-from map_client import map_client, map_connection
+# from map_client import map_client, map_connection
 from network_client import network_client, network_connection
 
 
@@ -15,6 +15,7 @@ class Director:
         self.title = title
         self.resolution = resolution
         self.fps = fps
+        self.clock = pygame.time.Clock()
 
         self.running = True
         self._screen = None
@@ -23,8 +24,8 @@ class Director:
 
         self.account = None
 
-        self.map_connection = map_connection
-        self.map_client = map_client
+        # self.map_connection = map_connection
+        # self.map_client = map_client
 
         self.network_connection = network_connection
         self.network_client = network_client
@@ -52,8 +53,6 @@ class Director:
         else:
             self.change_scene(scene)
 
-        fps = pygame.time.Clock()
-
         context = {
             "delta_time": 0.0,
             "current_time": 0.0,
@@ -63,30 +62,24 @@ class Director:
             "collision_window": Rect((0, 0), (0, 0)),
             "me_world_pc": (0, 0),
         }
-        i = 0
         while self.running:
-            if i > self.fps:
-                print("帧数：", fps.get_fps())
-                i = 0
-            i += 1
-
             event_queue = event_filter()
             # handle_event
             self.handle_events(event_queue)
             # running_data setting
-            context["delta_time"] = fps.tick(self.fps)
+            context["delta_time"] = self.clock.tick(self.fps)
             context["current_time"] = pygame.time.get_ticks()
-            # update
+
             self.update(context)
-            # fill with black
+
             self._screen.fill((0, 0, 0))
-            # draw
+
             self.draw(self._screen)
-            # screen update
+
             pygame.display.flip()
             # map_client pump
-            self.map_connection.pump()
-            self.map_client.pump()
+            # self.map_connection.pump()
+            # self.map_client.pump()
             # network_client pump
             self.network_connection.pump()
             self.network_client.pump()
