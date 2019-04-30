@@ -12,7 +12,7 @@ from core.ui.text_input.text_input import TextInput
 from core.ui.text_button.text_button import TextButton
 from core.ui.notify.notify import Notify
 
-from game.map.map import Map
+from game.map_ip.map import Map
 
 
 class Scene:
@@ -60,7 +60,7 @@ class Scene:
                                                         game_object["world_position"][0],
                                                         game_object["world_position"][1])
             else:
-                obj = Map(game_object["map_id"], self.director.map_client, self.director.network_client)
+                obj = Map(game_object["map_id"], self.director.account.get_main_role().get_xy())
             self.map_layer.add_game_object(obj)
 
     def reset_map_layer(self):

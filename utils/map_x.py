@@ -56,11 +56,9 @@ class MapX:
                 flag = False
                 goal = self.nearest_valid_coord(goal)
         path = astar_path(self.cell, start, goal, allow_diagonal=True)
-        print(path)
         path_list = self.adjust_path(path)  # 去除多余点, 同时将游戏坐标转为地图像素坐标
         if flag and len(path_list) > 0:
             path_list[-1] = target  # 将最后一个坐标，设为target_pc
-        print(start, goal, path_list)
         return path_list
 
     def nearest_valid_coord(self, point):
