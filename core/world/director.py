@@ -4,6 +4,7 @@ import pygame
 from pygame.locals import *
 
 from core.event.event import event_filter
+from utils import transitions
 
 # from map_client import map_client, map_connection
 from network_client import network_client, network_connection
@@ -13,16 +14,19 @@ class Director:
     def __init__(self, title="Director", resolution=(640, 480), fps=60):
         pygame.init()
         self.title = title
-        self.resolution = resolution
+        self.w, self.h = resolution
+
         self.fps = fps
         self.clock = pygame.time.Clock()
 
         self.running = True
-        self._screen = None
+        self._screen = pygame.display.set_mode(resolution)
         self._scene = None
         self.old_scene = None
 
         self.account = None
+
+        self.transition = transitions
 
         # self.map_connection = map_connection
         # self.map_client = map_client
@@ -40,10 +44,11 @@ class Director:
 
     @property
     def resolution(self):
-        return self._screen.get_size()
+        return self._screen.get_size() if self._screen else self.w, self.h
 
     @resolution.setter
     def resolution(self, value):
+        self.w, self.h = value
         self._screen = pygame.display.set_mode(value)
 
     def run(self, scene=None):
@@ -70,20 +75,18 @@ class Director:
             context["delta_time"] = self.clock.tick(self.fps)
             context["current_time"] = pygame.time.get_ticks()
 
-            self.update(context)
+            if not self.transition.updateScreen():
 
-            self._screen.fill((0, 0, 0))
+                self.update(context)
 
-            self.draw(self._screen)
+                self._screen.fill((0, 0, 0))
+
+                self.draw(self._screen)
+
+                self.network_connection.pump()
+                self.network_client.pump()
 
             pygame.display.flip()
-            # map_client pump
-            # self.map_connection.pump()
-            # self.map_client.pump()
-            # network_client pump
-            self.network_connection.pump()
-            self.network_client.pump()
-
             gc.collect()
 
     def handle_events(self, event_queue):
@@ -103,6 +106,8 @@ class Director:
         pass
 
     def change_scene(self, the_scene_class):
+        self.transition.init(self._screen, self.w, self.h)
+        self.transition.run('fadeOutDown', 0.5)
         scene = the_scene_class()
         scene.enter()
         if self._scene:
