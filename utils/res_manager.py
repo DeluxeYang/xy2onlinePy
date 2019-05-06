@@ -31,6 +31,7 @@ class WAS:
 class TGAorJPEG:
     def __init__(self, direction_num, frame_num, x, y, w, h):
         self.image_group = []
+        self.time_seq = None
         self.direction_num = direction_num
         self.frame_num = frame_num
         self.x = x
