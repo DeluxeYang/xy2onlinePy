@@ -1,4 +1,5 @@
 import gc
+import random
 
 import pygame
 from pygame.locals import *
@@ -27,6 +28,9 @@ class Director:
         self.account = None
 
         self.transition = transitions
+        self.transition_choices = ['fadeOutUp', 'fadeOutDown', 'fadeOut', 'fadeOut', 'fadeOut',
+                                   'moveUp', 'moveDown', 'moveLeft', 'moveRight', 'moveUpLeft', 'moveUpRight']
+        self.transition.init(self._screen, self.w, self.h)
 
         # self.map_connection = map_connection
         # self.map_client = map_client
@@ -56,7 +60,8 @@ class Director:
             if self._scene is None:
                 raise ValueError('No scene provided')
         else:
-            self.change_scene(scene)
+            self._scene = scene()
+            self._scene.enter()
 
         context = {
             "delta_time": 0.0,
@@ -75,16 +80,16 @@ class Director:
             context["delta_time"] = self.clock.tick(self.fps)
             context["current_time"] = pygame.time.get_ticks()
 
-            if not self.transition.updateScreen():
+            self.update(context)
 
-                self.update(context)
+            self._screen.fill((0, 0, 0))
 
-                self._screen.fill((0, 0, 0))
+            self.draw(self._screen)
 
-                self.draw(self._screen)
+            self.transition.update_screen()
 
-                self.network_connection.pump()
-                self.network_client.pump()
+            self.network_connection.pump()
+            self.network_client.pump()
 
             pygame.display.flip()
             gc.collect()
@@ -105,9 +110,11 @@ class Director:
     def get_new_scene(self, character_id, map_id):
         pass
 
-    def change_scene(self, the_scene_class):
+    def change_scene(self, the_scene_class, transition):
         self.transition.init(self._screen, self.w, self.h)
-        self.transition.run('fadeOutDown', 0.5)
+        if not transition:
+            transition = random.choice(self.transition_choices)
+        self.transition.run(transition, 0.7)
         scene = the_scene_class()
         scene.enter()
         if self._scene:
@@ -116,7 +123,10 @@ class Director:
         self._scene = scene
 
     def on_change_scene(self, event):
-        self.change_scene(event.scene)
+        transition = None
+        if hasattr(event, 'transition'):
+            transition = event.transition
+        self.change_scene(event.scene, transition)
 
     def on_changing_screen(self, event):
         pass

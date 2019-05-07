@@ -80,7 +80,7 @@ def run(name, duration=1, x=-1, y=-1):
 	transition_data.y = y
 
 
-def updateScreen():
+def update_screen():
 	global transition, transition_data
 	if not inited:
 		raise Exception("You must init transitions before using it!")
@@ -91,16 +91,45 @@ def updateScreen():
 			transition_data = False
 			transition = False
 		else:
-			screen.fill(background_color)
 			if transition == "fadeOutUp":
 				transition_data.screen.set_alpha(255-255*time_ratio)
 				rect1 = transition_data.screen.get_rect()
-				transition_data.current_screen = pygame.transform.smoothscale(transition_data.screen, [int(rect1[2]*(1+time_ratio)), int(rect1[3]*(1+time_ratio))])
-				transition_data.current_screen = pygame.transform.rotate(transition_data.current_screen, 10*time_ratio)
+				transition_data.current_screen = pygame.transform.smoothscale(
+					transition_data.screen, [int(rect1[2]*(1+time_ratio)), int(rect1[3]*(1+time_ratio))])
+				transition_data.current_screen = pygame.transform.rotate(
+					transition_data.current_screen, 10*time_ratio)
 			elif transition == "fadeOutDown":
 				transition_data.screen.set_alpha(255-255*time_ratio)
 				rect1 = transition_data.screen.get_rect()
-				transition_data.current_screen = pygame.transform.smoothscale(transition_data.screen, [int(rect1[2]*(1-time_ratio)), int(rect1[3]*(1-time_ratio))])
+				transition_data.current_screen = pygame.transform.smoothscale(
+					transition_data.screen, [int(rect1[2]*(1-time_ratio)), int(rect1[3]*(1-time_ratio))])
+			elif transition == "fadeOut":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio)
+				transition_data.current_screen = transition_data.screen
+			elif transition == "moveUp":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (0,  -window_height * time_ratio))
+			elif transition == "moveDown":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (0,  window_height * time_ratio))
+			elif transition == "moveLeft":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (-window_width * time_ratio,  0))
+			elif transition == "moveRight":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (window_width * time_ratio,  0))
+			elif transition == "moveUpLeft":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (-window_width * time_ratio,  -window_height * time_ratio))
+			elif transition == "moveUpRight":
+				transition_data.screen.set_alpha(255 - 255 * time_ratio * 0.5)
+				transition_data.current_screen = screen
+				transition_data.current_screen.blit(transition_data.screen, (window_width * time_ratio,  -window_height * time_ratio))
 
 			rect2 = transition_data.current_screen.get_rect()
 
