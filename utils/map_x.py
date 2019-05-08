@@ -20,7 +20,7 @@ class Mask:
 
 class MapX:
     def __init__(self, path):
-        self.map_id = path
+        self.map_path = path
         self.map_type = 0  # 地图类型，1旧地图，2新地图
         self.unit_offset = []  # 地图各单元索引
         self.pic = []  # 各单元解压缩后的图片RGB字节
@@ -41,7 +41,7 @@ class MapX:
         self.map_size = 0  # 地图大小
         self.jpg_head = bytes()  # 旧地图中JPEG头
         self.coordinate = (0, 0)  # 地图中游戏坐标最大值
-        self._open(XY2PATH + path)
+        self._open(XY2PATH + self.map_path)
 
         self._read_all_cells()
         # self.a_star = AStar(self.cell)

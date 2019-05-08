@@ -9,7 +9,7 @@ from core.state.state import State
 from utils.math import quest_16
 
 from settings import logger
-import time
+
 
 class MapState(State):
     def early_update(self, context):

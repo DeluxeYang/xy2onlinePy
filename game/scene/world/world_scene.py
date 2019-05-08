@@ -1,4 +1,5 @@
 from core.world.scene import Scene
+from game.character.role import Role
 
 
 class WorldScene(Scene):
@@ -22,14 +23,15 @@ class WorldScene(Scene):
             "is_main_role": True
         })
 
-    def on_receive_main_role(self, event):
+    def on_receive_main_role(self, event):  # 获取到主要角色信息
         self.specify_role(event, is_main_role=True)  # 载入role数据
         self.director.account.set_main_role(event.role_name)
         self.add_map([{
             "type": 'map',
+            "map_version": event.map_version,
             "map_id": event.map_id
         }])
-        for role_name in self.director.account.roles:  # 再获取其他角色数据
+        for role_name in self.director.account.roles:  # 再获取当前账号其他角色数据
             if self.director.account.get_main_role().name != role_name:
                 self.director.network_client.request(send_data={
                     "action": "get_role",
@@ -37,6 +39,11 @@ class WorldScene(Scene):
                     "role": role_name,
                     "is_main_role": False
                 })
+        self.director.network_client.request(send_data={  # 获取当前主要角色所在场景中的其他玩家
+            "action": "get_other_players",
+            "account": self.director.account.account,
+            "map_id": self.director.account.get_main_role().map_id
+        })
 
     def on_receive_role(self, event):
         self.specify_role(event, is_main_role=False)

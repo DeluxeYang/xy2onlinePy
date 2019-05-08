@@ -12,9 +12,11 @@ from settings import WindowSize
 
 
 class Map(GameObject):
-    def __init__(self, map_id, world_pc):
+    def __init__(self, map_version, map_id, world_pc):
         super(Map, self).__init__(0, 0)
+        self.map_version = map_version
         self.map_id = map_id  # scene/1001.map
+        self.map_path = map_version + '/' + str(map_id) + '.map'
 
         self.unit_has_blitted = []  # 记录哪些unit已经加载完成了
         self.surface = pygame.Surface(WindowSize)
@@ -25,7 +27,7 @@ class Map(GameObject):
 
         self.left_top = (0, 0)
 
-        self.map_x = MapX(map_id)
+        self.map_x = MapX(self.map_path)
 
         self.set_window(world_pc)  # 初始化地图视窗
 

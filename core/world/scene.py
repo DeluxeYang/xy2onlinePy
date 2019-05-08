@@ -63,7 +63,7 @@ class Scene:
                                                         game_object["world_position"][0],
                                                         game_object["world_position"][1])
             else:
-                obj = Map(game_object["map_id"], self.director.account.get_main_role().get_xy())
+                obj = Map(game_object["map_version"], game_object["map_id"], self.director.account.get_main_role().get_xy())
             self.map_layer.add_game_object(obj)
 
     def reset_map_layer(self):
