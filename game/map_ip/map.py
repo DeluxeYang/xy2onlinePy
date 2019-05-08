@@ -20,7 +20,8 @@ class Map(GameObject):
 
         self.unit_has_blitted = []  # 记录哪些unit已经加载完成了
         self.surface = pygame.Surface(WindowSize)
-        self.window = Rect((0, 0), WindowSize)
+        self.window = Rect(world_pc, WindowSize)
+        self.window.move_ip(int(world_pc[0]) - self.window.centerx, int(world_pc[1]) - self.window.centery)
 
         self.mask = {}
         self.masks_of_unit = []
@@ -28,8 +29,6 @@ class Map(GameObject):
         self.left_top = (0, 0)
 
         self.map_x = MapX(self.map_path)
-
-        self.set_window(world_pc)  # 初始化地图视窗
 
         self.init_state(MapState())
         self.state.add_component(MapMouseComponent())  # 地图操作组件
