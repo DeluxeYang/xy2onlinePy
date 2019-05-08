@@ -49,12 +49,21 @@ class WorldScene(Scene):
         self.specify_role(event, is_main_role=False)
         event.handled = True
 
+    def on_receive_other_players(self, event):
+        if event.map_id == self.director.account.get_main_role().map_id:
+            for p in event.players:
+                role = Role(p['role_name'], p['level'], p['reborn'],
+                            p['race'], p['version'], p['character'], p['gender'])
+                role.specify(p['map_id'], p['x'], p['y'])
+                self.add_role_to_shape(role)
+            event.handled = True
+
     def specify_role(self, data, is_main_role):
         role = self.director.account.roles[data.role_name]
         role.specify(map_id=data.map_id, x=data.x, y=data.y)
         self.add_role_to_shape(role, is_main_role)  # 加入到shape层
 
-    def add_role_to_shape(self, role, is_main_role):
+    def add_role_to_shape(self, role, is_main_role=False):
         if is_main_role:
             self.add_shape(role)
             role.init()

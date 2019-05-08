@@ -25,9 +25,9 @@ logger = logger_factory(file_log_level=logging.INFO, console_log_level=logging.D
 
 XY2PATH = "D:/game/大话西游2/"
 WindowSize = (800, 600)
-ResMargin = 0
+ResMargin = 20
 RunningSpeed = 4
 WalkingSpeed = 2
 ResourcePort = 8001
 NetworkPort = 9008
-AnimationRate = 100
+AnimationRate = 80

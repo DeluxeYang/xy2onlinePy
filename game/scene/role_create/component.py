@@ -24,13 +24,12 @@ class CharacterButtonComponent(UIMouseComponent):
             frames = [self.game_object.parent.first_weapon, self.game_object.parent.second_weapon]
             i = 0
             for weapon, res_info in self.res_info["weapon"].items():
-                frames[i].changing_state(AnimatedFrameState(res_info, "hit"))
+                frames[i].changing_state(AnimatedFrameState(res_info, "hit"), force=True)
                 i += 1
             self.game_object.parent.store["character_race"] = self.race
             self.game_object.parent.store["character_version"] = self.version
             self.game_object.parent.store["character_name"] = self.name
-            self.game_object.parent.character_introduction.\
-                changing_state(TextFieldState(self.res_info["describe"]))
+            self.game_object.parent.character_introduction.update_text(self.res_info["describe"])
         self.game_object.is_mouse_up = True
 
     def on_mouse_left_down(self, event):

@@ -20,7 +20,10 @@ class CharacterMouseComponent(Component):
 
     def on_mouse_left_down(self, event):
         if self.is_mouse_focus_on(event):
-            director.account.set_main_role(self.state.game_object.name)
+            try:
+                director.account.set_main_role(self.state.game_object.name)
+            except:
+                pass
             event.handled = True
 
     def on_mouse_right_down(self, event):
