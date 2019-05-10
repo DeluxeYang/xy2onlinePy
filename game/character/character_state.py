@@ -74,7 +74,6 @@ class CharacterStandNormalState(CharacterWorldState):
         self.loops_count = 0
 
     def update(self, context):
-        # print(self.game_object.x, self.game_object.y)
         if self.is_moving_to_new_target(context):
             return
         one_loop = super().update(context)

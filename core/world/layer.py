@@ -49,11 +49,28 @@ class MapLayer(Layer):
 
 
 class ShapeLayer(Layer):
+    this_frame_children = []
+
+    def early_update(self, context):
+        self.this_frame_children = []
+        for child in self.children:
+            if context["collision_window"].collidepoint(child.x, child.y):
+                self.this_frame_children.append(child)
+                child.early_update(context)
+
+    def update(self, context):
+        for child in self.this_frame_children:
+            child.update(context)
+
+    def late_update(self, context):
+        for child in self.this_frame_children:
+            child.late_update(context)
+
     def draw(self, screen):
-        self.children.sort(key=lambda obj: obj.y)  # 按GameObject的Y坐标从小到大，也即从游戏中由远即近的渲染
-        for child in self.children:
+        self.this_frame_children.sort(key=lambda obj: obj.y)  # 按GameObject的Y坐标从小到大，也即从游戏中由远即近的渲染
+        for child in self.this_frame_children:
             child.draw(screen)
-        for child in self.children:
+        for child in self.this_frame_children:
             child.late_draw(screen)
 
 
