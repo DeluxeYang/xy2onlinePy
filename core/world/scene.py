@@ -13,8 +13,11 @@ from core.ui.text_button.text_button import TextButton
 from core.ui.notify.notify import Notify
 
 from game.map_ip.map import Map
+from game.map_ip.portal import Portal
 
 from core.ui.fps.fps import FPS
+
+from core.entity.game_object import GameObject
 
 
 class Scene:
@@ -72,8 +75,21 @@ class Scene:
         self.map_layer.destroy()
         self.map_layer = MapLayer()
 
-    def add_shape(self, shape):
-        self.shape_layer.add_game_object(shape)
+    def add_shape(self, obj):
+        if isinstance(obj, GameObject):
+            self.shape_layer.add_game_object(obj)
+        elif isinstance(obj, list):
+            for o in obj:
+                if o["type"] == "static":
+                    game_object = static_object_factory(o["res_info"], o["x"], o["y"])
+                    self.shape_layer.add_game_object(game_object)
+                elif o["type"] == "animation":
+                    game_object = material_animation_object_factory(o["res_info"], o["x"], o["y"])
+                    self.shape_layer.add_game_object(game_object)
+                elif o["type"] == "portal":
+                    game_object = Portal(o["res_info"], o["map_id"], o["x"], o["y"],
+                                         o["target_map_version"], o["target_map_id"], o["target_x"], o["target_y"])
+                    self.shape_layer.add_game_object(game_object)
 
     def reset_shape_layer(self):
         self.shape_layer.destroy()

@@ -69,7 +69,7 @@ class RoleNameComponent(TextButtonBaseComponent):
             self.game_object.parent.level.update_text(str(role.reborn) + '转' + str(role.level) + '级')
             self.game_object.parent.gender.update_text(role.gender_choices[role.gender])
             self.game_object.parent.race.update_text(role.race_names[role.race])
-            self.game_object.parent.avatar.changing_state(AnimatedFrameState(res_info={'normal': avatar}))
+            self.game_object.parent.avatar.changing_state(AnimatedFrameState(res_info={'normal': avatar}), force=True)
             director.account.set_main_role(self.game_object.text)
         self.game_object.is_mouse_up = True
 

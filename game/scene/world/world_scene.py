@@ -48,6 +48,7 @@ class WorldScene(Scene):
             "account": self.director.account.account,
             "map_id": self.director.account.get_main_role().map_id
         })
+        event.handled = True
 
     def on_receive_role(self, event):
         self.specify_role(event, is_main_role=False)
@@ -63,7 +64,8 @@ class WorldScene(Scene):
             event.handled = True
 
     def on_receive_portal_list(self, event):
-        print(event.__dict__)
+        self.add_shape(event.portal_list)
+        event.handled = True
 
     def specify_role(self, data, is_main_role):
         role = self.director.account.roles[data.role_name]

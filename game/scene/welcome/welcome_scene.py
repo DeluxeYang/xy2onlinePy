@@ -56,7 +56,7 @@ welcome_scene_json = {
                 ]
             },
         ],
-        "shape": None,
+        "shape": [],
         "map": [
             {
                 "type": "animation",
