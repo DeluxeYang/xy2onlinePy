@@ -31,6 +31,10 @@ class WorldScene(Scene):
             "map_version": event.map_version,
             "map_id": event.map_id
         }])
+        self.director.network_client.request(send_data={  # 获取当前地图的portals
+            "action": "get_portal_list",
+            "map_id": event.map_id
+        })
         for role_name in self.director.account.roles:  # 再获取当前账号其他角色数据
             if self.director.account.get_main_role().name != role_name:
                 self.director.network_client.request(send_data={
@@ -57,6 +61,9 @@ class WorldScene(Scene):
                 role.specify(p['map_id'], p['x'], p['y'])
                 self.add_role_to_shape(role)
             event.handled = True
+
+    def on_receive_portal_list(self, event):
+        print(event.__dict__)
 
     def specify_role(self, data, is_main_role):
         role = self.director.account.roles[data.role_name]

@@ -57,11 +57,12 @@ class Scene:
         for game_object in map_object_list:
             if game_object["type"] == "static":
                 obj = static_object_factory(game_object["res_info"],
-                                            game_object["world_position"][0], game_object["world_position"][1])
+                                            game_object["x"],
+                                            game_object["y"])
             elif game_object["type"] == "animation":
                 obj = material_animation_object_factory(game_object["res_info"],
-                                                        game_object["world_position"][0],
-                                                        game_object["world_position"][1])
+                                                        game_object["x"],
+                                                        game_object["y"])
             else:
                 obj = Map(game_object["map_version"], game_object["map_id"],
                           self.director.account.get_main_role().get_xy())

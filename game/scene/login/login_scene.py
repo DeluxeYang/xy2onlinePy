@@ -63,7 +63,8 @@ class AccountSelectScene(Scene):
             "map": [
                 {
                     "type": "static",
-                    "world_position": (0, 0),
+                    "x": 0,
+                    "y": 0,
                     "res_info": {"normal": ["gires2.wdf", "0x51F941C4"]}
                 },
             ]

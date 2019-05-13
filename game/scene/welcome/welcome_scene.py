@@ -60,22 +60,26 @@ welcome_scene_json = {
         "map": [
             {
                 "type": "animation",
-                "world_position": (338, 201),
+                "x": 338,
+                "y": 201,
                 "res_info": {"normal": ["gires2.wdf", "0xB6C80446"]}
             },
             {
                 "type": "static",
-                "world_position": (0, 0),
+                "x": 0,
+                "y": 0,
                 "res_info": {"normal": ["gires2.wdf", "0x5A6AB1AF"]}
              },
             {
                 "type": "animation",
-                "world_position": (425, 480-193+113),
+                "x": 425,
+                "y": 400,
                 "res_info": {"normal": ["gires2.wdf", "0x23C8D064"]}
             },
             {
                 "type": "static",
-                "world_position": (48, 213),
+                "x": 48,
+                "y": 213,
                 "res_info": {"normal": ["gires2.wdf", "0xFC849F13"]}
             },
         ]

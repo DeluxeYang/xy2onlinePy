@@ -58,12 +58,14 @@ notice_scene_json = {
         "map": [
             {
                 "type": "static",
-                "world_position": (0, 0),
+                "x": 0,
+                "y": 0,
                 "res_info": {"normal": ["gires2.wdf", "0x27689D65"]}
              },
             {
                 "type": "static",
-                "world_position": (0, 0),
+                "x": 0,
+                "y": 0,
                 "res_info": {"normal": ["gires2.wdf", "0xE8FD733B"]}
              }
         ]
