@@ -159,7 +159,12 @@ class MapX:
             self.unit_offset = [self._read_bytes_to_int(4) for _ in range(self.n)]  # 地图单元Unit偏移
             self.pic = [None for _ in range(self.n)]  # 初始化各单元图片列表
             self.mask = [[] for _ in range(self.n)]  # 初始化各单元mask列表
-            self.cell = numpy.ones((self.map_height // 20, self.map_width // 20), dtype=numpy.float32)
+
+            temp_row = self.map_height // 20
+            temp_col = self.map_width // 20
+            temp_row = temp_row if temp_row % 12 == 0 else temp_row + 12 - temp_row % 12
+            temp_col = temp_col if temp_col % 16 == 0 else temp_col + 16 - temp_col % 16
+            self.cell = numpy.ones((temp_row, temp_col), dtype=numpy.float32)
 
             if self.map_type == 1:  # 大话2旧地图
                 self.map_size = self._read_bytes_to_int(4)  # 地图文件大小
