@@ -1,4 +1,4 @@
-import gc
+import gc, psutil, os
 import random
 
 import pygame
@@ -7,7 +7,7 @@ from pygame.locals import *
 from core.event.event import event_filter
 from utils import transitions
 
-# from map_client import map_client, map_connection
+from settings import logger
 from network_client import network_client, network_connection
 
 
@@ -92,7 +92,12 @@ class Director:
             self.network_client.pump()
 
             pygame.display.flip()
-            gc.collect()
+
+            process = psutil.Process(os.getpid())
+            memory = process.memory_info().rss
+            if memory > 536870912:
+                gc.collect()
+                logger.debug("内存回收" + str((process.memory_info().rss - memory) / 1024 / 1024) + 'MB')
 
     def handle_events(self, event_queue):
         for event in event_queue:  # 循环遍历每个事件
