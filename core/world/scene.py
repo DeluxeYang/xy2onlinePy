@@ -206,14 +206,15 @@ class Scene:
         self.destroy()
 
     def destroy(self):
-        self.map_layer.destroy()
-        self.map_layer = None
-        self.shape_layer.destroy()
-        self.shape_layer = None
-        self.ui_layer.destroy()
-        self.ui_layer = None
-        self.director = None
-        del self
+        # self.map_layer.destroy()
+        # self.map_layer = None
+        # self.shape_layer.destroy()
+        # self.shape_layer = None
+        # self.ui_layer.destroy()
+        # self.ui_layer = None
+        # self.director = None
+        # del self
+        pass
 
     def on_reset_ui_focus(self, event):
         self.ui_layer.lose_focus()

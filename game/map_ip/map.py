@@ -21,7 +21,6 @@ class Map(GameObject):
         self.unit_has_blitted = []  # 记录哪些unit已经加载完成了
         self.surface = pygame.Surface(WindowSize)
         self.window = Rect(world_pc, WindowSize)
-        self.window.move_ip(int(world_pc[0]) - self.window.centerx, int(world_pc[1]) - self.window.centery)
 
         self.mask = {}
         self.masks_of_unit = []
@@ -34,6 +33,8 @@ class Map(GameObject):
         self.state.add_component(MapMouseComponent())  # 地图操作组件
 
         self.init()
+
+        self.set_window(world_pc, directly=True)
 
     def init(self):
         self.surface = pygame.Surface((self.map_x.map_width, self.map_x.map_height))  # 整个地图Surface
@@ -103,7 +104,7 @@ class Map(GameObject):
             window_top = self.map_x.map_height - WindowSize[1]
         return window_left + WindowSize[0]//2, window_top + WindowSize[1]//2
 
-    def set_window(self, world_pc):
+    def set_window(self, world_pc, directly=False):
         """
         根据人物世界坐标，以线性差值的方式，使视窗跟随人物
         :return:
@@ -115,5 +116,8 @@ class Map(GameObject):
         current_vector = Vector2()
         current_vector.x = self.window.centerx
         current_vector.y = self.window.centery
-        new_vector = current_vector.slerp(target_vector, 0.05)
-        self.window.move_ip(int(new_vector.x) - self.window.centerx, int(new_vector.y) - self.window.centery)
+        if directly:
+            self.window.move_ip(int(target_vector.x) - self.window.centerx, int(target_vector.y) - self.window.centery)
+        else:
+            new_vector = current_vector.slerp(target_vector, 0.05)
+            self.window.move_ip(int(new_vector.x) - self.window.centerx, int(new_vector.y) - self.window.centery)

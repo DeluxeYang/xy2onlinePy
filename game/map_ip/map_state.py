@@ -12,15 +12,19 @@ from settings import logger
 
 
 class MapState(State):
+    ready = False
+
     def early_update(self, context):
         """
         预先请求地图数据
         :param context:
         :return:
         """
+        flag = True
         units_needed = quest_16(self.game_object.window, self.game_object.map_x.row, self.game_object.map_x.col)
         for i in units_needed:
             if not self.game_object.unit_has_blitted[i]:  # 如果该单元还没有数据
+                flag = False
                 jpeg, masks_data = self.game_object.map_x.read_unit(i)
                 self._blit_unit(jpeg, i)
                 self.game_object.masks_of_unit[i] = []
@@ -31,6 +35,8 @@ class MapState(State):
                         logger.error("Map Mask Error" + str(self.game_object.map_id) + " " + str(i) + str(e))
                 self.game_object.unit_has_blitted[i] = True
                 break
+        self.ready = self.ready or flag
+        self.game_object.ready = self.ready
 
     def update(self, context):
         """

@@ -15,6 +15,6 @@ class Portal(MaterialAnimationObject):
         self.target_x = target_x
         self.target_y = target_y
 
-        self.rect = Rect(x - 10, y - 10, 20, 20)
+        self.rect = Rect(x - 20, y - 20, 40, 40)
 
         self.init_state(PortalState())
