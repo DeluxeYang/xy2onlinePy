@@ -10,6 +10,8 @@ from utils import transitions
 from settings import logger
 from network_client import network_client, network_connection
 
+process = psutil.Process(os.getpid())
+
 
 class Director:
     def __init__(self, title="Director", resolution=(640, 480), fps=60):
@@ -93,7 +95,6 @@ class Director:
 
             pygame.display.flip()
 
-            process = psutil.Process(os.getpid())
             memory = process.memory_info().rss
             if memory > 536870912:
                 gc.collect()
