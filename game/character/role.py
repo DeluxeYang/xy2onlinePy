@@ -30,6 +30,7 @@ class Role(GameObject):
         self.res_info = characters[self.race][self.version][self.character]
 
         self.map_id = None
+        self.map_version = ''
         self.x = None
         self.y = None
 
@@ -64,8 +65,9 @@ class Role(GameObject):
             _state = state_factory(type(self.state), [CharacterMouseComponent])
         self.changing_state(_state, force=True)
 
-    def specify(self, map_id, x, y):
+    def specify(self, map_id, map_version, x, y):
         self.map_id = map_id
+        self.map_version = map_version
         self.x = x
         self.y = y
 
