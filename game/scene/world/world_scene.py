@@ -74,7 +74,7 @@ class WorldScene(Scene):
 
     def on_receive_portal_list(self, event):
         """处理当前场景下portal"""
-        self.add_shape(event.portal_list)
+        self.add_map(event.portal_list)
         event.handled = True
 
     def specify_role(self, data, is_main_role):

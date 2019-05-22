@@ -1,4 +1,5 @@
 from core.entity.game_object import GameObject
+from game.map_ip.map import Map
 
 
 class Layer:
@@ -42,10 +43,35 @@ class Layer:
 
 
 class MapLayer(Layer):
-    def draw(self, screen):
-        self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
+    this_frame_children = []
+
+    def early_update(self, context):
+        self.this_frame_children = []
         for child in self.children:
+            if context["collision_window"].collidepoint(child.x, child.y)\
+                    or isinstance(child, Map):
+                self.this_frame_children.append(child)
+                child.early_update(context)
+
+    def update(self, context):
+        for child in self.this_frame_children:
+            child.update(context)
+
+    def late_update(self, context):
+        for child in self.this_frame_children:
+            child.late_update(context)
+
+    def draw(self, screen):
+        self.this_frame_children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Y坐标从小到大，也即从游戏中由远即近的渲染
+        for child in self.this_frame_children:
             child.draw(screen)
+        for child in self.this_frame_children:
+            child.late_draw(screen)
+
+    # def draw(self, screen):
+    #     self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
+    #     for child in self.children:
+    #         child.draw(screen)
 
 
 class ShapeLayer(Layer):

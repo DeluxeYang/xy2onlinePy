@@ -7,7 +7,7 @@ from pygame.locals import *
 from core.event.event import event_filter
 from utils import transitions
 
-from settings import logger
+from settings import logger, WindowSize
 from network_client import network_client, network_connection
 
 process = psutil.Process(os.getpid())
@@ -71,7 +71,7 @@ class Director:
             "portals": [],
             "other_masks": [],
             "left_top": (0, 0),
-            "collision_window": Rect((0, 0), (0, 0)),
+            "collision_window": Rect((0, 0), WindowSize).inflate(100, 100),
             "me_world_pc": (0, 0),
         }
         while self.running:

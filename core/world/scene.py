@@ -66,6 +66,12 @@ class Scene:
                 obj = material_animation_object_factory(game_object["res_info"],
                                                         game_object["x"],
                                                         game_object["y"])
+            elif game_object["type"] == "portal":
+                obj = Portal(game_object["res_info"],
+                             game_object["map_version"], game_object["map_id"],
+                             game_object["x"], game_object["y"],
+                             game_object["target_map_version"], game_object["target_map_id"],
+                             game_object["target_x"], game_object["target_y"])
             else:
                 obj = Map(game_object["map_version"], game_object["map_id"],
                           self.director.account.get_main_role().get_xy())
@@ -78,18 +84,6 @@ class Scene:
     def add_shape(self, obj):
         if isinstance(obj, GameObject):
             self.shape_layer.add_game_object(obj)
-        elif isinstance(obj, list):
-            for o in obj:
-                if o["type"] == "static":
-                    game_object = static_object_factory(o["res_info"], o["x"], o["y"])
-                    self.shape_layer.add_game_object(game_object)
-                elif o["type"] == "animation":
-                    game_object = material_animation_object_factory(o["res_info"], o["x"], o["y"])
-                    self.shape_layer.add_game_object(game_object)
-                elif o["type"] == "portal":
-                    game_object = Portal(o["res_info"], o["map_id"], o["x"], o["y"],
-                                         o["target_map_version"], o["target_map_id"], o["target_x"], o["target_y"])
-                    self.shape_layer.add_game_object(game_object)
 
     def reset_shape_layer(self):
         self.shape_layer.destroy()
