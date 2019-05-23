@@ -13,11 +13,12 @@ class Role(GameObject):
     race_names = {'ren': '人', 'mo': '魔', 'xian': '仙', 'gui': '鬼'}
     gender_choices = ['女', '男']
 
-    def __init__(self, name, level, reborn, race, version, character, gender):
+    def __init__(self, _id, name, level, reborn, race, version, character, gender):
         super().__init__(0, 0)
 
         self.is_main = False
 
+        self.id = _id
         self.name = name
 
         self.level = level
@@ -50,6 +51,9 @@ class Role(GameObject):
 
         self.is_mouse_over = False
 
+        self.inited = True
+        self.ready = True
+
     @property
     def is_main_role(self):
         return self.is_main
@@ -65,15 +69,11 @@ class Role(GameObject):
             _state = state_factory(type(self.state), [CharacterMouseComponent])
         self.changing_state(_state, force=True)
 
-    def specify(self, map_id, map_version, x, y):
+    def locate(self, map_id, map_version, x, y):
         self.map_id = map_id
         self.map_version = map_version
         self.x = x
         self.y = y
-
-    def init(self):
-        self.inited = True
-        self.ready = True
 
     def get_xy(self):
         return self.x, self.y

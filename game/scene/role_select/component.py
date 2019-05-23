@@ -65,12 +65,12 @@ class RoleNameComponent(TextButtonBaseComponent):
         if self.is_mouse_in_rect(event):
             self.game_object.focus = True  # 如果鼠标仍在范围之内
             avatar = self.game_object.parent.store[self.game_object.text]
-            role = director.account.roles[self.game_object.text]
+            role = director.account.roles[self.game_object.data]
             self.game_object.parent.level.update_text(str(role.reborn) + '转' + str(role.level) + '级')
             self.game_object.parent.gender.update_text(role.gender_choices[role.gender])
             self.game_object.parent.race.update_text(role.race_names[role.race])
             self.game_object.parent.avatar.changing_state(AnimatedFrameState(res_info={'normal': avatar}), force=True)
-            director.account.set_main_role(self.game_object.text)
+            director.account.set_main_role(self.game_object.data)
         self.game_object.is_mouse_up = True
 
     def on_mouse_left_down(self, event):

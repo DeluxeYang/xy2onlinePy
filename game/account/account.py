@@ -6,15 +6,15 @@ class Account:
         self.roles = {}
 
         self.main_role = None
-        self.main_role_name = ''
+        self.main_role_id = ''
 
     def add_role(self, role):
         self.roles_num += 1
-        self.roles[role.name] = role
+        self.roles[role.id] = role
 
-    def set_main_role(self, name):
-        self.main_role_name = name
-        self.main_role = self.roles[name]
+    def set_main_role(self, _id):
+        self.main_role_id = _id
+        self.main_role = self.roles[_id]
         for role_name, role in self.roles.items():
             role.is_main_role = False
         self.main_role.is_main_role = True
@@ -24,7 +24,7 @@ class Account:
 
     def empty_roles(self):
         self.main_role = None
-        self.main_role_name = ''
+        self.main_role_id = ''
         self.roles = {}
         self.roles_num = 0
 

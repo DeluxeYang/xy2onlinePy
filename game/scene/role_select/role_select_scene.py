@@ -142,17 +142,18 @@ class RoleSelectScene(Scene):
 
     def network_request(self):
         self.director.network_client.request(send_data={
-            "action": "get_roles",
+            "action": "get_role_list",
             "account": self.director.account.account
         })
 
-    def on_receive_roles(self, event):
+    def on_receive_role_list(self, event):
         roles_list_frame = self.__getattribute__("roles_list_frame")
         roles_list_frame.store = {}
         y = 128
         self.director.account.empty_roles()
         for role_data in event.roles_list:
-            self.director.account.add_role(Role(name=role_data["role_name"], gender=role_data['gender'],
+            self.director.account.add_role(Role(_id=role_data["role_id"], name=role_data["role_name"],
+                                                gender=role_data['gender'],
                                                 level=role_data['level'], reborn=role_data['reborn'],
                                                 race=role_data['race'], version=role_data['version'],
                                                 character=role_data['character']))  # 获取并初始化角色
@@ -160,6 +161,7 @@ class RoleSelectScene(Scene):
                 characters[role_data['race']][role_data['version']][role_data['character']]['photo']['l']
             text_button_instance = TextButton(
                 text=role_data["role_name"],
+                data=role_data["role_id"],
                 x=38, y=y,
                 w=140, h=18)
             text_button_instance.add_component(RoleNameComponent())

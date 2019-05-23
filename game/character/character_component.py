@@ -33,7 +33,7 @@ class CharacterMouseComponent(Component):
             try:
                 if self.state.game_object.name == director.account.get_main_role().name:
                     logger.debug(str(self.state.game_object.x) + ", " + str(self.state.game_object.y))
-                director.account.set_main_role(self.state.game_object.name)
+                director.account.set_main_role(self.state.game_object.id)
             except:
                 pass
             event.handled = True
@@ -51,7 +51,11 @@ class CharacterMouseComponent(Component):
         return False
 
     def on_receive_moving(self, event):
-        if event.map_id == director.account.get_main_role().map_id and self.state.game_object.name == event.role_name:
+        main_role = director.account.get_main_role()
+        if self.state.game_object.id == event.role_id \
+                and event.map_version == main_role.map_version \
+                and event.map_id == main_role.map_id \
+                and event.except_account != director.account.account:
             self.state.game_object.target_list = event.path_list
             self.state.game_object.is_new_target = True
             self.state.game_object.is_running = event.is_running
