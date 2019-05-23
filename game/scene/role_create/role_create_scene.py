@@ -1,5 +1,6 @@
 from core.world.scene import Scene
 from game.scene.role_create.component import CharacterButtonComponent, LeaveButtonComponent, CreateButtonComponent
+from res.characters import characters
 
 
 class RoleCreateScene(Scene):
@@ -52,7 +53,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x7C5EC587"]}
+                                "res_info": {"normal": characters["ren"]["old"]["qiaoqianjin"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="qiaoqianjin")],
                         },
@@ -63,7 +64,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xE230B836"]}
+                                "res_info": {"normal": characters["ren"]["old"]["feiyannv"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="feiyannv")],
                         },
@@ -74,7 +75,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xDDB93FB2"]}
+                                "res_info": {"normal": characters["ren"]["old"]["yingnvxia"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="yingnvxia")],
                         },
@@ -85,7 +86,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xA171FA71"]}
+                                "res_info": {"normal": characters["ren"]["old"]["xiaoyaosheng"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="xiaoyaosheng")],
                         },
@@ -96,7 +97,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x23F50F01"]}
+                                "res_info": {"normal": characters["ren"]["old"]["jianxiake"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="jianxiake")],
                         },
@@ -107,7 +108,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x397FDA0C"]}
+                                "res_info": {"normal": characters["ren"]["old"]["mengzhuangshi"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="ren", version="old", name="mengzhuangshi")],
                         },
@@ -118,7 +119,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x6C5D9B16"]}
+                                "res_info": {"normal": characters["mo"]["old"]["jumowang"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="jumowang")],
                         },
@@ -129,7 +130,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xF446FF01"]}
+                                "res_info": {"normal": characters["mo"]["old"]["duomingyao"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="duomingyao")],
                         },
@@ -140,7 +141,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x5C6DCFF7"]}
+                                "res_info": {"normal": characters["mo"]["old"]["hutouguai"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="hutouguai")],
                         },
@@ -151,7 +152,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x4C6D73C9"]}
+                                "res_info": {"normal": characters["mo"]["old"]["humeiren"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="humeiren")],
                         },
@@ -162,7 +163,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x5AE145E5"]}
+                                "res_info": {"normal": characters["mo"]["old"]["xiaomanyao"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="xiaomanyao")],
                         },
@@ -173,7 +174,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x5763727F"]}
+                                "res_info": {"normal": characters["mo"]["old"]["gujingling"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="mo", version="old", name="gujingling")],
                         },
@@ -184,7 +185,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xC842C91B"]}
+                                "res_info": {"normal": characters["xian"]["old"]["shentianbing"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old", name="shentianbing")],
                         },
@@ -195,7 +196,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x7B27BA25"]}
+                                "res_info": {"normal": characters["xian"]["old"]["zhishengxian"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old", name="zhishengxian")],
                         },
@@ -206,7 +207,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x09193986"]}
+                                "res_info": {"normal": characters["xian"]["old"]["longzhanjiang"]['photo']['m']}
                             },
                             "components": [
                                 CharacterButtonComponent(race="xian", version="old", name="longzhanjiang")],
@@ -218,7 +219,7 @@ class RoleCreateScene(Scene):
                                 "y": 38,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xEE9E4601"]}
+                                "res_info": {"normal": characters["xian"]["old"]["wutianji"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old", name="wutianji")],
                         },
@@ -229,7 +230,7 @@ class RoleCreateScene(Scene):
                                 "y": 131,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0x2381820C"]}
+                                "res_info": {"normal": characters["xian"]["old"]["jinglingxian"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old", name="jinglingxian")],
                         },
@@ -240,7 +241,7 @@ class RoleCreateScene(Scene):
                                 "y": 224,
                                 "w": 65,
                                 "h": 85,
-                                "res_info": {"normal": ["photo.wdf", "0xB301105E"]}
+                                "res_info": {"normal": characters["xian"]["old"]["xuanjiane"]['photo']['m']}
                             },
                             "components": [CharacterButtonComponent(race="xian", version="old", name="xuanjiane")],
                         },

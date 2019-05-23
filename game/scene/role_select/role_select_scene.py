@@ -4,6 +4,7 @@ from game.scene.role_select.component import \
     CreateButtonComponent, EnterButtonComponent, \
     ExitButtonComponent, RoleNameComponent
 from game.character.role import Role
+from res.characters import characters
 
 
 class RoleSelectScene(Scene):
@@ -155,7 +156,8 @@ class RoleSelectScene(Scene):
                                                 level=role_data['level'], reborn=role_data['reborn'],
                                                 race=role_data['race'], version=role_data['version'],
                                                 character=role_data['character']))  # 获取并初始化角色
-            roles_list_frame.store[role_data["role_name"]] = role_data['avatar']
+            roles_list_frame.store[role_data["role_name"]] = \
+                characters[role_data['race']][role_data['version']][role_data['character']]['photo']['l']
             text_button_instance = TextButton(
                 text=role_data["role_name"],
                 x=38, y=y,

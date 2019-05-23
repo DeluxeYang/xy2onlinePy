@@ -28,6 +28,13 @@ characters = {
                         "dead": ["shape.wdf", "0x4C4E8E59"]
                     }
                 },
+                "photo": {
+                    'xs': ['photo.wdf', '0x94DB04CC'],
+                    's': ['photo.wdf', '0x525D944C'],
+                    'm': ['photo.wdf', '0x7C5EC587'],
+                    'l': ['photo.wdf', '0x942151A8'],
+                    'xl': ['photo.wdf', '0x64A489BB']
+                },
                 "faction": ["datangguanfu", "nvercun", "fangcunshan"],
                 "describe": "俏千金从小跟着家中的武师习武，学得一手好刀法和好枪法。每到舞刀弄枪之时，轻灵跃动，犹如燕子穿梭，姿势十分好看。",
             },
@@ -57,6 +64,13 @@ characters = {
                         "magic": ["shape.wdf", "0x6A75DCB1"],
                         "dead": ["shape.wdf", "0x15D07EC3"]
                     }
+                },
+                "photo": {
+                    'xs': ['photo.wdf', '0x230DFCDD'],
+                    's': ['photo.wdf', '0xD1478B56'],
+                    'm': ['photo.wdf', '0xE230B836'],
+                    'l': ['photo.wdf', '0x35C4FF06'],
+                    'xl': ['photo.wdf', '0x72010B54']
                 },
                 "faction": ["datangguanfu", "nvercun", "fangcunshan"],
                 "describe": "从小被异人带进深山修炼武艺，爱用钩和鞭子，喜欢大自然，身轻如燕，生性自然跳脱，活泼可爱，是个天生的乐观派。",
@@ -88,6 +102,13 @@ characters = {
                         "dead": ["shape.wdf", "0xC41FEF07"]
                     }
                 },
+                "photo": {
+                    'xs': ['photo.wdf', '0x976F47F2'],
+                    's': ['photo.wdf', '0x5A67D940'],
+                    'm': ['photo.wdf', '0xDDB93FB2'],
+                    'l': ['photo.wdf', '0xC140C994'],
+                    'xl': ['photo.wdf', '0x2411FA16']
+                },
                 "faction": ["datangguanfu", "nvercun", "fangcunshan"],
                 "describe": "名士之女，贤淑端庄，有着一股与生俱来的浩然正气。擅使短刀或棍杖，有爱心，路见不平必拔刀相助，是个巾帼不让须眉的女侠。",
             },
@@ -117,6 +138,13 @@ characters = {
                         "magic": ["shape.wdf", "0x5BC4A3BC"],
                         "dead": ["shape.wdf", "0x6A3DDE8E"]
                     }
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0xA711AD5D'],
+                    's': ['photo.wdf', '0x3076FC60'],
+                    'm': ['photo.wdf', '0xA171FA71'],
+                    'l': ['photo.wdf', '0xC4B065EC'],
+                    'xl': ['photo.wdf', '0xEB132AD3']
                 },
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "一袭白衫，一把铁扇或一柄长剑，凭此三物而走遍江湖。与一般武夫不同的是，他们在快意恩仇之余，也喜欢舞文弄墨。",
@@ -149,6 +177,13 @@ characters = {
                         "dead": ["shape.wdf", "0x7B45E2A6"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x2B1E3F8C'],
+                    's': ['photo.wdf', '0xB3D49A69'],
+                    'm': ['photo.wdf', '0x397FDA0C'],
+                    'l': ['photo.wdf', '0x8C7BF755'],
+                    'xl': ['photo.wdf', '0xA498EA47']
+                },
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "猛壮士擅使双斧和拳套。他曾说过，习武不是为了彰显自身或是求取功名，而是为了伸张正义，保护那些需要自己保护的人。",
             },
@@ -179,6 +214,13 @@ characters = {
                         "dead": ["shape.wdf", "0xD9366D7C"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xE24F2844'],
+                    's': ['photo.wdf', '0x5D8E5BAF'],
+                    'm': ['photo.wdf', '0x23F50F01'],
+                    'l': ['photo.wdf', '0xF9BFA4F5'],
+                    'xl': ['photo.wdf', '0x8CABDCB6']
+                },
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "潇洒倜傥，风度不凡。或手执长剑，或手握双锤，锄强扶弱，直指世间一切不平事。儿女情，英雄意，都付笑谈中。",
             },
@@ -200,6 +242,13 @@ characters = {
                         "dead": ["shape.wd1", "0x683652CA"]
                     },
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xA4A34031'],
+                    's': ['photo.wdf', '0x403149DC'],
+                    'm': ['photo.wdf', '0xD6429347'],
+                    'l': ['photo.wdf', '0x5C7F1E38'],
+                    'xl': ['photo.wdf', '0x1EC9887C']
+                },
                 "faction": ["datangguanfu", "nvercun", "fangcunshan"],
                 "describe": "使得一手绝世剑法，武林中人不知其剑法从何而来，只知她出剑之处剑光如雪花，无处不在。是个十载燕山苦学艺，一朝功成闯江湖的侠义女子。",
             },
@@ -220,6 +269,13 @@ characters = {
                         "magic": ["shape.wd1", "0x7027B2B7"],
                         "dead": ["shape.wd1", "0xB9162535"]
                     },
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0x9580F606'],
+                    's': ['photo.wdf', '0x55309D9C'],
+                    'm': ['photo.wdf', '0x9ADD23AF'],
+                    'l': ['photo.wdf', '0x502CE092'],
+                    'xl': ['photo.wdf', '0xBAED2049']
                 },
                 "faction": ["datangguanfu", "huashengsi", "fangcunshan"],
                 "describe": "行走江湖多年，现退隐江湖，已经不再过问江湖之事，一身绝世武功，能剑随意走，人剑合一。真是御剑游神州，世外逍遥侠。",
@@ -255,6 +311,13 @@ characters = {
                         "dead": ["shape.wdf", "0xC48290AA"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xD6ADFDC1'],
+                    's': ['photo.wdf', '0x9EA10E22'],
+                    'm': ['photo.wdf', '0x6C5D9B16'],
+                    'l': ['photo.wdf', '0x007E89B8'],
+                    'xl': ['photo.wdf', '0xDA2E8870']
+                },
                 "faction": ["youmingdifu", "mowangzhai", "shituoling"],
                 "describe": "魔族之子，以庞大的身形及天生的神力而著称。钟情的武器是大刀和枪矛，挥舞起来虎虎有声，令对手不战而退。",
             },
@@ -284,6 +347,13 @@ characters = {
                         "magic": ["shape.wdf", "0x776A4A93"],
                         "dead": ["shape.wdf", "0x7EBED10D"]
                     }
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0x6DD9F1AD'],
+                    's': ['photo.wdf', '0x38F6D853'],
+                    'm': ['photo.wdf', '0x5763727F'],
+                    'l': ['photo.wdf', '0xD5DF3B68'],
+                    'xl': ['photo.wdf', '0x20BD7629']
                 },
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "由不死白骨吸取天地养分多年所化而成的妖精，对世间的许多事物都抱有一颗好奇之心。爱好和平，但受侵犯时也会以棍杖或短剑来出击自卫。",
@@ -315,6 +385,13 @@ characters = {
                         "dead": ["shape.wdf", "0xFED46831"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x94142B6E'],
+                    's': ['photo.wdf', '0xD78BAEB0'],
+                    'm': ['photo.wdf', '0x5C6DCFF7'],
+                    'l': ['photo.wdf', '0xE0EBB383'],
+                    'xl': ['photo.wdf', '0x781C7DAA']
+                },
                 "faction": ["youmingdifu", "mowangzhai", "shituoling"],
                 "describe": "足智多谋，力量与智慧的结合体。他们并不一味地依赖于与生俱来的魔族之力，而是尽可能多地拓展自己的潜能。拿手武器是棍杖和枪矛。",
             },
@@ -344,6 +421,13 @@ characters = {
                         "magic": ["shape.wdf", "0x415927AC"],
                         "dead": ["shape.wdf", "0x2D0A2260"]
                     }
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0xD6E395BA'],
+                    's': ['photo.wdf', '0xA6133FA7'],
+                    'm': ['photo.wdf', '0xF446FF01'],
+                    'l': ['photo.wdf', '0x19AB25D5'],
+                    'xl': ['photo.wdf', '0x4160682D']
                 },
                 "faction": ["youmingdifu", "mowangzhai", "shituoling"],
                 "describe": "有阴间“夺命杀手”之称。不喜欢硬打硬拼，刀走偏锋，专攻对手弱点；还有独门武器招魂幡，夺命勾魂，实是厉害非常。",
@@ -375,6 +459,13 @@ characters = {
                         "dead": ["shape.wdf", "0x5977EF1B"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x2F694A3F'],
+                    's': ['photo.wdf', '0xB4DAA22E'],
+                    'm': ['photo.wdf', '0x5AE145E5'],
+                    'l': ['photo.wdf', '0x6825A231'],
+                    'xl': ['photo.wdf', '0x9ADBFC13']
+                },
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "谜一般出身的女魔，无人知晓其来历，浑身上下充满了独特的魔媚气质，性感妖媚，更有一双勾人魂魄的眼神。",
             },
@@ -405,6 +496,13 @@ characters = {
                         "dead": ["shape.wdf", "0x4B313113"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x0677BDB2'],
+                    's': ['photo.wdf', '0x20BF744F'],
+                    'm': ['photo.wdf', '0x4C6D73C9'],
+                    'l': ['photo.wdf', '0x65D1FE04'],
+                    'xl': ['photo.wdf', '0xC8383803']
+                },
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "天生对动物有着特别的感情，爱与动物为伴；驯有一妖狐，使得一手好鞭法，好胜心强，喜欢追求各种刺激和挑战。",
             },
@@ -426,6 +524,13 @@ characters = {
                         "dead": ["shape.wd1", "0xC76DBDA8"]
                     },
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xA5D7810E'],
+                    's': ['photo.wdf', '0x732D933C'],
+                    'm': ['photo.wdf', '0x976DEBB5'],
+                    'l': ['photo.wdf', '0x6D05F189'],
+                    'xl': ['photo.wdf', '0x6778E030']
+                },
                 "faction": ["youmingdifu", "mowangzhai", "shituoling"],
                 "describe": "吸取日月精华，潜心修行千年，终于练就魔功。手中一把夺魂枪犀利非凡。一出手石破天惊，鬼哭神嚎，连神佛都不敢等闲视之。",
             },
@@ -446,6 +551,13 @@ characters = {
                         "magic": ["shape.wd1", "0x293474B6"],
                         "dead": ["shape.wd1", "0x9620689F"]
                     },
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0x7254F74E'],
+                    's': ['photo.wdf', '0xF3793395'],
+                    'm': ['photo.wdf', '0x8BEAF382'],
+                    'l': ['photo.wdf', '0x734C19AB'],
+                    'xl': ['photo.wdf', '0x8FEB00CA']
                 },
                 "faction": ["youmingdifu", "mowangzhai", "pansidong"],
                 "describe": "乃是千年灵狐，吸天地灵气，修得正果，已是妖中之仙。手中一把半月刀更是灵气逼人，能在无形间取人性命。",
@@ -481,6 +593,13 @@ characters = {
                         "dead": ["shape.wdf", "0x133CC7E1"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x1A65146C'],
+                    's': ['photo.wdf', '0x20A980C8'],
+                    'm': ['photo.wdf', '0x7B27BA25'],
+                    'l': ['photo.wdf', '0x2EC00AA5'],
+                    'xl': ['photo.wdf', '0x9D42800F']
+                },
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "修道多年的神仙，以一把随身携带、伤人于无形的拂尘和利剑为除敌的武器。最可怕还是他们睿智的头脑，不轻易为敌人的挑衅所动。",
             },
@@ -510,6 +629,13 @@ characters = {
                         "magic": ["shape.wdf", "0x650E28EB"],
                         "dead": ["shape.wdf", "0x93A92D94"]
                     }
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0x01FFFBFA'],
+                    's': ['photo.wdf', '0x0846F3D5'],
+                    'm': ['photo.wdf', '0xB301105E'],
+                    'l': ['photo.wdf', '0xFBA39348'],
+                    'xl': ['photo.wdf', '0x004E3215']
                 },
                 "faction": ["longgong", "putuoshan", "tiangong"],
                 "describe": "天宫神将之后，是一位高贵但不失亲和力的女仙。平时她温婉柔和，犹若得道高人，带有一份超脱与清静；战斗时招招制胜，颇有大将之风。",
@@ -542,6 +668,13 @@ characters = {
                         "dead": ["shape.wdf", "0x85F58056"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xEA4ED7F8'],
+                    's': ['photo.wdf', '0x6C76FA3D'],
+                    'm': ['photo.wdf', '0x2381820C'],
+                    'l': ['photo.wdf', '0xF483436A'],
+                    'xl': ['photo.wdf', '0x6C927D9A']
+                },
                 "faction": ["longgong", "putuoshan", "tiangong"],
                 "describe": "精灵调皮，爱恶作剧和开些善意的玩笑。性格好动，因圆刀的外形可爱而选择了它作为防身武器，又因孩子气而喜欢上了拳套。",
             },
@@ -572,6 +705,13 @@ characters = {
                         "dead": ["shape.wdf", "0x3CA39E7F"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x372FA153'],
+                    's': ['photo.wdf', '0xE977A7EF'],
+                    'm': ['photo.wdf', '0xEE9E4601'],
+                    'l': ['photo.wdf', '0x47872EC0'],
+                    'xl': ['photo.wdf', '0x0D0FC56C']
+                },
                 "faction": ["longgong", "putuoshan", "tiangong"],
                 "describe": "美貌、优雅而高贵，讲究穿着和打扮。攻击时使用长棍或彩带，看似无力，但经她们的手施出时却让人不可轻视。",
             },
@@ -600,6 +740,13 @@ characters = {
                         "magic": ["shape.wdf", "0x1A22E80A"],
                         "dead": ["shape.wdf", "0xCFCC8F6F"]
                     }
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0xBE11EA4F'],
+                    's': ['photo.wdf', '0xB59E410D'],
+                    'm': ['photo.wdf', '0xC842C91B'],
+                    'l': ['photo.wdf', '0x7E63637D'],
+                    'xl': ['photo.wdf', '0xB43703D3']
                 },
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "昔日殷商守城将，一身殉国千古闻，玉帝感其刚烈，特拔擢为南天王座下天兵，性刚直，势威猛，气韵不凡。",
@@ -630,6 +777,13 @@ characters = {
                         "dead": ["shape.wdf", "0x7671EBDF"]
                     }
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0xD4FEA5E1'],
+                    's': ['photo.wdf', '0xF78A6616'],
+                    'm': ['photo.wdf', '0x09193986'],
+                    'l': ['photo.wdf', '0xB0302DF0'],
+                    'xl': ['photo.wdf', '0xD60741EA']
+                },
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "本为西海龙族，面容绝世。乃为龙族同辈中之翘楚，倾倒四海水族女子无数。手中一根盘龙杖，一旦舞起——雷霆万钧，龙战将坐骑状态九洲动容！",
             },
@@ -651,6 +805,13 @@ characters = {
                         "dead": ["shape.wd1", "0xFF6D7DD5"]
                     },
                 },
+                'photo': {
+                    'xs': ['photo.wdf', '0x2976D4FA'],
+                    's': ['photo.wdf', '0xD4B3B908'],
+                    'm': ['photo.wdf', '0xCCAC4C5B'],
+                    'l': ['photo.wdf', '0xDC67907B'],
+                    'xl': ['photo.wdf', '0x3BB12A28']
+                },
                 "faction": ["longgong", "wuzhuangguan", "tiangong"],
                 "describe": "天神之子，自幼在天宫勤修仙术，虽未授神职，然仙力不亚大罗金仙，一身神功在天界早已传为嘉话，是未来仙界青睐的栋梁之材。",
             },
@@ -671,6 +832,13 @@ characters = {
                         "magic": ["shape.wd1", "0x270C75D4"],
                         "dead": ["shape.wd1", "0x28C72344"]
                     },
+                },
+                'photo': {
+                    'xs': ['photo.wdf', '0xA61DBACC'],
+                    's': ['photo.wdf', '0x71EF98CF'],
+                    'm': ['photo.wdf', '0x2981A65A'],
+                    'l': ['photo.wdf', '0x6650A5E6'],
+                    'xl': ['photo.wdf', '0xB90198EE']
                 },
                 "faction": ["longgong", "putuoshan", "tiangong"],
                 "describe": ""
