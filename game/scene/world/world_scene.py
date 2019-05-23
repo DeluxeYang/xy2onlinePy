@@ -70,3 +70,25 @@ class WorldScene(Scene):
         main_role = self.director.account.get_main_role()
         if role.map_id == main_role.map_id and role.map_version == main_role.map_version:
             self.add_shape(role)
+
+    def on_remove_role(self, event):
+        main_role = self.director.account.get_main_role()
+        if event.map_version == main_role.map_version and \
+                event.map_id == main_role.map_id:
+            index = 0
+            for role in self.shape_layer.children:
+                if event.role_id == role.id:
+                    del self.shape_layer.children[index]
+                    break
+                index += 1
+        event.handled = True
+
+    def on_add_role(self, event):
+        main_role = self.director.account.get_main_role()
+        if event.map_version == main_role.map_version and \
+                event.map_id == main_role.map_id:
+            role = Role(event.role_id, event.role_name,
+                        event.level, event.reborn,
+                        event.race, event.version, event.character, event.gender)
+            role.locate(event.map_id, event.map_version, event.x, event.y)
+            self.add_role_to_shape(role)
