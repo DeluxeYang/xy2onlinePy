@@ -5,6 +5,7 @@ import pygame
 from pygame.locals import *
 
 from core.event.event import event_filter
+from core.ui.mouse.mouse import Mouse
 from utils import transitions
 
 from settings import logger, WindowSize
@@ -26,6 +27,9 @@ class Director:
         self._screen = pygame.display.set_mode(resolution)
         self._scene = None
         self.old_scene = None
+
+        self.mouse = Mouse()
+        pygame.mouse.set_visible(False)
 
         self.account = None
 
@@ -68,13 +72,13 @@ class Director:
         context = {
             "delta_time": 0.0,
             "current_time": 0.0,
-            "portals": [],
             "other_masks": [],
             "left_top": (0, 0),
-            "collision_window": Rect((0, 0), WindowSize).inflate(100, 100),
-            "me_world_pc": (0, 0),
+            "collision_window": Rect((0, 0), WindowSize).inflate(100, 100)
         }
+
         while self.running:
+            self.mouse.normal()
             event_queue = event_filter()
             # handle_event
             self.handle_events(event_queue)

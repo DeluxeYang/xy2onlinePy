@@ -1,9 +1,9 @@
-from core.ui.ui_mouse_component import UIMouseComponent
+from core.ui.button.button_component import ButtonComponent
 from core.event.event import post_event
 from core.world.director import network_client
 
 
-class EnterButtonMouseComponent(UIMouseComponent):
+class EnterButtonMouseComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             network_client.request(send_data={
@@ -20,7 +20,7 @@ class EnterButtonMouseComponent(UIMouseComponent):
             event.handled = True
 
 
-class CancelButtonMouseComponent(UIMouseComponent):
+class CancelButtonMouseComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             from game.scene.welcome.welcome_scene import WelcomeScene

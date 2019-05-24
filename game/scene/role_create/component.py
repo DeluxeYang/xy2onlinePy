@@ -1,4 +1,4 @@
-from core.ui.ui_mouse_component import UIMouseComponent
+from core.ui.button.button_component import ButtonComponent
 from core.event.event import post_event
 from core.world.director import network_client
 from res.characters import characters
@@ -6,7 +6,7 @@ from core.ui.frame.frame_state import AnimatedFrameState
 from core.ui.text_field.text_field_state import TextFieldState
 
 
-class CharacterButtonComponent(UIMouseComponent):
+class CharacterButtonComponent(ButtonComponent):
     """
     角色头像按键
     """
@@ -38,7 +38,7 @@ class CharacterButtonComponent(UIMouseComponent):
             event.handled = True
 
 
-class LeaveButtonComponent(UIMouseComponent):
+class LeaveButtonComponent(ButtonComponent):
     """
     离开
     """
@@ -58,7 +58,7 @@ class LeaveButtonComponent(UIMouseComponent):
             event.handled = True
 
 
-class CreateButtonComponent(UIMouseComponent):
+class CreateButtonComponent(ButtonComponent):
     """
     创建
     """

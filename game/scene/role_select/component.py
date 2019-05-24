@@ -1,11 +1,11 @@
-from core.ui.ui_mouse_component import UIMouseComponent
+from core.ui.button.button_component import ButtonComponent
 from core.ui.text_button.text_button_base_component import TextButtonBaseComponent
 from core.event.event import post_event
 from core.ui.frame.frame_state import AnimatedFrameState
 from core.world.director import director
 
 
-class CreateButtonComponent(UIMouseComponent):
+class CreateButtonComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             from game.scene.role_create.role_create_scene import RoleCreateScene
@@ -22,7 +22,7 @@ class CreateButtonComponent(UIMouseComponent):
             event.handled = True
 
 
-class EnterButtonComponent(UIMouseComponent):
+class EnterButtonComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             if director.account.main_role:
@@ -44,7 +44,7 @@ class EnterButtonComponent(UIMouseComponent):
             event.handled = True
 
 
-class ExitButtonComponent(UIMouseComponent):
+class ExitButtonComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.focus = True  # 如果鼠标仍在范围之内

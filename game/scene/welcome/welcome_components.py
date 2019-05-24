@@ -1,14 +1,10 @@
-from core.ui.ui_mouse_component import UIMouseComponent
+from core.ui.button.button_component import ButtonComponent
 from core.event.event import post_event
 
 from game.scene.notice.notice_scene import NoticeScene
 
 
-class WelcomeEnterButtonMouseComponent(UIMouseComponent):
-    def on_mouse_over(self, event):
-        if self.is_mouse_in_rect(event):
-            pass
-
+class WelcomeEnterButtonMouseComponent(ButtonComponent):
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.callback = post_event
@@ -24,7 +20,7 @@ class WelcomeEnterButtonMouseComponent(UIMouseComponent):
             event.handled = True
 
 
-class WelcomeLinkedButtonMouseComponent(UIMouseComponent):
+class WelcomeLinkedButtonMouseComponent(ButtonComponent):
     def on_mouse_over(self, event):
         if self.is_mouse_in_rect(event):
             pass
@@ -43,7 +39,7 @@ class WelcomeLinkedButtonMouseComponent(UIMouseComponent):
             event.handled = True
 
 
-class WelcomeExitButtonMouseComponent(UIMouseComponent):
+class WelcomeExitButtonMouseComponent(ButtonComponent):
     def on_mouse_over(self, event):
         if self.is_mouse_in_rect(event):
             pass

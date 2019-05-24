@@ -47,6 +47,8 @@ class UI(GameObject):
             if self.parent:
                 self.screen_rect = Rect((self.x + self.parent.screen_rect.x,
                                          self.y + self.parent.screen_rect.y), (self.w, self.h))
+            else:
+                self.screen_rect = Rect((self.x, self.y), (self.w, self.h))
             # 先更新位置，再更新其他
             self.state.update(context)
             for child in self.children:

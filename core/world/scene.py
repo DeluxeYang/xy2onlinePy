@@ -55,6 +55,7 @@ class Scene:
                                        w=400, h=300)
         self.ui_layer.add_game_object(self.notify_frame)
         self.ui_layer.add_game_object(FPS())
+        self.ui_layer.add_game_object(self.director.mouse)
 
     def add_map(self, map_object_list):
         for game_object in map_object_list:
