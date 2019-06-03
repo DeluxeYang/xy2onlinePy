@@ -8,10 +8,10 @@ class ButtonNormalState(StaticUIState):
 
     def update(self, context):
         super().update(context)
-        if self.game_object.is_mouse_down:  # 如果被点击，鼠标按下
+        if self.game_object.is_mouse_down or self.game_object.is_mouse_over:  # 如果被点击，鼠标按下
             self.game_object.is_mouse_up = False
             self.game_object.is_mouse_down = False
-            self.game_object.changing_state(ButtonMouseDownState(), context)  # 则播放按下动画
+            self.game_object.down()  # 则播放按下动画
 
 
 class ButtonPressedState(StaticUIState):
@@ -23,12 +23,13 @@ class ButtonPressedState(StaticUIState):
         if self.game_object.is_mouse_up:  # 如果鼠标抬起
             self.game_object.is_mouse_up = False
             self.game_object.is_mouse_down = False
-            self.game_object.changing_state(ButtonMouseUpState(), context)  # 则播放抬起动画
+            self.game_object.up()  # 则播放抬起动画
+        elif not self.game_object.is_mouse_over:
+            self.game_object.normal()
 
 
-class ButtonMouseDownState(AnimatedUIState):
+class ButtonDownState(AnimatedUIState):
     res_index = "normal"
-    is_mouse_already_up = False
 
     def register(self, obj):
         super().register(obj)
@@ -37,10 +38,10 @@ class ButtonMouseDownState(AnimatedUIState):
     def update(self, context):
         one_loop = super().update(context)
         if one_loop:
-            self.game_object.changing_state(ButtonPressedState(), context)  # 转换为按下静态状态
+            self.game_object.pressed()  # 转换为按下静态状态
 
 
-class ButtonMouseUpState(AnimatedUIState):
+class ButtonUpState(AnimatedUIState):
     res_index = "normal"
 
     def register(self, obj):
@@ -54,4 +55,4 @@ class ButtonMouseUpState(AnimatedUIState):
                 if self.game_object.callback:
                     self.game_object.callback(self.game_object.param)
             self.game_object.focus = False
-            self.game_object.changing_state(ButtonNormalState(), context)
+            self.game_object.normal()
