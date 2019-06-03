@@ -9,6 +9,7 @@ class UI(GameObject):
         super().__init__(x, y)
         self.ui_id = ui_id
         self.res_info = res_info
+        self.res = None
 
         self.focus = False
         self.x = x  # 相对坐标

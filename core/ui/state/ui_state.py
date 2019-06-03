@@ -17,7 +17,10 @@ class UIState:
         self.game_object.ready = True
 
     def binding_res(self):
-        if self.game_object.res_info:
+        if hasattr(self.game_object, 'res') and self.game_object.res:
+            self.res = self.game_object.res
+            self.last_frame = self.res.frame_num
+        elif self.game_object.res_info:
             address = self.game_object.res_info[self.res_index]
             self.res = res_manager.get_res(address[0], address[1])  # 找到动画资源
             self.last_frame = self.res.frame_num
@@ -34,11 +37,7 @@ class UIState:
         pass
 
     def exit(self):
-        self.destroy()
+        pass
 
     def destroy(self):
-        self.game_object = None
-        if self.res:
-            self.res.destroy()
-            self.res = None
-        del self
+        pass

@@ -16,10 +16,6 @@ class AnimatedUIState(UIState):
         self.game_object.ready = True
         return one_loop
 
-    def binding_res(self):
-        super().binding_res()
-        self.frame = 0
-
     def calc_next_frame(self, current_time, rate):
         """
         计算是否移动到下一帧

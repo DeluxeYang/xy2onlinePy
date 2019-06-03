@@ -21,10 +21,6 @@ class WelcomeEnterButtonMouseComponent(ButtonComponent):
 
 
 class WelcomeLinkedButtonMouseComponent(ButtonComponent):
-    def on_mouse_over(self, event):
-        if self.is_mouse_in_rect(event):
-            pass
-
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             import webbrowser
@@ -40,10 +36,6 @@ class WelcomeLinkedButtonMouseComponent(ButtonComponent):
 
 
 class WelcomeExitButtonMouseComponent(ButtonComponent):
-    def on_mouse_over(self, event):
-        if self.is_mouse_in_rect(event):
-            pass
-
     def on_mouse_left_up(self, event):
         if self.is_mouse_in_rect(event):
             self.game_object.callback = post_event
