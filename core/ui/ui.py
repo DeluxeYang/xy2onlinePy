@@ -76,7 +76,7 @@ class UI(GameObject):
 
     def destroy(self):
         for component in self.event_components:
-            component._destroy()
+            component.destroy()
         super().destroy()
         self.event_components = []
 

@@ -32,3 +32,6 @@ class Mouse(UI):
 
     def normal(self):
         self.state = self.normal_state
+
+    def destroy(self):
+        pass

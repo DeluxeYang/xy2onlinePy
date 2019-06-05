@@ -78,4 +78,3 @@ class Component:
 
     def destroy(self):
         self.state = None
-        del self

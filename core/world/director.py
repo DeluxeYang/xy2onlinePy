@@ -140,7 +140,6 @@ class Director:
 
     def on_refresh_scene(self, event):
         print(event.__dict__)
-        from game.scene.world.world_scene import WorldScene
         self.change_scene(type(self._scene), None)
         event.handled = True
 

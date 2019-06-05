@@ -81,7 +81,6 @@ class GameObject:
     def destroy(self):
         for child in self.children:
             child.destroy()
-            del child
         self.children = []
 
         self.state.destroy()
@@ -98,7 +97,6 @@ class GameObject:
         self.parent = None
 
         self.surface = None
-        del self
 
     def empty_children(self):
         self.children.clear()

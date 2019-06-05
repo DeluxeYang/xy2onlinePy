@@ -72,7 +72,6 @@ class State:
         self.late_update_components = []
 
         self.draw_components = []
-        del self
 
 
 def state_factory(state_class, component_classes):

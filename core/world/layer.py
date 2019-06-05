@@ -37,9 +37,7 @@ class Layer:
     def destroy(self):
         for child in self.children:
             child.destroy()
-            del child
         self.children = []
-        del self
 
 
 class MapLayer(Layer):
@@ -67,11 +65,6 @@ class MapLayer(Layer):
             child.draw(screen)
         for child in self.this_frame_children:
             child.late_draw(screen)
-
-    # def draw(self, screen):
-    #     self.children.sort(key=lambda obj: obj.z, reverse=True)  # 按GameObject的Z坐标从大到小，也即从远即近的渲染
-    #     for child in self.children:
-    #         child.draw(screen)
 
 
 class ShapeLayer(Layer):
