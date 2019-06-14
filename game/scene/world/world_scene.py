@@ -39,7 +39,12 @@ class WorldScene(Scene):
             self.director.network_client.request(send_data={  # 获取当前地图的portals
                 "action": "get_portal_list",
                 "map_id": main_role.map_id,
-                "map_version": main_role.map_version,
+                "map_version": main_role.map_version
+            })
+            self.director.network_client.request(send_data={  # 获取当前地图的npc
+                "action": "get_npc_list",
+                "map_id": main_role.map_id,
+                "map_version": main_role.map_version
             })
             self.director.network_client.request(send_data={  # 获取当前主要角色所在场景中的其他玩家
                 "action": "get_other_players",
@@ -65,6 +70,9 @@ class WorldScene(Scene):
         """处理当前场景下portal"""
         self.add_map(event.portal_list)
         event.handled = True
+
+    def on_receive_npc_list(self, event):
+        print(event.__dict__)
 
     def add_role_to_shape(self, role):
         main_role = self.director.account.get_main_role()
