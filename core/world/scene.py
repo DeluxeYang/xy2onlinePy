@@ -15,6 +15,8 @@ from core.ui.notify.notify import Notify
 from game.map_ip.map import Map
 from game.map_ip.portal import Portal
 
+from game.npc.npc import NPC
+
 from core.ui.fps.fps import FPS
 
 from core.entity.game_object import GameObject
@@ -73,6 +75,11 @@ class Scene:
                              game_object["x"], game_object["y"],
                              game_object["target_map_version"], game_object["target_map_id"],
                              game_object["target_x"], game_object["target_y"])
+            elif game_object["type"] == "npc":
+                obj = NPC(game_object["npc_name"], game_object["npc_id"], game_object["npc_type"],
+                          game_object["res_info"], game_object["direction"],
+                          game_object["map_version"], game_object["map_id"],
+                          game_object["x"], game_object["y"], game_object["addition"])
             else:
                 obj = Map(game_object["map_version"], game_object["map_id"],
                           self.director.account.get_main_role().get_xy())

@@ -9,7 +9,7 @@ from game.npc.npc_state import NPCState
 class NPC(GameObject):
     def __init__(self, npc_name, npc_id, npc_type,
                  res_info, direction,
-                 map_version, map_id, x, y):
+                 map_version, map_id, x, y, addition=None):
         super().__init__(x, y)
 
         self.npc_name = npc_name
@@ -23,6 +23,8 @@ class NPC(GameObject):
 
         self.res_info = res_info
         self.direction = direction
+
+        self.addition = addition
 
         self.is_mouse_over = False
 

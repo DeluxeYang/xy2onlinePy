@@ -73,6 +73,8 @@ class WorldScene(Scene):
 
     def on_receive_npc_list(self, event):
         print(event.__dict__)
+        self.add_map(event.npc_list)
+        event.handled = True
 
     def add_role_to_shape(self, role):
         main_role = self.director.account.get_main_role()
