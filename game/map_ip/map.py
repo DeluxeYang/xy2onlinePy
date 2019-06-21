@@ -42,7 +42,6 @@ class Map(GameObject):
         self.masks_of_unit = [[] for _ in range(self.map_x.n)]
         self.inited = True
         self.ready = True
-        self.state.late_update()
 
     def get_world_pc(self, screen_pos):
         """

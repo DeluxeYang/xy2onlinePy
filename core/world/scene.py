@@ -178,9 +178,9 @@ class Scene:
     layer 更新流
         event   early   update  late    draw
         
-    ui    \      \         /     \        /
-    shape  \      \       /       \      /
-    map     \      \     /         \    / 
+    ui    \      \         /      /       /
+    shape  \      \       /      /       /
+    map     \      \     /      /       / 
     """
     def update(self, context):
         self.ui_layer.early_update(context)
@@ -191,9 +191,9 @@ class Scene:
         self.shape_layer.update(context)
         self.ui_layer.update(context)
 
-        self.ui_layer.late_update(context)
-        self.shape_layer.late_update(context)
         self.map_layer.late_update(context)
+        self.shape_layer.late_update(context)
+        self.ui_layer.late_update(context)
 
     def draw(self, screen):
         self.map_layer.draw(screen)

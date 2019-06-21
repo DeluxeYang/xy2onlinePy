@@ -55,8 +55,6 @@ class MapState(State):
                     no_repeat[(mask.rect.x, mask.rect.y)] = True
                     masks.append(mask)
         context["other_masks"] = masks
-        context["left_top"] = self.game_object.get_left_top()
-        context["collision_window"] = self.game_object.get_collision_window()
 
     def late_update(self, context=None):
         """
@@ -66,6 +64,8 @@ class MapState(State):
         """
         main_role = director.account.get_main_role()  # main_role
         self.game_object.set_window(main_role.get_xy())  # 根据主要角色设置地图范围
+        context["left_top"] = self.game_object.get_left_top()
+        context["collision_window"] = self.game_object.get_collision_window()
 
     def draw(self, screen):
         super().draw(screen)
